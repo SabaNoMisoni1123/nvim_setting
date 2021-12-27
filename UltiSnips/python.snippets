@@ -1,0 +1,28 @@
+snippet rcparms
+plt.rcParams['font.family'] = 'serif'
+plt.rcParams['font.serif'] = ['Times New Roman'] + plt.rcParams['font.serif']
+plt.rcParams["xtick.direction"] = "in"
+plt.rcParams["ytick.direction"] = "in"
+plt.rcParams["legend.edgecolor"] = "black"
+plt.rcParams["legend.framealpha"] = 1
+plt.rcParams["legend.fancybox"] = False
+plt.rcParams["font.size"] = 15
+plt.rcParams["ps.useafm"] = True
+plt.rcParams["pdf.use14corefonts"] = True
+plt.rcParams["text.latex.preamble"] = r'\usepackage{bm}'
+plt.rcParams["savefig.dpi"] = 600
+plt.rcParams["text.usetex"] = True
+plt.rcParams["figure.dpi"] = 600
+${0}
+endsnippet
+
+snippet jprcparms
+plt.rcParams['font.family'] = "TakaoGothic"
+plt.rcParams["xtick.direction"] = "in"
+plt.rcParams["ytick.direction"] = "in"
+plt.rcParams["legend.edgecolor"] = 'black'
+plt.rcParams["font.size"] = 15
+plt.rcParams["legend.framealpha"] = 1
+plt.rcParams["legend.fancybox"] = False
+${0}
+endsnippet

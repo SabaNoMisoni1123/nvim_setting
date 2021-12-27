@@ -1,0 +1,5 @@
+[[plugins]]
+repo = 'asvetliakov/vim-easymotion'
+hook_add = '''
+map <leader>e <Plug>(easymotion-prefix)
+'''

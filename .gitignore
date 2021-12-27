@@ -1,0 +1,9 @@
+dein/
+haven/
+.DS_Store
+tmp/
+LC.log
+temp*
+colorscheme.vim
+toml/dein_colorscheme_local.toml
+init_local.vim

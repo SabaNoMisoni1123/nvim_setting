@@ -1,0 +1,237 @@
+#
+#
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+hook_add = '''
+let g:deoplete#enable_at_startup = 1
+imap <expr><tab> pumvisible() ? "\<C-n>" : "\<tab>"
+inoremap <silent> <expr> <CR> "<C-r>=deoplete#close_popup()<CR><CR>"
+
+call deoplete#custom#option({
+      \'camel_case': v:true,
+      \'ignore_case': v:true,
+      \'smart_case': v:true,
+      \'skip_multibyte': v:true,
+      \'auto_complete_delay': 0,
+      \'refresh_always': v:false,
+      \'buffer_path': v:true,
+      \'min_pattern_length': 1,
+      \'max_list': 100,
+      \})
+'''
+
+[[plugins]]
+repo = 'Shougo/deoplete-lsp'
+
+[[plugins]]
+repo = 'JuliaEditorSupport/julia-vim'
+
+[[plugins]]
+repo = 'https://github.com/woodyZootopia/gitsession.nvim'
+
+
+[[plugins]]
+repo = 'https://github.com/pangloss/vim-javascript'
+on_ft = ['html','htm', "js"]
+
+
+[[plugins]]
+repo='Shougo/neoinclude.vim'
+on_ft = ['c', 'cpp']
+depends=['deoplete.nvim']
+
+
+[[plugins]]
+repo = 'autozimu/LanguageClient-neovim'
+rev = 'next'
+build = 'bash install.sh'
+hook_add = '''
+let g:LanguageClient_settingsPath = expand('~/.config/nvim/lc_settings.json')
+let g:LanguageClient_selectionUI = "location-list"
+let g:LanguageClient_diagnosticsList = "Location"
+let g:LanguageClient_hasSnippetSupport=0
+
+" let g:LanguageClient_loggingFile = expand('~/.config/nvim/LC.log')
+" let g:LanguageClient_loggingLevel='DEBUG'
+
+
+" 言語ごとに設定する
+let g:LanguageClient_serverCommands={}
+
+" c/cpp
+if executable('clangd')
+    let g:LanguageClient_serverCommands['c'] = ['clangd']
+    let g:LanguageClient_serverCommands['cpp'] = ['clangd']
+elseif executable('clangd-9')
+    let g:LanguageClient_serverCommands['c'] = ['clangd-9']
+    let g:LanguageClient_serverCommands['cpp'] = ['clangd-9']
+endif
+
+" python
+" if executable('pyls')
+"     let g:LanguageClient_serverCommands['python'] = ['pyls']
+" endif
+
+" css/typescript
+if executable('css-languageserver')
+    let g:LanguageClient_serverCommands['css'] = ['css-languageserver', '--stdio']
+    let g:LanguageClient_serverCommands['scss'] = ['css-languageserver', '--stdio']
+    let g:LanguageClient_serverCommands['sass'] = ['css-languageserver', '--stdio']
+endif
+
+if executable("typescript-language-server")
+  let g:LanguageClient_serverCommands['javascript']=['typescript-language-server', '--stdio']
+  let g:LanguageClient_serverCommands['typescript']=['typescript-language-server', '--stdio']
+endif
+
+" golang
+if executable(expand('gopls'))
+    let g:LanguageClient_serverCommands['go'] = ["gopls"]
+endif
+if executable(expand('~/go/bin/go-langserver'))
+    let g:LanguageClient_serverCommands['go'] = [expand('~/go/bin/go-langserver'), '-gocodecompletion']
+endif
+
+" ruby
+if executable("solargraph")
+  let g:LanguageClient_serverCommands['ruby']=['solargraph', 'stdio']
+endif
+
+" rust
+if executable("rust-analyzer")
+  let g:LanguageClient_serverCommands['rust']=['rust-analyzer']
+endif
+
+"vue js
+if executable("vls")
+  let g:LanguageClient_serverCommands['vue']=['vls']
+endif
+
+
+" julia
+" let g:default_julia_version='1.3'
+" let g:LanguageClient_serverCommands['julia'] =  ['julia', '--startup-file=no', '--history-file=no', '-e', ' using LanguageServer; using Pkg; import StaticLint; import SymbolServer; env_path = dirname(Pkg.Types.Context().env.project_file); debug = false; server = LanguageServer.LanguageServerInstance(stdin, stdout, debug, env_path, "", Dict()); server.runlinter = true; run(server);']
+
+" other settings
+let g:LanguageClient_useVirtualText = "CodeLens"
+
+function! LC_maps()
+    if has_key(g:LanguageClient_serverCommands, &filetype)
+        nnoremap <buffer> <silent> K          :call LanguageClient_textDocument_hover()<CR>
+        nnoremap <buffer> <silent> <Leader>lh :call LanguageClient_textDocument_hover()<CR>
+        nnoremap <buffer> <silent> <Leader>ld :call LanguageClient_textDocument_definition()<CR>
+        nnoremap <buffer> <silent> <Leader>li :call LanguageClient_textDocument_implementation()<CR>
+        nnoremap <buffer> <silent> <Leader>lr :call LanguageClient_textDocument_rename()<CR>
+        nnoremap <buffer> <silent> <Leader>lf :call LanguageClient_textDocument_formatting()<CR>
+        nnoremap <buffer> <silent> <Leader>lk :call LanguageClient_textDocument_references()<CR>
+        nnoremap <buffer> <silent> <Leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
+        nnoremap <buffer> <silent> <Leader>lm :call LanguageClient_contextMenu()<CR>
+        nnoremap <buffer> <silent> <Leader>lt :call LanguageClient_textDocument_typeDefinition()<CR>
+    endif
+endfunction
+
+autocmd FileType * call LC_maps()
+
+" augroup lcHighlight
+"     autocmd!
+"     autocmd CursorHold,CursorHoldI *.c,*.cpp call LanguageClient#textDocument_documentHighlight()
+" augroup END
+'''
+
+[[plugins]]
+repo = "ujihisa/neco-look"
+on_ft = ["markdown", "tex", "latex", "text"]
+
+
+
+# [[plugins]]
+# repo = 'deoplete-plugins/deoplete-jedi'
+# on_ft = 'python'
+# depends = ['deoplete.nvim']
+# hook_source = '''
+# let g:deoplete#sources#jedi#python_path = g:python3_host_prog
+# '''
+
+# [[plugins]]
+# repo = 'davidhalter/jedi-vim'
+# on_ft = 'python'
+# hook_source = '''
+let g:jedi#auto_initialization=0
+let g:jedi#auto_vim_configuration=0
+let g:jedi#smart_auto_mappings=0
+let g:jedi#completions_enabled=0
+let g:force_py_version=3
+
+" call deoplete#custom#source('jedi', 'is_debug_enabled', 1)
+
+function! Jedi_map() abort
+    if !has_key(g:LanguageClient_serverCommands, &filetype)
+        nnoremap <buffer> <silent> <Leader>lk :call jedi#show_documentation()<CR>
+        nnoremap <buffer> <silent> <Leader>ld :call jedi#goto()<CR>
+        nnoremap <buffer> <silent> <Leader>li :call jedi#usages()<CR>
+        nnoremap <buffer> <silent> <Leader>lr :call jedi#rename()<CR>
+    endif
+endfunction
+
+autocmd FileType python call Jedi_map()
+'''
+
+# colorscheme====================================
+
+[[plugins]]
+repo = 'gosukiwi/vim-atom-dark'
+hook_add = 'colorscheme atom-dark'
+
+[[plugins]]
+repo = 'tomasr/molokai'
+hook_add = '''
+colorscheme molokai
+let g:molokai_original=1
+let g:rehash256=1
+'''
+
+[[plugins]]
+repo = 'jonathanfilip/vim-lucius'
+hook_add = '''
+colorscheme lucius
+let g:lucius_contrast_bg='high'
+'''
+
+[[plugins]]
+repo = 'sheerun/vim-wombat-scheme'
+hook_add = 'colorschem wombat'
+
+[[plugins]]
+repo = 'woodyZootopia/iceberg.vim'
+rev = 'support_LSP'
+hook_add = '''
+colorscheme iceberg
+'''
+
+
+[[plugins]]
+repo = 'https://github.com/itchyny/lightline.vim'
+hook_add = '''
+let g:lightline = {
+  \ 'colorscheme': 'jellybeans',
+  \ }
+let g:lightline.separator = { 'left': '', 'right': '' }
+'''
+
+
+# Snippet =======================================
+
+[[plugins]]
+repo = 'Shougo/neosnippet'
+hook_add= '''
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+if has('conceal')
+  set conceallevel=0 concealcursor=niv
+endif
+let g:neosnippet#snippets_directory=expand('~/.config/nvim/NeoSnips')
+'''
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'

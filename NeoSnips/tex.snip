@@ -1,0 +1,101 @@
+snippet     eqnonumber
+options     head
+    \[
+        ${1:TARGET}
+    \]
+    ${0:TARGET}
+
+snippet     \sum
+alias       sum \sum{
+    \sum_{${1:TARGET}}^{${2:TARGET}} ${3:TARGET}
+
+snippet     \mathrm
+alias       matrm \mathrm{
+# options     word
+    \mathrm{${1:TARGET}}${0:TARGET}
+
+snippet     \intInf
+alias       intInf \intInf{
+abbr        integralInf2Inf
+# options     word
+    \int_{\infty}^{\infty} ${1:TARGET}
+
+snippet     \int
+alias       int \int_
+abbr        integrarl
+# options     word
+    \int_{${1:TARGET}}^{${2:TARGET}} ${0:TARGET}
+
+snippet     inval
+alias       inlinevalue
+abbr        inline Value
+  $${1:TARGET}\, \mathrm{${2:TARGET}}$${0:TARGET}
+
+snippet     pack1
+abbr        package set 1
+# options     head
+  \usepackage{graphics}
+  \usepackage{amsmath}
+  \usepackage{amssymb}
+  \usepackage{ascmac}
+  \usepackage{txfonts}
+  \usepackage{url}
+  \usepackage{bm}
+  \usepackage{booktabs}
+  \usepackage{algorithm}
+  \usepackage{algpseudocode}
+  \usepackage{docmute}
+  \usepackage{subfigure}
+  \usepackage{tikz}
+  \usetikzlibrary{calc}
+  \usetikzlibrary{intersections}
+  \usetikzlibrary{shapes}
+  ${0:TARGET}
+
+
+snippet     toc
+abbr        Table of Contents
+  \usepackage[dvipdfmx]{hyperref}
+  \usepackage{pxjahyper}
+  ${0:TARGET}
+
+
+snippet     lstlsting
+abbr        Use listing
+options     head
+  \usepackage{listings, jlisting}
+  \lstset{
+      language = Python, 
+      breaklines = true, 
+      classoffset = 0, 
+      framesep = 5pt, 
+      numbers = left, 
+      stepnumber =1, 
+      tabsize = 4, 
+      frame = tlrb, 
+      keywordstyle = \ttfamily, 
+  }
+  ${0:TARGET}
+
+snippet     noLabelNom
+abbr        no ref no number
+options     head
+  \usepackage{mathtools}
+  \mathtoolsset{showonlyrefs}
+  ${0:TARGET}
+
+snippet     texslide
+abbr        beamer setting
+options     head
+  \usetheme{Madrid}
+  \usefonttheme{professionalfonts}
+  \usepackage{helvet}
+  \usepackage[deluxe, expert]{otf}
+  \renewcommand{\kanjifamilydefault}{\gtdefault}
+  ${0:TARGET}
+
+snippet     margin
+abbr        usepackage geometry
+options     head
+  \usepackage[top=${1}in, bottom=${2}in, left=${3}in, right=${4}in]{geometry}
+  ${0:TARGET}

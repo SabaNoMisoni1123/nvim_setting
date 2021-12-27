@@ -1,0 +1,475 @@
+# language server ===============================
+
+[[plugins]]
+repo = 'neovim/nvim-lspconfig'
+[[plugins]]
+repo = 'ray-x/lsp_signature.nvim'
+# [[plugins]]
+# repo = 'williamboman/nvim-lsp-installer'
+
+# ddc ===========================================
+
+[[plugins]]
+repo = 'Shougo/ddc.vim'
+hook_add = '''
+" sources
+call ddc#custom#patch_global('sources', ['nvim-lsp', 'around', 'ultisnips', 'buffer', 'file', 'dictionary'])
+setlocal dictionary+=/usr/share/dict/words
+
+call ddc#custom#patch_global('sourceOptions', {
+    \ 'file': { 'mark': 'F', 'forceCompletionPattern': '\S/\S*'},
+    \ 'nvim-lsp': { 'mark':'lsp', 'forceCompletionPattern': '\.\w*|:\w*|->\w*'},
+    \ 'around': { 'mark': 'A' },
+    \ 'buffer': { 'mark': 'B' },
+    \ 'ultisnips': { 'mark': 'US'},
+    \ 'dictionary': { 'mark': 'D' },
+    \ '_': { 'matchers': ['matcher_fuzzy'],
+    \        'sorters':  ['sorter_rank'],
+    \        'ignoreCase': v:true},
+    \ })
+
+call ddc#custom#patch_global('sourceParams', {
+    \ 'nvim-lsp': { 'kindLabels': { 'Class': 'c' } },
+    \ 'buffer': {'requireSameFiletype': v:false},
+    \ 'dictionary': {
+    \ 'dictPaths': ['/usr/share/dict/words'],
+    \ 'smartCase': v:true,
+    \ },
+    \ })
+
+call ddc#custom#patch_global({
+    \ 'backspaceCompletion': v:true,
+    \ })
+
+" <TAB>: completion.
+inoremap <silent><expr> <TAB>
+\ pumvisible() ? '<C-n>' :
+\ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+\ '<TAB>' : ddc#map#manual_complete()
+
+" <S-TAB>: completion back.
+inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
+
+call ddc#enable()
+'''
+
+[[plugins]]
+repo = 'Shougo/ddc-nvim-lsp'
+[[plugins]]
+repo = 'Shougo/ddc-matcher_head'
+[[plugins]]
+repo = 'matsui54/ddc-matcher_fuzzy'
+[[plugins]]
+repo = 'Shougo/ddc-sorter_rank'
+[[plugins]]
+repo = 'Shougo/ddc-around'
+[[plugins]]
+repo = 'matsui54/ddc-buffer'
+[[plugins]]
+repo = 'LumaKernel/ddc-file'
+[[plugins]]
+repo = 'Shougo/ddc-omni'
+[[plugins]]
+repo = 'matsui54/ddc-dictionary'
+[[plugins]]
+repo = 'matsui54/ddc-ultisnips'
+
+
+# Snippet =======================================
+
+[[plugins]]
+repo = "SirVer/ultisnips"
+[[plugins]]
+repo = "honza/vim-snippets"
+hook_add = '''
+let g:UltiSnipsExpandTrigger="<C-k>"
+let g:UltiSnipsJumpForwardTrigger="<C-k>"
+let g:UltiSnipsJumpBackwardTrigger="<C-l>"
+
+let g:UltiSnipsEditSplit="vertical"
+'''
+
+# defx ==========================================
+
+[[plugins]]
+repo = 'Shougo/defx.nvim'
+hook_add = '''
+call defx#custom#column('indent',{'indent': "- "})
+call defx#custom#column('mark', {
+            \ 'directory_icon': '▸',
+            \ 'opened_icon': '▾',
+            \ 'readonly_icon': '✗',
+            \ 'root_icon': ' ',
+            \ 'selected_icon': '✓',
+            \ })
+
+call defx#custom#column('git', 'indicators', {
+            \ 'Modified'  : '✹',
+            \ 'Staged'    : '✚',
+            \ 'Untracked' : '✭',
+            \ 'Renamed'   : '➜',
+            \ 'Unmerged'  : '═',
+            \ 'Ignored'   : '☒',
+            \ 'Deleted'   : '✖',
+            \ 'Unknown'   : '?'
+            \})
+
+nnoremap <silent> st        :Defx -new -auto-cd -columns=time:size:git:mark:indent:filename -show-ignored-files `expand('%:p:h')` -search=`expand('%:p')` -split=tab        <CR>
+nnoremap <silent> <leader>d :Defx -new -auto-cd -columns=time:size:git:mark:indent:filename -show-ignored-files `expand('%:p:h')` -search=`expand('%:p')` -split=no         <CR>
+nnoremap <silent> <leader>n :Defx -new -auto-cd -columns=:git:mark:indent:filename -show-ignored-files `expand('%:p:h')` -search=`expand('%:p')` -split=vertical -winwidth=40 -direction='topleft'<CR>
+nnoremap <silent> <leader>z :Defx -new -auto-cd -columns=mark:indent:filename:time      -show-ignored-files `expand('%:p:h')` -search=`expand('%:p')` -split=floating <CR>
+" seldom used
+" nnoremap <silent> <leader>dv :Defx -new -auto-cd -columns=size:mark:filename:time -show-ignored-files `expand('%:p:h')` -search=`expand('%:p')` -split=vertical -winwidth=50<CR>:IndentLinesDisable<CR>
+
+autocmd FileType defx call s:defx_my_settings()
+function!  s:defx_my_settings() abort
+    " Define mappings
+    nnoremap <silent><buffer><expr> <CR>          defx#do_action('open')
+    nnoremap <silent><buffer><expr> o             defx#is_directory()?defx#do_action('open_or_close_tree'):defx#do_action('drop')
+    nnoremap <silent><buffer><expr> O             defx#is_directory()?defx#do_action('open_tree_recursive'):defx#do_action('drop','tabnew')
+    nnoremap <silent><buffer><expr> <2-LeftMouse> defx#do_action('open')
+    nnoremap <silent><buffer><expr> l             defx#do_action('open_directory')
+    nnoremap <silent><buffer><expr> K             defx#do_action('new_directory')
+    nnoremap <silent><buffer><expr> L             defx#do_action('new_file')
+    nnoremap <silent><buffer><expr> h             defx#do_action('cd',['..'])
+    nnoremap <silent><buffer><expr> dd            defx#do_action('remove',['..'])
+    nnoremap <silent><buffer><expr> r             defx#do_action('rename',['..'])
+    nnoremap <silent><buffer><expr> ~             defx#do_action('cd')
+    nnoremap <silent><buffer><expr> v             defx#do_action('toggle_select').'j'
+    nnoremap <silent><buffer><expr> S             defx#do_action('toggle_ignored_files')
+    nnoremap <silent><buffer><expr> R             defx#do_action('redraw')
+    nnoremap <silent><buffer><expr> yy            defx#do_action('yank_path')
+    nnoremap <silent><buffer><expr> !             defx#do_action('execute_command')
+    nnoremap <silent><buffer><expr> x             defx#do_action('execute_system')
+    nnoremap <silent><buffer><expr> c             defx#do_action('copy')
+    nnoremap <silent><buffer><expr> p             defx#do_action('paste')
+    nnoremap <silent><buffer><expr> Se            defx#do_action('toggle_sort', 'extension')
+    nnoremap <silent><buffer><expr> Sn            defx#do_action('toggle_sort', 'filename')
+    nnoremap <silent><buffer><expr> Ss            defx#do_action('toggle_sort', 'size')
+    nnoremap <silent><buffer><expr> St            defx#do_action('toggle_sort', 'time')
+    nnoremap <buffer>               <leader>gd    :call <SID>git_diff_of_directory()<CR>
+    nnoremap <silent><buffer><expr> q             defx#do_action('quit')
+endfunction
+
+function! s:git_diff_of_directory()
+    exe "tabnew"
+    exe "read !git diff"
+    exe "setf diff"
+    exe "setlocal buftype=nofile"
+    exe "setlocal bufhidden=hide"
+    exe "setlocal noswapfile"
+endfunction
+'''
+[[plugins]]
+repo = 'kristijanhusak/defx-git'
+[[plugins]]
+repo = 'kristijanhusak/defx-icons'
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+
+
+# denite ========================================
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+hook_add = '''
+nnoremap <silent> <space>fr  :<C-u>Denite -split=floating -start-filter file_mru<CR>
+nnoremap <silent> <space>fb  :<C-u>Denite -split=floating -start-filter buffer<CR>
+nnoremap <silent> <space>fy  :<C-u>Denite -split=floating -start-filter neoyank<CR>
+nnoremap <silent> <space>ff  :<C-u>Denite -split=floating -start-filter file/rec<CR>
+nnoremap <silent> <space>fd  :<C-u>Denite -split=floating -start-filter defx/history<CR>
+nnoremap <silent> <space>fu  :<C-u>Denite -split=floating -start-filter outline<CR>
+nnoremap <silent> <space>fc  :<C-u>Denite -split=floating -start-filter command_history<CR>
+nnoremap <silent> <space>fo  :<C-u>Denite -split=floating -start-filter output:
+nnoremap <silent> <space>fgl :<C-u>Denite -split=floating -start-filter gitlog<CR>
+nnoremap <silent> <space>fgs :<C-u>Denite -split=floating -start-filter gitstatus<CR>
+nnoremap <silent> <space>fgc :<C-u>Denite -split=floating -start-filter gitchanged<CR>
+nnoremap <silent> <space>fgb :<C-u>Denite -split=floating -start-filter gitbranch<CR>
+
+" Define mappings
+autocmd FileType denite call s:denite_my_settings()
+
+function! s:denite_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> <C-j>
+  \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> d
+  \ denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p
+  \ denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q
+  \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> v
+  \ denite#do_map('toggle_select').'j'
+endfunction
+'''
+[[plugins]]
+repo = 'Shougo/unite-outline'
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+[[plugins]]
+repo = 'Shougo/neoyank.vim'
+[[plugins]]
+repo = 'neoclide/denite-git'
+
+
+# git ===========================================
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+hook_add = '''
+"gitgutter
+let g:gitgutter_preview_win_floating = 0
+nmap <Leader>hs <Plug>(GitGutterStageHunk)
+nmap <Leader>ha <Plug>(GitGutterStageHunk)
+nmap <Leader>hu <Plug>(GitGutterUndoHunk)
+nmap <Leader>hp <Plug>(GitGutterPreviewHunk)
+nmap <Leader>hv <Plug>(GitGutterPreviewHunk)
+nmap ]c         <Plug>(GitGutterNextHunk)
+nmap [c         <Plug>(GitGutterPrevHunk)
+omap ic         <Plug>(GitGutterTextObjectInnerPending)
+omap ac         <Plug>(GitGutterTextObjectOuterPending)
+xmap ic         <Plug>(GitGutterTextObjectInnerVisual)
+xmap ac         <Plug>(GitGutterTextObjectOuterVisual)
+nmap ]h         <Plug>(GitGutterNextHunk)
+nmap [h         <Plug>(GitGutterPrevHunk)
+omap ih         <Plug>(GitGutterTextObjectInnerPending)
+omap ah         <Plug>(GitGutterTextObjectOuterPending)
+xmap ih         <Plug>(GitGutterTextObjectInnerVisual)
+xmap ah         <Plug>(GitGutterTextObjectOuterVisual)
+
+" vim-fugitive
+nnoremap <leader>gs :Gstatus<CR><C-w>T
+nnoremap <leader>ga :Gwrite<CR>
+nnoremap <leader>gc :Gcommit-v<CR>
+nnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>gl :Glog<CR>
+nnoremap <leader>gh :0Glog<CR> " abbrev for git history: create new quickfix tab for history
+nnoremap <leader>gp :Gpush<CR>
+nnoremap <leader>gf :Gfetch<CR>
+nnoremap <leader>gd :Gvdiff<CR>
+nnoremap <leader>gr :Grebase -i<CR>
+nnoremap <leader>gg :Glgrep ""<Left>
+nnoremap <leader>gm :Gmerge 
+'''
+
+
+# deol ==========================================
+
+[[plugins]]
+repo = 'Shougo/deol.nvim'
+hook_add = '''
+let g:deol#prompt_pattern = '% \|%$'
+nnoremap sz :tabnew:cd %:h<CR>:DeolEdit<CR>
+nnoremap sx :tabnew:cd %:h<CR>:Deol<CR>
+'''
+
+
+# ctag ==========================================
+
+[[plugins]]
+repo = 'soramugi/auto-ctags.vim'
+hook_add = '''
+let g:auto_ctags_set_tags_option=1
+'''
+[[plugins]]
+repo = 'majutsushi/tagbar.git'
+hook_add = '''
+nmap <leader>t :TagbarToggle<CR>
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
+'''
+
+
+# quickrun ======================================
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+hook_add = '''
+let g:quickrun_no_default_key_mappings=1
+
+map <leader>x :QuickRun<CR>
+map <leader><leader>x :QuickRun 
+
+let g:quickrun_config = {}
+
+let g:quickrun_config._ = {
+      \ 'outputter/buffer/opener': 'new',
+      \ 'outputter/buffer/into': 1,
+      \ 'outputter/buffer/close_on_empty': 1,
+      \ }
+
+let g:quickrun_config['gnuplot'] = {
+    \ 'type' : 'gnuplot', 
+    \ 'command' : 'gnuplot', 
+    \ 'cmdopt' : '--persist', 
+    \ 'exec' : 'cd %s:h;%c %s %o', 
+    \}
+
+
+let g:quickrun_config['matlab'] = {
+    \ 'type' : 'matlab', 
+    \ 'command' : 'octave', 
+    \ 'exec' : 'cd %s:h;%c %s', 
+    \}
+
+
+let g:quickrun_config['tex']={
+      \ 'type' : 'tex', 
+      \ 'command' : 'latexmk', 
+      \ 'exec' : '%c %s', 
+      \}
+
+let g:quickrun_config["c"]={
+      \ 'type':
+      \ executable('gcc')            ? 'c/gcc' :
+      \ executable('clang')          ? 'c/clang' :
+      \ executable('clang-9')        ? 'c/clang-9' : '',
+      \}
+
+let g:quickrun_config['c/gcc']={
+      \ 'cmdopt' : '-std=c11', 
+      \}
+
+let g:quickrun_config['c/clang']={
+      \ 'command' : 'clang', 
+      \ 'cmdopt' : '-std=c11', 
+      \}
+
+let g:quickrun_config['c/clang-9']={
+      \ 'command' : 'clang-9', 
+      \ 'cmdopt' : '-std=c11', 
+      \}
+
+
+let g:quickrun_config["cpp"]={
+      \ 'type':
+      \ executable('g++')            ? 'cpp/g++' :
+      \ executable('clang++')        ? 'cpp/clang++'  :
+      \ executable('clang++-9')      ? 'cpp/clang++-9'  : '',
+      \}
+
+let g:quickrun_config['cpp/g++']={
+      \ 'cmdopt' : '-std=c++17', 
+      \}
+
+let g:quickrun_config['cpp/clang++']={
+      \ 'command' : 'clang++-9', 
+      \ 'cmdopt' : '-std=c++17', 
+      \}
+
+let g:quickrun_config['cpp/clang++-9']={
+      \ 'command' : 'clang++-9', 
+      \ 'cmdopt' : '-std=c++17', 
+      \}
+
+let g:quickrun_config['cmake'] = {
+    \ 'command': 'cmake',
+    \ 'exec': ['%c ..', 'make -j', 'echo "\n\n===output==="', './a.out'],
+    \ 'hook/cd/directory' : '%S:h'.'/build',
+    \}
+
+let g:quickrun_config['make'] = {
+    \ 'command': 'make',
+    \ 'exec': ['%c -j', 'echo "\n\n===output==="', './a.out'],
+    \ 'hook/cd/directory' : '%S:h'.'/build',
+    \}
+
+let g:quickrun_config['python'] = {
+      \ 'hook/cd/directory' : '%S:h',
+      \}
+
+let g:quickrun_config['scilab'] = {
+      \ 'command' : 'scilab-cli',
+      \ 'exec': ['%c -f %s -quit'],
+      \ 'hook/cd/directory' : '%S:h',
+      \}
+
+let g:quickrun_config['markdown']={
+      \ 'type': 
+      \ executable('pandoc') ? 'markdown/pandoc': '',
+      \}
+
+let g:quickrun_config['markdown/pandoc'] = {
+      \ 'command': 'pandoc',
+      \ 'exec': ['%c %s %o %a -o %s:r.html', 'cat %s:r.html'],
+      \ 'cmdopt' : '-f markdown -t html -s --self-contained --css $XDG_CONFIG_HOME/nvim/css/github-pandoc.css',
+      \}
+
+'''
+
+# others ========================================
+
+[[plugins]]
+repo = 'glidenote/memolist.vim'
+hook_add = '''
+let g:memolist_path="~/memo"
+let g:memolist_memo_date = "%Y%m%d-%H%M"
+let g:memolist_vimfiler_option = "-split -winwidth=50 -simple"
+let g:memolist_memo_suffix = "md"
+let g:memolist_filename_date = "%y%m%d_"
+let g:memolist_vimfiler_option = "-split -winwidth=50 -simple"
+map <Leader><Leader>mn  :MemoNew<CR>
+map <Leader><Leader>ml  :MemoList<CR>
+map <Leader><Leader>mg  :MemoGrep<CR>
+'''
+
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+hook_add = '''
+nmap <space>b <Plug>(openbrowser-smart-search)
+vmap <space>b <Plug>(openbrowser-smart-search)
+'''
+
+[[plugins]]
+repo = 'ncm2/float-preview.nvim.git'
+hook_add = '''
+let g:float_preview#docked = 0
+'''
+
+[[plugins]]
+repo = 'easymotion/vim-easymotion'
+hook_add = '''
+map <leader>e <Plug>(easymotion-prefix)
+'''
+
+
+# translate =====================================
+
+[[plugins]]
+repo = 'skanehira/translate.vim'
+hook_add = '''
+let g:translate_source = "en"
+let g:translate_target = "ja"
+let g:translate_popup_window = 0
+let g:translate_winsize = 10
+'''
