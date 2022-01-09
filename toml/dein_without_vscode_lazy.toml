@@ -1,3 +1,21 @@
+# dap ===========================================
+
+[[plugins]]
+repo = "mfussenegger/nvim-dap-python"
+on_ft = ['python']
+depends = ['nvim-dap']
+hook_source = '''
+lua << EOF
+require('dap-python').setup('python')
+EOF
+
+nnoremap <silent> <C-d>pn :lua require('dap-python').test_method()<CR>
+nnoremap <silent> <C-d>pf :lua require('dap-python').test_class()<CR>
+vnoremap <silent> <C-d>ps <ESC>:lua require('dap-python').debug_selection()<CR>
+'''
+
+# ===============================================
+
 [[plugins]]
 repo = 'lervag/vimtex'
 # rev = 'v2.6'
@@ -8,8 +26,8 @@ let g:vimtex_syntax_conceal = {
     \ 'cites': 0,
     \ 'fancy': 0,
     \ 'greek': 1,
-    \ 'math_bounds': 1,
-    \ 'math_delimiters': 1,
+    \ 'math_bounds': 0,
+    \ 'math_delimiters': 0,
     \ 'math_fracs': 0,
     \ 'math_super_sub': 0,
     \ 'math_symbols': 0,
@@ -32,17 +50,6 @@ let g:vimtex_quickfix_ignore_filters = [
       \ 'Font Warning',
       \ 'Underfull',
       \]
-
-"call vimtex#init()
-"call ddc#custom#patch_filetype(['tex'], 'sources', ['around', 'neosnippet', 'omni', 'dictionary', 'buffer', 'file'])
-"
-"call ddc#custom#patch_filetype(['tex'], 'sourceOptions', {
-"  \ 'omni': {'mark': 'O', 'forceCompletionPattern': g:vimtex#re#deoplete},
-"  \ })
-"
-"call ddc#custom#patch_filetype(['tex'], 'sourceParams', {
-"  \ 'omni': {'omnifunc': 'vimtex#complete#omnifunc'},
-"  \ })
 '''
 
 #ここを参考https://qiita.com/alpaca_taichou/items/056a4c42fe7a928973e6
@@ -56,7 +63,7 @@ let g:user_emmet_leader_key=',,'
 
 [[plugins]]
 repo = 'Yggdroot/indentLine'
-on_ft = ['c','cpp','python','tex','latex']
+on_ft = ['c','cpp','python','tex', 'js', 'javascript', 'rust', 'html', 'css', 'java']
 
 
 [[plugins]]

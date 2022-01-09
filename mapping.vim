@@ -139,10 +139,6 @@ vnoremap < <gv
 " tagsジャンプの時に複数ある時は一覧表示
 nnoremap <C-]> g<C-]>
 ""
-" insert mode keymappings for japanese input convenience
-" 単語移動：ctrl-f/bのとき補完ウィンドウを閉じる
-inoremap <silent> <expr> <C-b> pumvisible() ? "<C-r>=deoplete#close_popup()<CR><C-r>=ExecExCommand('normal b')<CR>" : "<C-r>=ExecExCommand('normal b')<CR>"
-inoremap <silent> <expr> <C-f> pumvisible() ? "<C-r>=deoplete#close_popup()<CR><C-r>=ExecExCommand('normal w')<CR>" : "<C-r>=ExecExCommand('normal w')<CR>"
 " 行移動
 inoremap <silent> <expr> <C-p> "<C-r>=ExecExCommand('normal k')<CR>"
 inoremap <silent> <expr> <C-n> "<C-r>=ExecExCommand('normal j')<CR>"
@@ -177,4 +173,5 @@ augroup keymaps
   autocmd FileType tex inoremap \ @
 augroup END
 
-echo("neovim mapping")
+" 行末空白の削除
+nmap ds :%s/ *$//g<CR><C-o>zz

@@ -35,6 +35,7 @@ endif
 " html
 if executable("vscode-html-language-server")
     let g:LSP_commands['html'] = 'html'
+    exe 'lua require''lspconfig''.' . 'html' . '.setup{capabilities = capabilities}'
 endif
 
 " vue
@@ -58,7 +59,6 @@ for [key,val] in items(g:LSP_commands)
     exe 'lua require''lspconfig''.' . val . '.setup{}'
 endfor
 
-
 function! LC_maps()
     if has_key(g:LSP_commands, &filetype)
         nnoremap <buffer> <silent> <Leader>lc     <cmd>lua vim.lsp.buf.declaration()<CR>
@@ -78,7 +78,6 @@ endfunction
 
 autocmd BufEnter * call LC_maps()
 
-
 " 特定のファイルの時、保存時に整形する
 " augroup lspAutoFormat
 "     autocmd!
@@ -89,10 +88,9 @@ lua << EOF
 -- エラー表示
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = false,
+    virtual_text = true,
     signs = true,
-    underline = false,
+    underline = true,
   }
 )
-
 EOF

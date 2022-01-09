@@ -73,5 +73,3 @@ xnoremap g- g<C-x>
 
 " other
 nnoremap O O<ESC>0D
-
-echo("vscode mapping")

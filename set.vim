@@ -79,14 +79,14 @@ augroup fileType
   autocmd!
   autocmd filetype           python   setlocal tabstop=4 shiftwidth=4 foldmethod=syntax expandtab
   autocmd filetype           c,cpp    setlocal tabstop=2 shiftwidth=2 foldmethod=syntax expandtab
-  autocmd filetype           go       setlocal tabstop=4 shiftwidth=4 noexpandtab | set formatoptions+=r
+  autocmd filetype           go       setlocal tabstop=4 shiftwidth=4 expandtab | set formatoptions+=r
   autocmd filetype           tex      setlocal tabstop=2 shiftwidth=2 foldmethod=syntax expandtab wrap conceallevel=0
   autocmd filetype           html     setlocal tabstop=2 shiftwidth=2 expandtab nowrap
   autocmd filetype           css      setlocal tabstop=2 shiftwidth=2 expandtab nowrap
   autocmd filetype           csv      setlocal tabstop=4 shiftwidth=4 nowrap noexpandtab
-  autocmd filetype           text     setlocal tabstop=4 shiftwidth=4 noexpandtab
+  autocmd filetype           text     setlocal tabstop=4 shiftwidth=4 expandtab
   autocmd filetype           help     setlocal listchars=tab:\ \  noet
-  autocmd filetype           markdown setlocal tabstop=2 shiftwidth=2 noexpandtab wrap
+  autocmd filetype           markdown setlocal tabstop=4 shiftwidth=4 expandtab wrap
   autocmd BufNewFile,BufRead *.grg    setlocal nowrap
   autocmd BufNewFile,BufRead *.jl     setf julia
   autocmd BufNewFile,BufRead *.plt    setfiletype gnuplot
@@ -142,7 +142,6 @@ set mouse=a
 
 " 追加設定
 set conceallevel=0
-
 
 " 分割の位置
 set splitbelow
