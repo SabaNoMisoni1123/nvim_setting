@@ -22,7 +22,7 @@ repo = 'lervag/vimtex'
 on_ft = ['tex','cls']
 hook_source= '''
 let g:vimtex_syntax_conceal = {
-    \ 'accents': 1,
+    \ 'accents': 0,
     \ 'cites': 0,
     \ 'fancy': 0,
     \ 'greek': 1,

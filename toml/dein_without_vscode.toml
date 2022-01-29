@@ -2,10 +2,22 @@
 
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-[[plugins]]
-repo = 'ray-x/lsp_signature.nvim'
+# [[plugins]]
+# repo = 'ray-x/lsp_signature.nvim'
 # [[plugins]]
 # repo = 'williamboman/nvim-lsp-installer'
+[[plugins]]
+repo = "matsui54/denops-signature_help"
+hook_add = '''
+call signature_help#enable()
+let g:signature_help_config = {
+      \ 'border': v:true,
+      \ 'maxWidth': 80,
+      \ 'maxHeight': 30,
+      \ 'style': "labelOnly",
+      \ 'onTriggerChar': v:false,
+      \ }
+'''
 
 # dap ===========================================
 
@@ -32,7 +44,7 @@ nnoremap <silent> <C-d>dl :lua require'dap'.run_last()<CR>
 repo = 'Shougo/ddc.vim'
 hook_add = '''
 " sources
-call ddc#custom#patch_global('sources', ['nvim-lsp', 'around', 'ultisnips', 'buffer', 'file', 'dictionary'])
+call ddc#custom#patch_global('sources', ['nvim-lsp', 'around', 'neosnippet', 'buffer', 'file', 'dictionary'])
 setlocal dictionary+=/usr/share/dict/words
 
 call ddc#custom#patch_global('sourceOptions', {
@@ -41,6 +53,7 @@ call ddc#custom#patch_global('sourceOptions', {
     \ 'around': { 'mark': 'A' },
     \ 'buffer': { 'mark': 'B' },
     \ 'ultisnips': { 'mark': 'US'},
+    \ 'neosnippet': { 'mark': 'NS', 'dup': v:true},
     \ 'dictionary': { 'mark': 'D' },
     \ '_': { 'matchers': ['matcher_fuzzy'],
     \        'sorters':  ['sorter_rank'],
@@ -88,23 +101,37 @@ repo = 'matsui54/ddc-buffer'
 repo = 'LumaKernel/ddc-file'
 [[plugins]]
 repo = 'matsui54/ddc-dictionary'
-[[plugins]]
-repo = 'matsui54/ddc-ultisnips'
+# [[plugins]]
+# repo = 'matsui54/ddc-ultisnips'
 
 
 # Snippet =======================================
 
-[[plugins]]
-repo = "SirVer/ultisnips"
-[[plugins]]
-repo = "honza/vim-snippets"
-hook_add = '''
-let g:UltiSnipsExpandTrigger="<C-k>"
-let g:UltiSnipsJumpForwardTrigger="<C-k>"
-let g:UltiSnipsJumpBackwardTrigger="<C-l>"
+# [[plugins]]
+# repo = "SirVer/ultisnips"
+# [[plugins]]
+# repo = "honza/vim-snippets"
+# hook_add = '''
+# let g:UltiSnipsExpandTrigger="<C-k>"
+# let g:UltiSnipsJumpForwardTrigger="<C-k>"
+# let g:UltiSnipsJumpBackwardTrigger="<C-l>"
 
-let g:UltiSnipsEditSplit="vertical"
+# let g:UltiSnipsEditSplit="vertical"
+# '''
+
+[[plugins]]
+repo = 'Shougo/neosnippet'
+hook_add= '''
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+if has('conceal')
+  set conceallevel=0 concealcursor=niv
+endif
+let g:neosnippet#snippets_directory=expand('~/.config/nvim/NeoSnips')
 '''
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
 
 # defx ==========================================
 
