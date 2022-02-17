@@ -162,23 +162,21 @@ nnoremap [a :ALEPrevious<CR>
 let g:ale_linters={}
 let g:ale_linters={
       \ 'markdown' : ['textlint'],
-      \ 'text' : ['textlint'],
-      \ 'tex' : ['textlint'],
       \}
 '''
-on_ft=['markdown', 'text']
+on_ft=['markdown']
 
 
 [[plugins]]
 repo = "kamykn/spelunker.vim"
-on_ft = ["markdown", "text"]
+on_ft = ["markdown"]
 hook_source = '''
 set nospell
 '''
 
 [[plugins]]
 repo = "rhysd/vim-grammarous"
-on_ft = ["markdown", "text"]
+on_ft = ["markdown"]
 hook_source = '''
 let g:grammarous#enable_spell_check=0
 let g:grammarous#use_vim_spelllang=0
