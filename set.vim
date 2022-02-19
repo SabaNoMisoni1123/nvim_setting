@@ -83,6 +83,7 @@ augroup fileType
   autocmd filetype           tex      setlocal tabstop=2 shiftwidth=2 foldmethod=syntax expandtab wrap conceallevel=0
   autocmd filetype           html     setlocal tabstop=2 shiftwidth=2 expandtab nowrap
   autocmd filetype           css      setlocal tabstop=2 shiftwidth=2 expandtab nowrap
+  autocmd filetype           vim      setlocal tabstop=2 shiftwidth=2 expandtab nowrap
   autocmd filetype           csv      setlocal tabstop=4 shiftwidth=4 nowrap noexpandtab
   autocmd filetype           text     setlocal tabstop=4 shiftwidth=4 expandtab
   autocmd filetype           help     setlocal listchars=tab:\ \  noet
