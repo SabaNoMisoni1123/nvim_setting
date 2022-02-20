@@ -2,10 +2,6 @@
 
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-# [[plugins]]
-# repo = 'ray-x/lsp_signature.nvim'
-# [[plugins]]
-# repo = 'williamboman/nvim-lsp-installer'
 [[plugins]]
 repo = "matsui54/denops-signature_help"
 hook_add = '''
@@ -102,8 +98,6 @@ repo = 'matsui54/ddc-buffer'
 repo = 'LumaKernel/ddc-file'
 [[plugins]]
 repo = 'matsui54/ddc-dictionary'
-# [[plugins]]
-# repo = 'matsui54/ddc-ultisnips'
 
 
 # ddu ===========================================
@@ -117,6 +111,15 @@ repo = 'Shougo/ddu-ui-ff'
 #  source
 [[plugins]]
 repo = 'Shougo/ddu-source-file_rec'
+[[plugins]]
+repo = 'Shougo/ddu-source-line'
+[[plugins]]
+repo = 'shun/ddu-source-buffer'
+
+[[plugins]]
+repo = 'kuuote/ddu-source-mr'
+[[plugins]]
+repo = 'lambdalisue/mr.vim'
 
 #  kind
 [[plugins]]
@@ -126,19 +129,54 @@ repo = 'Shougo/ddu-kind-file'
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_substring'
 
+#  setting script
+hook_add = '''
+call ddu#custom#patch_global({
+      \ 'ui': 'ff',
+      \ 'uiParams': {
+        \ 'ff':{
+          \ 'split':  'floating',
+          \ 'startFilter':  v:true,
+        \ },
+      \ },
+      \ 'sourceOptions': {
+        \ '_': {
+          \ 'matchers': ['matcher_substring'],
+          \ },
+        \ },
+      \ 'kindOptions': {
+        \ 'file': {
+          \ 'defaultAction': 'open',
+          \ },
+        \ },
+      \ })
+
+" mapping
+
+nnoremap <silent> <space>ff  <Cmd>call ddu#start({'sources': [{'name': 'file_rec'}]})<CR>
+nnoremap <silent> <space>fr  <Cmd>call ddu#start({'sources': [{'name': 'mr'}]})<CR>
+nnoremap <silent> <space>fl  <Cmd>call ddu#start({'sources': [{'name': 'line'}]})<CR>
+nnoremap <silent> <space>fb  <Cmd>call ddu#start({'sources': [{'name': 'buffer'}]})<CR>
+
+autocmd FileType ddu-ff call s:ddu_my_settings()
+function! s:ddu_my_settings() abort
+  nnoremap <buffer><silent> <CR>      <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
+  nnoremap <buffer><silent> v         <Cmd>call ddu#ui#ff#do_action('toggleSelectItem')<CR>
+  nnoremap <buffer><silent> i         <Cmd>call ddu#ui#ff#do_action('openFilterWindow')<CR>
+  nnoremap <buffer><silent> q         <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+  nnoremap <buffer><silent> p         <Cmd>call ddu#ui#ff#do_action('preview')<CR>
+endfunction
+
+autocmd FileType ddu-ff-filter call s:ddu_filter_my_settings()
+function! s:ddu_filter_my_settings() abort
+  inoremap <buffer><silent> <CR>  <Esc><Cmd>close<CR>
+  nnoremap <buffer><silent> <CR>  <Cmd>close<CR>
+  nnoremap <buffer><silent> q     <Cmd>close<CR>
+endfunction
+'''
+
+
 # Snippet =======================================
-
-# [[plugins]]
-# repo = "SirVer/ultisnips"
-# [[plugins]]
-# repo = "honza/vim-snippets"
-# hook_add = '''
-# let g:UltiSnipsExpandTrigger="<C-k>"
-# let g:UltiSnipsJumpForwardTrigger="<C-k>"
-# let g:UltiSnipsJumpBackwardTrigger="<C-l>"
-
-# let g:UltiSnipsEditSplit="vertical"
-# '''
 
 [[plugins]]
 repo = 'Shougo/neosnippet'
@@ -231,47 +269,6 @@ repo = 'kristijanhusak/defx-git'
 repo = 'kristijanhusak/defx-icons'
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
-
-
-# denite ========================================
-
-# [[plugins]]
-# repo = 'Shougo/denite.nvim'
-# hook_add = '''
-# " nnoremap <silent> <space>fr  :<C-u>Denite -split=floating -start-filter file_mru<CR>
-# nnoremap <silent> <space>fb  :<C-u>Denite -split=floating -start-filter buffer<CR>
-# nnoremap <silent> <space>fy  :<C-u>Denite -split=floating -start-filter neoyank<CR>
-# nnoremap <silent> <space>ff  :<C-u>Denite -split=floating -start-filter file/rec<CR>
-# nnoremap <silent> <space>fd  :<C-u>Denite -split=floating -start-filter defx/history<CR>
-# nnoremap <silent> <space>fu  :<C-u>Denite -split=floating -start-filter outline<CR>
-# nnoremap <silent> <space>fc  :<C-u>Denite -split=floating -start-filter command_history<CR>
-# nnoremap <silent> <space>fo  :<C-u>Denite -split=floating -start-filter output:
-# nnoremap <silent> <space>fgl :<C-u>Denite -split=floating -start-filter gitlog<CR>
-# nnoremap <silent> <space>fgs :<C-u>Denite -split=floating -start-filter gitstatus<CR>
-# nnoremap <silent> <space>fgc :<C-u>Denite -split=floating -start-filter gitchanged<CR>
-# nnoremap <silent> <space>fgb :<C-u>Denite -split=floating -start-filter gitbranch<CR>
-
-# " Define mappings
-# autocmd FileType denite call s:denite_my_settings()
-
-# function! s:denite_my_settings() abort
-#   nnoremap <silent><buffer><expr> <CR>  denite#do_map('do_action')
-#   nnoremap <silent><buffer><expr> <C-j> denite#do_map('do_action')
-#   nnoremap <silent><buffer><expr> d     denite#do_map('do_action', 'delete')
-#   nnoremap <silent><buffer><expr> p     denite#do_map('do_action', 'preview')
-#   nnoremap <silent><buffer><expr> q     denite#do_map('quit')
-#   nnoremap <silent><buffer><expr> i     denite#do_map('open_filter_buffer')
-#   nnoremap <silent><buffer><expr> v     denite#do_map('toggle_select').'j'
-# endfunction
-# '''
-# [[plugins]]
-# repo = 'Shougo/unite-outline'
-# [[plugins]]
-# repo = 'Shougo/neomru.vim'
-# [[plugins]]
-# repo = 'Shougo/neoyank.vim'
-# [[plugins]]
-# repo = 'neoclide/denite-git'
 
 
 # git ===========================================
