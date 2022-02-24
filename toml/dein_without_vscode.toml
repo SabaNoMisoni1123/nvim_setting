@@ -370,10 +370,8 @@ let g:tagbar_type_go = {
 [[plugins]]
 repo = 'thinca/vim-quickrun'
 hook_add = '''
-let g:quickrun_no_default_key_mappings=1
-
-map <leader>x :QuickRun<CR>
-map <leader><leader>x :QuickRun 
+nmap <leader>x <Plug>(quickrun)
+nmap <leader><leader>x :QuickRun 
 
 let g:quickrun_config = {}
 
@@ -390,13 +388,11 @@ let g:quickrun_config['gnuplot'] = {
     \ 'exec' : 'cd %s:h;%c %s %o', 
     \}
 
-
 let g:quickrun_config['matlab'] = {
     \ 'type' : 'matlab', 
     \ 'command' : 'octave', 
     \ 'exec' : 'cd %s:h;%c %s', 
     \}
-
 
 let g:quickrun_config['tex']={
       \ 'type' : 'tex', 
@@ -424,7 +420,6 @@ let g:quickrun_config['c/clang-9']={
       \ 'command' : 'clang-9', 
       \ 'cmdopt' : '-std=c11', 
       \}
-
 
 let g:quickrun_config["cpp"]={
       \ 'type':
@@ -480,6 +475,22 @@ let g:quickrun_config['markdown/pandoc'] = {
       \ 'cmdopt' : '-f markdown -t html -s --self-contained --css $XDG_CONFIG_HOME/nvim/css/github-pandoc.css',
       \}
 
+let g:quickrun_config['javascript'] = {
+      \ 'type':
+      \ executable('js') ? 'javascript/spidermonkey':
+      \ executable('d8') ? 'javascript/v8':
+      \ executable('node') ? 'javascript/nodejs':
+      \ executable('phantomjs') ? 'javascript/phantomjs':
+      \ executable('jrunscript') ? 'javascript/rhino':
+      \ executable('cscript') ? 'javascript/cscript':
+      \ executable('deno') ? 'javascript/deno':
+      \ '',
+      \ }
+
+let g:quickrun_config['javascript/deno'] = {
+      \ 'command': 'deno',
+      \ 'exec': ['%c run -q %s'],
+      \ }
 '''
 
 # others ========================================
