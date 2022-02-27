@@ -115,11 +115,11 @@ repo = 'Shougo/ddu-source-file_rec'
 repo = 'Shougo/ddu-source-line'
 [[plugins]]
 repo = 'shun/ddu-source-buffer'
+[[plugins]]
+repo = 'Shougo/ddu-source-file_old'
+[[plugins]]
+repo = 'matsui54/ddu-source-command_history'
 
-[[plugins]]
-repo = 'kuuote/ddu-source-mr'
-[[plugins]]
-repo = 'lambdalisue/mr.vim'
 
 #  kind
 [[plugins]]
@@ -148,15 +148,19 @@ call ddu#custom#patch_global({
         \ 'file': {
           \ 'defaultAction': 'open',
           \ },
+        \ 'command_history': {
+          \ 'defaultAction': 'execute',
+          \ },
         \ },
       \ })
 
 " mapping
 
 nnoremap <silent> <space>ff  <Cmd>call ddu#start({'sources': [{'name': 'file_rec'}]})<CR>
-nnoremap <silent> <space>fr  <Cmd>call ddu#start({'sources': [{'name': 'mr'}]})<CR>
+nnoremap <silent> <space>fr  <Cmd>call ddu#start({'sources': [{'name': 'file_old'}]})<CR>
 nnoremap <silent> <space>fl  <Cmd>call ddu#start({'sources': [{'name': 'line'}]})<CR>
 nnoremap <silent> <space>fb  <Cmd>call ddu#start({'sources': [{'name': 'buffer'}]})<CR>
+nnoremap <silent> <space>fc  <Cmd>call ddu#start({'sources': [{'name': 'command_history'}]})<CR>
 
 autocmd FileType ddu-ff call s:ddu_my_settings()
 function! s:ddu_my_settings() abort
