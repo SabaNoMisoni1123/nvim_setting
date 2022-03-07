@@ -30,7 +30,7 @@ nnoremap sJ <C-w>J
 nnoremap sK <C-w>K
 nnoremap sL <C-w>L
 nnoremap sH <C-w>H
-nnoremap sZ :tabnew:terminal<CR>
+nnoremap sZ :tabnew<CR>:terminal<CR>
 nnoremap sn gt
 nnoremap sp gT
 nnoremap sr <C-w>r

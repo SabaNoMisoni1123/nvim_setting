@@ -40,8 +40,15 @@ nnoremap <silent> <C-d>dl :lua require'dap'.run_last()<CR>
 repo = 'Shougo/ddc.vim'
 hook_add = '''
 " sources
-call ddc#custom#patch_global('sources', ['nvim-lsp', 'around', 'neosnippet', 'buffer', 'file', 'dictionary'])
+call ddc#custom#patch_global('sources', ['nvim-lsp', 'around', 'neosnippet', 'buffer', 'file'])
 setlocal dictionary+=/usr/share/dict/words
+
+call ddc#custom#set_context('*', { ->
+  \ ddc#syntax#in('Comment') ? {
+  \   'sources': ['around', 'buffer', 'file', 'dictionary'],
+  \ } : {} })
+
+call ddc#custom#patch_filetype(["text", "markdown"], 'sources', ['around', 'dictionary', 'buffer', 'file'])
 
 call ddc#custom#patch_global('sourceOptions', {
     \ 'file': { 'mark': 'F', 'forceCompletionPattern': '\S/\S*'},
@@ -66,8 +73,8 @@ call ddc#custom#patch_global('sourceParams', {
     \ })
 
 call ddc#custom#patch_global({
-    \ 'backspaceCompletion': v:true,
-    \ })
+  \ 'backspaceCompletion': v:true,
+  \ })
 
 " <TAB>: completion.
 inoremap <silent><expr> <TAB>
@@ -107,6 +114,8 @@ repo = 'Shougo/ddu.vim'
 #  ui
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
+[[plugins]]
+repo = 'Shougo/ddu-ui-filer'
 
 #  source
 [[plugins]]
@@ -138,6 +147,10 @@ call ddu#custom#patch_global({
           \ 'split':  'floating',
           \ 'startFilter':  v:true,
         \ },
+        \ 'filer':{
+          \ 'split':  'no',
+          \ 'winWidth':  &columns / 4,
+        \ },
       \ },
       \ 'sourceOptions': {
         \ '_': {
@@ -161,9 +174,10 @@ nnoremap <silent> <space>fr  <Cmd>call ddu#start({'sources': [{'name': 'file_old
 nnoremap <silent> <space>fl  <Cmd>call ddu#start({'sources': [{'name': 'line'}]})<CR>
 nnoremap <silent> <space>fb  <Cmd>call ddu#start({'sources': [{'name': 'buffer'}]})<CR>
 nnoremap <silent> <space>fc  <Cmd>call ddu#start({'sources': [{'name': 'command_history'}]})<CR>
+nnoremap <silent> <space>fd  <Cmd>call ddu#start({'ui': 'filer', 'sources': [{'name': 'command_history'}]})<CR>
 
-autocmd FileType ddu-ff call s:ddu_my_settings()
-function! s:ddu_my_settings() abort
+autocmd FileType ddu-ff call s:ddu_ff_my_settings()
+function! s:ddu_ff_my_settings() abort
   nnoremap <buffer><silent> <CR>      <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
   nnoremap <buffer><silent> v         <Cmd>call ddu#ui#ff#do_action('toggleSelectItem')<CR>
   nnoremap <buffer><silent> i         <Cmd>call ddu#ui#ff#do_action('openFilterWindow')<CR>
@@ -171,8 +185,13 @@ function! s:ddu_my_settings() abort
   nnoremap <buffer><silent> p         <Cmd>call ddu#ui#ff#do_action('preview')<CR>
 endfunction
 
-autocmd FileType ddu-ff-filter call s:ddu_filter_my_settings()
-function! s:ddu_filter_my_settings() abort
+autocmd FileType ddu-filer call s:ddu_filer_my_settings()
+function! s:ddu_filer_my_settings() abort
+  nnoremap <buffer><silent> <CR>      <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
+endfunction
+
+autocmd FileType ddu-ff-filter call s:ddu_ff_filter_my_settings()
+function! s:ddu_ff_filter_my_settings() abort
   inoremap <buffer><silent> <CR>  <Esc><Cmd>close<CR>
   nnoremap <buffer><silent> <CR>  <Cmd>close<CR>
   nnoremap <buffer><silent> q     <Cmd>close<CR>
