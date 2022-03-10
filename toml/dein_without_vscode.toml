@@ -15,24 +15,6 @@ let g:signature_help_config = {
       \ }
 '''
 
-# dap ===========================================
-
-[[plugins]]
-repo = "mfussenegger/nvim-dap"
-[[plugins]]
-repo = "rcarriga/nvim-dap-ui"
-hook_add = '''
-" keymaps
-nnoremap <silent> <F5>    :lua require'dap'.continue()<CR>
-nnoremap <silent> <F6>    :lua require'dap'.step_over()<CR>
-nnoremap <silent> <F7>    :lua require'dap'.step_into()<CR>
-nnoremap <silent> <F8>    :lua require'dap'.step_out()<CR>
-nnoremap <silent> <C-d>b  :lua require'dap'.toggle_breakpoint()<CR>
-nnoremap <silent> <C-d>B  :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition：'))<CR>
-nnoremap <silent> <C-d>lp :lua require'dap'.set_breakpoint(nil、nil、vim.fn.input('Log point message：'))<CR>
-nnoremap <silent> <C-d>dr :lua require'dap'.repl.open()<CR>
-nnoremap <silent> <C-d>dl :lua require'dap'.run_last()<CR>
-'''
 
 # ddc ===========================================
 
@@ -174,7 +156,6 @@ nnoremap <silent> <space>fr  <Cmd>call ddu#start({'sources': [{'name': 'file_old
 nnoremap <silent> <space>fl  <Cmd>call ddu#start({'sources': [{'name': 'line'}]})<CR>
 nnoremap <silent> <space>fb  <Cmd>call ddu#start({'sources': [{'name': 'buffer'}]})<CR>
 nnoremap <silent> <space>fc  <Cmd>call ddu#start({'sources': [{'name': 'command_history'}]})<CR>
-nnoremap <silent> <space>fd  <Cmd>call ddu#start({'ui': 'filer', 'sources': [{'name': 'command_history'}]})<CR>
 
 autocmd FileType ddu-ff call s:ddu_ff_my_settings()
 function! s:ddu_ff_my_settings() abort
@@ -187,7 +168,7 @@ endfunction
 
 autocmd FileType ddu-filer call s:ddu_filer_my_settings()
 function! s:ddu_filer_my_settings() abort
-  nnoremap <buffer><silent> <CR>      <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
+  nnoremap <buffer><silent> <CR>      <Cmd>call ddu#ui#filer#do_action('itemAction')<CR>
 endfunction
 
 autocmd FileType ddu-ff-filter call s:ddu_ff_filter_my_settings()

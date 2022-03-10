@@ -1,3 +1,22 @@
+# dap ===========================================
+
+[[plugins]]
+repo = "mfussenegger/nvim-dap"
+[[plugins]]
+repo = "rcarriga/nvim-dap-ui"
+hook_add = '''
+" keymaps
+nnoremap <silent> <F5>    :lua require'dap'.continue()<CR>
+nnoremap <silent> <F6>    :lua require'dap'.step_over()<CR>
+nnoremap <silent> <F7>    :lua require'dap'.step_into()<CR>
+nnoremap <silent> <F8>    :lua require'dap'.step_out()<CR>
+nnoremap <silent> <C-d>b  :lua require'dap'.toggle_breakpoint()<CR>
+nnoremap <silent> <C-d>B  :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition：'))<CR>
+nnoremap <silent> <C-d>lp :lua require'dap'.set_breakpoint(nil、nil、vim.fn.input('Log point message：'))<CR>
+nnoremap <silent> <C-d>dr :lua require'dap'.repl.open()<CR>
+nnoremap <silent> <C-d>dl :lua require'dap'.run_last()<CR>
+'''
+
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 hook_add = '''
