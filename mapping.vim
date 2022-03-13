@@ -33,7 +33,6 @@ nnoremap sH <C-w>H
 nnoremap sZ :tabnew<CR>:terminal<CR>
 nnoremap sn gt
 nnoremap sp gT
-nnoremap sr <C-w>r
 nnoremap s= <C-w>=
 nnoremap sO <C-w>=
 nnoremap so <C-w>_<C-w>\|
