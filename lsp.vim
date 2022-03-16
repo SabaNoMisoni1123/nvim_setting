@@ -5,7 +5,7 @@ function! LC_maps()
     nnoremap <buffer> <silent> <Leader>ld     <Cmd>lua vim.lsp.buf.definition()<CR>
     nnoremap <buffer> <silent> <Leader>lh     <Cmd>lua vim.lsp.buf.hover()<CR>
     nnoremap <buffer> <silent> <Leader>li     <Cmd>lua vim.lsp.buf.implementation()<CR>
-    inoremap <buffer> <silent> <Leader>lS     <Cmd>lua vim.lsp.buf.signature_help()<CR>
+    inoremap <buffer> <silent> <C-s>          <Cmd>lua vim.lsp.buf.signature_help()<CR>
     nnoremap <buffer> <silent> <Leader>lt     <Cmd>lua vim.lsp.buf.type_definition()<CR>
     nnoremap <buffer> <silent> <Leader>lr     <Cmd>lua vim.lsp.buf.rename()<CR>
     nnoremap <buffer> <silent> <Leader>lk     <Cmd>lua vim.lsp.buf.references()<CR>

@@ -10,7 +10,7 @@ let g:signature_help_config = {
       \ 'border': v:true,
       \ 'maxWidth': 80,
       \ 'maxHeight': 30,
-      \ 'style': "labelOnly",
+      \ 'style': "virtual",
       \ 'onTriggerChar': v:false,
       \ }
 '''
@@ -101,6 +101,8 @@ repo = 'Shougo/ddu-ui-filer'
 
 #  source
 [[plugins]]
+repo = 'Shougo/ddu-source-file'
+[[plugins]]
 repo = 'Shougo/ddu-source-file_rec'
 [[plugins]]
 repo = 'Shougo/ddu-source-line'
@@ -125,28 +127,31 @@ hook_add = '''
 call ddu#custom#patch_global({
       \ 'ui': 'ff',
       \ 'uiParams': {
-        \ 'ff':{
-          \ 'split':  'floating',
-          \ 'startFilter':  v:true,
-        \ },
-        \ 'filer':{
-          \ 'split':  'no',
-          \ 'winWidth':  &columns / 4,
-        \ },
+      \   'ff':{
+      \     'split':  'floating',
+      \     'startFilter':  v:true,
+      \   },
+      \   'filer':{
+      \     'split':  'no',
+      \     'winWidth':  &columns / 4,
+      \   },
       \ },
       \ 'sourceOptions': {
-        \ '_': {
-          \ 'matchers': ['matcher_substring'],
-          \ },
-        \ },
+      \   '_': {
+      \     'matchers': ['matcher_substring'],
+      \   },
+      \ },
       \ 'kindOptions': {
-        \ 'file': {
-          \ 'defaultAction': 'open',
-          \ },
-        \ 'command_history': {
-          \ 'defaultAction': 'execute',
-          \ },
-        \ },
+      \   'file': {
+      \     'defaultAction': 'open',
+      \   },
+      \   'command_history': {
+      \     'defaultAction': 'execute',
+      \   },
+      \ },
+      \ 'actionOptions': {
+      \   'narrow': {'quit': v:false},
+      \ },
       \ })
 
 " mapping
@@ -156,6 +161,7 @@ nnoremap <silent> <space>fr  <Cmd>call ddu#start({'sources': [{'name': 'file_old
 nnoremap <silent> <space>fl  <Cmd>call ddu#start({'sources': [{'name': 'line'}]})<CR>
 nnoremap <silent> <space>fb  <Cmd>call ddu#start({'sources': [{'name': 'buffer'}]})<CR>
 nnoremap <silent> <space>fc  <Cmd>call ddu#start({'sources': [{'name': 'command_history'}]})<CR>
+nnoremap <silent> <space>fd  <Cmd>call ddu#start({'ui': 'filer', 'sources': [{'name': 'file'}]})<CR>
 
 autocmd FileType ddu-ff call s:ddu_ff_my_settings()
 function! s:ddu_ff_my_settings() abort
@@ -168,7 +174,12 @@ endfunction
 
 autocmd FileType ddu-filer call s:ddu_filer_my_settings()
 function! s:ddu_filer_my_settings() abort
-  nnoremap <buffer><silent> <CR>      <Cmd>call ddu#ui#filer#do_action('itemAction')<CR>
+  nnoremap <buffer><expr> <CR>
+    \ ddu#ui#filer#is_directory() ?
+    \ "<Cmd>call ddu#ui#filer#do_action('itemAction',
+    \  {'name': 'narrow'})<CR>" :
+    \ "<Cmd>call ddu#ui#filer#do_action('itemAction',
+    \  {'name': 'open'})<CR>"
 endfunction
 
 autocmd FileType ddu-ff-filter call s:ddu_ff_filter_my_settings()
