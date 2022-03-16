@@ -17,6 +17,7 @@ if !exists('g:vscode')
   exe 'source' expand(g:nvim_home_dir . '/lsp.vim')
   exe 'source' expand(g:nvim_home_dir . '/mapping.vim')
 else
+  exe 'source' expand(g:nvim_home_dir . '/set_with_vscode.vim')
   exe 'source' expand(g:nvim_home_dir . '/mapping_vscode.vim')
 endif
 
