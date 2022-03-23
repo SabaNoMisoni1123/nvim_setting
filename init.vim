@@ -2,7 +2,7 @@
 let mapleader = "\<Space>"
 let maplocalleader = "\\"
 
-let OSTYPE=substitute(system("uname"), '\n', '', 'g')
+let g:OSTYPE=substitute(system("uname"), '\n', '', 'g')
 
 let g:python3_host_prog = substitute(system("which python"), '\n', '', 'g')
 

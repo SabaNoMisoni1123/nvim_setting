@@ -50,6 +50,13 @@ let g:vimtex_quickfix_ignore_filters = [
       \ 'Font Warning',
       \ 'Underfull',
       \]
+
+if g:OSTYPE == "Darwin"
+  let g:vimtex_view_general_viewer = 'Skim.app'
+elseif g:OSTYPE == "Linux"
+  let g:vimtex_view_general_viewer = 'evince'
+endif
+
 '''
 
 #ここを参考https://qiita.com/alpaca_taichou/items/056a4c42fe7a928973e6
