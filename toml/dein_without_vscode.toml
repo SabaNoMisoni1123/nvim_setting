@@ -133,7 +133,6 @@ call ddu#custom#patch_global({
       \   },
       \   'filer':{
       \     'split':  'no',
-      \     'winWidth':  &columns / 4,
       \   },
       \ },
       \ 'sourceOptions': {
@@ -154,6 +153,28 @@ call ddu#custom#patch_global({
       \ },
       \ })
 
+call ddu#custom#patch_local('filer', {
+      \ 'ui': 'filer',
+      \ 'sources': [{'name': 'file'}],
+      \ 'uiParams': {
+      \   'filer': {
+      \     'split': 'no',
+      \   },
+      \ },
+      \ })
+
+call ddu#custom#patch_local('filer_n', {
+      \ 'ui': 'filer',
+      \ 'sources': [{'name': 'file'}],
+      \ 'uiParams': {
+      \   'filer': {
+      \     'split': 'vertical',
+      \     'splitDirection': 'topleft',
+      \     'winCol': 10,
+      \   },
+      \ },
+      \ })
+
 " mapping
 
 nnoremap <silent> <space>ff  <Cmd>call ddu#start({'sources': [{'name': 'file_rec'}]})<CR>
@@ -161,7 +182,8 @@ nnoremap <silent> <space>fr  <Cmd>call ddu#start({'sources': [{'name': 'file_old
 nnoremap <silent> <space>fl  <Cmd>call ddu#start({'sources': [{'name': 'line'}]})<CR>
 nnoremap <silent> <space>fb  <Cmd>call ddu#start({'sources': [{'name': 'buffer'}]})<CR>
 nnoremap <silent> <space>fc  <Cmd>call ddu#start({'sources': [{'name': 'command_history'}]})<CR>
-nnoremap <silent> <space>fd  <Cmd>call ddu#start({'ui': 'filer', 'sources': [{'name': 'file'}]})<CR>
+nnoremap <silent> <space>fd  <Cmd>call ddu#start({'name': 'filer'})<CR>
+nnoremap <silent> <space>fn  <Cmd>call ddu#start({'name': 'filer_n'})<CR>
 
 autocmd FileType ddu-ff call s:ddu_ff_my_settings()
 function! s:ddu_ff_my_settings() abort
@@ -187,6 +209,8 @@ function! s:ddu_filer_my_settings() abort
   nnoremap <buffer><expr> l
     \ ddu#ui#filer#is_directory() ?
     \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow'})<CR>" : ""
+
+  nnoremap <buffer><silent> q         <Cmd>call ddu#ui#ff#do_action('quit')<CR>
 endfunction
 
 autocmd FileType ddu-ff-filter call s:ddu_ff_filter_my_settings()
