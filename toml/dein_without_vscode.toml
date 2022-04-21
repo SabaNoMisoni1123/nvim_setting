@@ -203,14 +203,20 @@ function! s:ddu_filer_my_settings() abort
 
   nnoremap <buffer><expr> o
     \ ddu#ui#filer#is_directory() ?
-    \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow'})<CR>" :
+    \ "<Cmd>call ddu#ui#filer#do_action('expandItem')<CR>" :
     \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'open'})<CR>"
+
+  nnoremap <buffer><expr> O
+    \ ddu#ui#filer#is_directory() ?
+    \ "<Cmd>call ddu#ui#filer#do_action('collapseItem')<CR>" :
+    \ ""
 
   nnoremap <buffer><expr> l
     \ ddu#ui#filer#is_directory() ?
     \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow'})<CR>" : ""
 
-  nnoremap <buffer><silent> q         <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+  nnoremap <buffer><silent> <C-k>     <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'newDirectory'})<CR>
+  nnoremap <buffer><silent> q         <Cmd>call ddu#ui#filer#do_action('quit')<CR>
 endfunction
 
 autocmd FileType ddu-ff-filter call s:ddu_ff_filter_my_settings()
