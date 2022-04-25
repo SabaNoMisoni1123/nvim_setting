@@ -1,0 +1,143 @@
+[[plugins]]
+repo = 'Shougo/ddu.vim'
+depends = "denops.vim"
+on_source = 'denops.vim'
+
+
+#  setting script
+hook_source = '''
+call ddu#custom#patch_global({
+      \ 'ui': 'ff',
+      \ 'uiParams': {
+      \   'ff':{
+      \     'split':  'floating',
+      \     'startFilter':  v:true,
+      \   },
+      \   'filer':{
+      \     'split':  'no',
+      \   },
+      \ },
+      \ 'sourceOptions': {
+      \   '_': {
+      \     'matchers': ['matcher_substring'],
+      \   },
+      \ },
+      \ 'kindOptions': {
+      \   'file': {
+      \     'defaultAction': 'open',
+      \   },
+      \   'command_history': {
+      \     'defaultAction': 'execute',
+      \   },
+      \ },
+      \ 'actionOptions': {
+      \   'narrow': {'quit': v:false},
+      \ },
+      \ })
+
+call ddu#custom#patch_local('filer', {
+      \ 'ui': 'filer',
+      \ 'sources': [{'name': 'file'}],
+      \ 'uiParams': {
+      \   'filer': {
+      \     'split': 'no',
+      \   },
+      \ },
+      \ })
+
+'''
+
+hook_add = '''
+nnoremap <silent> <space>ff  <Cmd>call ddu#start({'sources': [{'name': 'file_rec'}]})<CR>
+nnoremap <silent> <space>fr  <Cmd>call ddu#start({'sources': [{'name': 'file_old'}]})<CR>
+nnoremap <silent> <space>fl  <Cmd>call ddu#start({'sources': [{'name': 'line'}]})<CR>
+nnoremap <silent> <space>fb  <Cmd>call ddu#start({'sources': [{'name': 'buffer'}]})<CR>
+nnoremap <silent> <space>fc  <Cmd>call ddu#start({'sources': [{'name': 'command_history'}]})<CR>
+nnoremap <silent> <space>fd  <Cmd>call ddu#start({'name': 'filer'})<CR>
+" nnoremap <silent> <space>fn  <Cmd>topleft 40vsplit<CR><Cmd>call ddu#start({'name': 'filer'})<CR>
+'''
+
+#  ui
+[[plugins]]
+repo = 'Shougo/ddu-ui-ff'
+on_source = 'ddu.vim'
+
+[plugins.ftplugin]
+ddu-ff = '''
+nnoremap <buffer><silent> <CR>      <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
+nnoremap <buffer><silent> v         <Cmd>call ddu#ui#ff#do_action('toggleSelectItem')<CR>
+nnoremap <buffer><silent> i         <Cmd>call ddu#ui#ff#do_action('openFilterWindow')<CR>
+nnoremap <buffer><silent> q         <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+nnoremap <buffer><silent> p         <Cmd>call ddu#ui#ff#do_action('preview')<CR>
+'''
+
+ddu-ff-filter = '''
+inoremap <buffer><silent> <CR>  <Esc><Cmd>close<CR>
+nnoremap <buffer><silent> <CR>  <Cmd>close<CR>
+nnoremap <buffer><silent> q     <Cmd>close<CR>
+'''
+
+[[plugins]]
+repo = 'Shougo/ddu-ui-filer'
+on_source = 'ddu.vim'
+[plugins.ftplugin]
+ddu-filer = '''
+nnoremap <buffer><expr> <CR>
+  \ ddu#ui#filer#is_directory() ?
+  \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow'})<CR>" :
+  \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'open'})<CR>"
+
+nnoremap <buffer><expr> o
+  \ ddu#ui#filer#is_directory() ?
+  \ "<Cmd>call ddu#ui#filer#do_action('expandItem')<CR>" :
+  \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'open'})<CR>"
+
+nnoremap <buffer><expr> O
+  \ ddu#ui#filer#is_directory() ?
+  \ "<Cmd>call ddu#ui#filer#do_action('collapseItem')<CR>" :
+  \ ""
+
+nnoremap <buffer><expr> l
+  \ ddu#ui#filer#is_directory() ?
+  \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow'})<CR>" : ""
+
+nnoremap <buffer><silent> h         <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'cd', 'params': {"path": fnamemodify(ddu#ui#filer#get_item().action.path, ':h:h')}})<CR>
+
+nnoremap <buffer><silent> <C-k>     <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'newDirectory'})<CR>
+nnoremap <buffer><silent> <C-l>     <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'newFile'})<CR>
+nnoremap <buffer><silent> L         <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'loclist'})<CR>
+nnoremap <buffer><silent> dd        <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'delete'})<CR>
+nnoremap <buffer><silent> q         <Cmd>call ddu#ui#filer#do_action('quit')<CR>
+'''
+
+
+#  source
+[[plugins]]
+repo = 'Shougo/ddu-source-file'
+on_source = 'ddu.vim'
+[[plugins]]
+repo = 'Shougo/ddu-source-file_rec'
+on_source = 'ddu.vim'
+[[plugins]]
+repo = 'Shougo/ddu-source-line'
+on_source = 'ddu.vim'
+[[plugins]]
+repo = 'shun/ddu-source-buffer'
+on_source = 'ddu.vim'
+[[plugins]]
+repo = 'Shougo/ddu-source-file_old'
+on_source = 'ddu.vim'
+[[plugins]]
+repo = 'matsui54/ddu-source-command_history'
+on_source = 'ddu.vim'
+
+
+#  kind
+[[plugins]]
+repo = 'Shougo/ddu-kind-file'
+on_source = 'ddu.vim'
+
+#  matcher
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_substring'
+on_source = 'ddu.vim'

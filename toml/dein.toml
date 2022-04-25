@@ -1,8 +1,5 @@
-#
-#================================================
 [[plugins]]
 repo = 'Shougo/dein.vim'
-#================================================
 
 [[plugins]]
 repo = 'vim-denops/denops.vim'
@@ -51,7 +48,6 @@ xmap gga :Tabular
 xmap ga  <Plug>(EasyAlign)
 '''
 
-
 [[plugins]]
 repo = 'https://github.com/fuenor/jpmoveword.vim'
 
@@ -78,4 +74,271 @@ nmap <leader>m <Plug>(quickhl-manual-this)
 xmap <leader>m <Plug>(quickhl-manual-this)
 nmap <leader>M <Plug>(quickhl-manual-reset)
 xmap <leader>M <Plug>(quickhl-manual-reset)
+'''
+
+
+# language server ===============================
+
+[[plugins]]
+repo = 'neovim/nvim-lspconfig'
+hook_add = '''
+call signature_help#enable()
+let g:signature_help_config = {
+      \ 'border': v:true,
+      \ 'maxWidth': 80,
+      \ 'maxHeight': 30,
+      \ 'style': "virtual",
+      \ 'onTriggerChar': v:false,
+      \ }
+'''
+
+[[plugins]]
+repo = "matsui54/denops-signature_help"
+
+# Snippet =======================================
+
+[[plugins]]
+repo = 'Shougo/neosnippet'
+hook_add= '''
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+if has('conceal')
+  set conceallevel=0 concealcursor=niv
+endif
+let g:neosnippet#snippets_directory=expand('~/.config/nvim/NeoSnips')
+'''
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+# defx ==========================================
+
+[[plugins]]
+repo = 'Shougo/defx.nvim'
+hook_add = '''
+call defx#custom#column('indent',{'indent': "- "})
+call defx#custom#column('mark', {
+            \ 'directory_icon': '▸',
+            \ 'opened_icon': '▾',
+            \ 'readonly_icon': '✗',
+            \ 'root_icon': ' ',
+            \ 'selected_icon': '✓',
+            \ })
+
+call defx#custom#column('git', 'indicators', {
+            \ 'Modified'  : '✹',
+            \ 'Staged'    : '✚',
+            \ 'Untracked' : '✭',
+            \ 'Renamed'   : '➜',
+            \ 'Unmerged'  : '═',
+            \ 'Ignored'   : '☒',
+            \ 'Deleted'   : '✖',
+            \ 'Unknown'   : '?'
+            \})
+
+nnoremap <silent> st        :Defx -new -auto-cd -columns=time:size:git:mark:indent:filename -show-ignored-files `expand('%:p:h')` -search=`expand('%:p')` -split=tab        <CR>
+nnoremap <silent> <leader>d :Defx -new -auto-cd -columns=time:size:git:mark:indent:filename -show-ignored-files `expand('%:p:h')` -search=`expand('%:p')` -split=no         <CR>
+nnoremap <silent> <leader>n :Defx -new -auto-cd -columns=:git:mark:indent:filename -show-ignored-files `expand('%:p:h')` -search=`expand('%:p')` -split=vertical -winwidth=40 -direction='topleft'<CR>
+nnoremap <silent> <leader>z :Defx -new -auto-cd -columns=mark:indent:filename:time      -show-ignored-files `expand('%:p:h')` -search=`expand('%:p')` -split=floating <CR>
+" seldom used
+" nnoremap <silent> <leader>dv :Defx -new -auto-cd -columns=size:mark:filename:time -show-ignored-files `expand('%:p:h')` -search=`expand('%:p')` -split=vertical -winwidth=50<CR>:IndentLinesDisable<CR>
+
+autocmd FileType defx call s:defx_my_settings()
+function!  s:defx_my_settings() abort
+    " Define mappings
+    nnoremap <silent><buffer><expr> <CR>          defx#do_action('open')
+    nnoremap <silent><buffer><expr> o             defx#is_directory()?defx#do_action('open_or_close_tree'):defx#do_action('drop')
+    nnoremap <silent><buffer><expr> O             defx#is_directory()?defx#do_action('open_tree_recursive'):defx#do_action('drop','tabnew')
+    nnoremap <silent><buffer><expr> <2-LeftMouse> defx#do_action('open')
+    nnoremap <silent><buffer><expr> l             defx#do_action('open_directory')
+    nnoremap <silent><buffer><expr> K             defx#do_action('new_directory')
+    nnoremap <silent><buffer><expr> L             defx#do_action('new_file')
+    nnoremap <silent><buffer><expr> h             defx#do_action('cd',['..'])
+    nnoremap <silent><buffer><expr> dd            defx#do_action('remove',['..'])
+    nnoremap <silent><buffer><expr> r             defx#do_action('rename',['..'])
+    nnoremap <silent><buffer><expr> ~             defx#do_action('cd')
+    nnoremap <silent><buffer><expr> v             defx#do_action('toggle_select').'j'
+    nnoremap <silent><buffer><expr> S             defx#do_action('toggle_ignored_files')
+    nnoremap <silent><buffer><expr> R             defx#do_action('redraw')
+    nnoremap <silent><buffer><expr> yy            defx#do_action('yank_path')
+    nnoremap <silent><buffer><expr> !             defx#do_action('execute_command')
+    nnoremap <silent><buffer><expr> x             defx#do_action('execute_system')
+    nnoremap <silent><buffer><expr> c             defx#do_action('copy')
+    nnoremap <silent><buffer><expr> p             defx#do_action('paste')
+    nnoremap <silent><buffer><expr> Se            defx#do_action('toggle_sort', 'extension')
+    nnoremap <silent><buffer><expr> Sn            defx#do_action('toggle_sort', 'filename')
+    nnoremap <silent><buffer><expr> Ss            defx#do_action('toggle_sort', 'size')
+    nnoremap <silent><buffer><expr> St            defx#do_action('toggle_sort', 'time')
+    nnoremap <buffer>               <leader>gd    :call <SID>git_diff_of_directory()<CR>
+    nnoremap <silent><buffer><expr> q             defx#do_action('quit')
+endfunction
+
+function! s:git_diff_of_directory()
+    exe "tabnew"
+    exe "read !git diff"
+    exe "setf diff"
+    exe "setlocal buftype=nofile"
+    exe "setlocal bufhidden=hide"
+    exe "setlocal noswapfile"
+endfunction
+'''
+[[plugins]]
+repo = 'kristijanhusak/defx-git'
+[[plugins]]
+repo = 'kristijanhusak/defx-icons'
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+
+
+# git ===========================================
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+hook_add = '''
+"gitgutter
+let g:gitgutter_preview_win_floating = 0
+nmap <Leader>hs <Plug>(GitGutterStageHunk)
+nmap <Leader>ha <Plug>(GitGutterStageHunk)
+nmap <Leader>hu <Plug>(GitGutterUndoHunk)
+nmap <Leader>hp <Plug>(GitGutterPreviewHunk)
+nmap <Leader>hv <Plug>(GitGutterPreviewHunk)
+nmap ]c         <Plug>(GitGutterNextHunk)
+nmap [c         <Plug>(GitGutterPrevHunk)
+omap ic         <Plug>(GitGutterTextObjectInnerPending)
+omap ac         <Plug>(GitGutterTextObjectOuterPending)
+xmap ic         <Plug>(GitGutterTextObjectInnerVisual)
+xmap ac         <Plug>(GitGutterTextObjectOuterVisual)
+nmap ]h         <Plug>(GitGutterNextHunk)
+nmap [h         <Plug>(GitGutterPrevHunk)
+omap ih         <Plug>(GitGutterTextObjectInnerPending)
+omap ah         <Plug>(GitGutterTextObjectOuterPending)
+xmap ih         <Plug>(GitGutterTextObjectInnerVisual)
+xmap ah         <Plug>(GitGutterTextObjectOuterVisual)
+
+" vim-fugitive
+nnoremap <leader>gs :Gstatus<CR><C-w>T
+nnoremap <leader>ga :Gwrite<CR>
+nnoremap <leader>gc :Gcommit-v<CR>
+nnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>gl :Glog<CR>
+nnoremap <leader>gh :0Glog<CR> " abbrev for git history: create new quickfix tab for history
+nnoremap <leader>gp :Gpush<CR>
+nnoremap <leader>gf :Gfetch<CR>
+nnoremap <leader>gd :Gvdiff<CR>
+nnoremap <leader>gr :Grebase -i<CR>
+nnoremap <leader>gg :Glgrep ""<Left>
+nnoremap <leader>gm :Gmerge
+'''
+
+
+# deol ==========================================
+
+[[plugins]]
+repo = 'Shougo/deol.nvim'
+hook_add = '''
+let g:deol#prompt_pattern = '% \|%$'
+nnoremap sx :tabnew:cd %:h<CR>:DeolEdit<CR>
+nnoremap sz :10new:cd %:h<CR>:Deol<CR>
+'''
+
+
+# ctag ==========================================
+
+[[plugins]]
+repo = 'soramugi/auto-ctags.vim'
+hook_add = '''
+let g:auto_ctags_set_tags_option=1
+'''
+[[plugins]]
+repo = 'majutsushi/tagbar.git'
+hook_add = '''
+nmap <leader>t :TagbarToggle<CR>
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
+'''
+
+# others ========================================
+
+[[plugins]]
+repo = 'glidenote/memolist.vim'
+hook_add = '''
+let g:memolist_path="~/memo"
+let g:memolist_memo_date = "%Y%m%d-%H%M"
+let g:memolist_vimfiler_option = "-split -winwidth=50 -simple"
+let g:memolist_memo_suffix = "md"
+let g:memolist_filename_date = "%y%m%d_"
+let g:memolist_vimfiler_option = "-split -winwidth=50 -simple"
+map <Leader><Leader>mn  :MemoNew<CR>
+map <Leader><Leader>ml  :MemoList<CR>
+map <Leader><Leader>mg  :MemoGrep<CR>
+'''
+
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+hook_add = '''
+nmap <space>b <Plug>(openbrowser-smart-search)
+vmap <space>b <Plug>(openbrowser-smart-search)
+'''
+
+[[plugins]]
+repo = 'ncm2/float-preview.nvim.git'
+hook_add = '''
+let g:float_preview#docked = 0
+'''
+
+[[plugins]]
+repo = 'easymotion/vim-easymotion'
+hook_add = '''
+map <leader>e <Plug>(easymotion-prefix)
+'''
+
+# translate =====================================
+
+[[plugins]]
+repo = 'skanehira/translate.vim'
+hook_add = '''
+let g:translate_source = "en"
+let g:translate_target = "ja"
+let g:translate_popup_window = 0
+let g:translate_winsize = 10
+
+function! s:swap_translate_language()
+  let l:temp = g:translate_target
+  let g:translate_target = g:translate_source
+  let g:translate_source = l:temp
+endfunction
+
+function! s:check_translate_language()
+  echo(g:translate_source . "->" . g:translate_target)
+endfunction
+
+command! SwapTransrateLang call s:swap_translate_language()
+command! CheckTransrateLang call s:check_translate_language()
 '''

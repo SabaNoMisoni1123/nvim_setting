@@ -1,0 +1,190 @@
+# dap ===========================================
+
+[[plugins]]
+repo = "mfussenegger/nvim-dap-python"
+on_ft = ['python']
+depends = ['nvim-dap']
+hook_source = '''
+lua << EOF
+require('dap-python').setup('python')
+EOF
+
+nnoremap <silent> <C-d>pn :lua require('dap-python').test_method()<CR>
+nnoremap <silent> <C-d>pf :lua require('dap-python').test_class()<CR>
+vnoremap <silent> <C-d>ps <ESC>:lua require('dap-python').debug_selection()<CR>
+'''
+
+# ===============================================
+
+[[plugins]]
+repo = 'lervag/vimtex'
+# rev = 'v2.6'
+on_ft = ['tex','cls']
+hook_source= '''
+let g:vimtex_syntax_conceal = {
+    \ 'accents': 0,
+    \ 'cites': 0,
+    \ 'fancy': 0,
+    \ 'greek': 0,
+    \ 'math_bounds': 0,
+    \ 'math_delimiters': 0,
+    \ 'math_fracs': 0,
+    \ 'math_super_sub': 0,
+    \ 'math_symbols': 0,
+    \ 'sections': 0,
+    \ 'styles': 0,
+    \}
+let g:vimtex_mappings_enabled=0
+let g:vimtex_compiler_latexmk = {
+    \ 'build_dir' : '',
+    \ 'callback' : 1,
+    \ 'continuous' : 1,
+    \ 'executable' : 'latexmk',
+    \}
+
+nmap <localleader>ll  <plug>(vimtex-compile)
+nmap <localleader>lt  <plug>(vimtex-toc-toggle)
+nmap <localleader>ls  <plug>(vimtex-status-all)
+
+let g:vimtex_quickfix_ignore_filters = [
+      \ 'Font Warning',
+      \ 'Underfull',
+      \]
+
+if g:OSTYPE == "Darwin"
+  let g:vimtex_view_general_viewer = 'Skim.app'
+elseif g:OSTYPE == "Linux"
+  let g:vimtex_view_general_viewer = 'evince'
+endif
+
+'''
+
+#ここを参考https://qiita.com/alpaca_taichou/items/056a4c42fe7a928973e6
+
+[[plugins]]
+repo = 'mattn/emmet-vim'
+on_ft = ['html','htm','md','markdown']
+hook_source = '''
+let g:user_emmet_leader_key=',,'
+'''
+
+[[plugins]]
+repo = 'Yggdroot/indentLine'
+on_ft = ['c','cpp','python','tex', 'js', 'javascript', 'rust', 'html', 'css', 'java']
+
+
+[[plugins]]
+repo = 'https://github.com/hail2u/vim-css3-syntax'
+on_ft = ['html','htm']
+
+
+[[plugins]]
+repo = 'https://github.com/kchmck/vim-coffee-script'
+on_ft = ['html','htm']
+
+[[plugins]]
+repo = 'https://github.com/AtsushiM/sass-compile.vim'
+on_ft = ['sass','scss','css']
+hook_add = '''
+let g:sass_compile_auto                 = 1
+let g:sass_compile_cdloop               = 5
+let g:sass_compile_cssdir               = ['css', 'stylesheet']
+let g:sass_compile_file                 = ['scss', 'sass']
+let g:sass_started_dirs                 = []
+let g:sass_compile_beforecmd            = ''
+autocmd FileType less,sass  setlocal sw = 2 sts=2 ts=2 et
+'''
+depends = ['search-parent']
+
+[[plugins]]
+repo = 'AtsushiM/search-parent.vim'
+on_ft = ['sass','scss','css']
+
+[[plugins]]
+repo = 'https://github.com/akiyan/vim-textobj-php'
+on_ft = ['html','htm']
+
+[[plugins]]
+repo = 'https://github.com/tpope/vim-surround'
+on_ft = ['html','htm']
+
+[[plugins]]
+repo = 'https://github.com/ap/vim-css-color'
+on_ft = ['html','htm', 'vim']
+
+[[plugins]]
+repo = 'https://github.com/cakebaker/scss-syntax.vim'
+on_ft = ['html','htm']
+
+
+[[plugins]]
+repo='maksimr/vim-jsbeautify'
+on_ft=['js', 'html', 'jsx', 'json', 'css']
+hook_source = '''
+augroup Beautifytype
+  "for javascript
+  autocmd FileType javascript noremap <buffer> <leader>aj :call JsBeautify()<cr>
+  " for json
+  autocmd FileType json noremap <buffer> <leader>aj :call JsonBeautify()<cr>
+  " for jsx
+  autocmd FileType jsx noremap <buffer> <leader>aj :call JsxBeautify()<cr>
+  " for html
+  autocmd FileType html noremap <buffer> <leader>aj :call HtmlBeautify()<cr>
+  " for css or scss
+  autocmd FileType css noremap <buffer> <leader>aj :call CSSBeautify()<cr>
+augroup END
+'''
+
+[[plugins]]
+repo = 'https://github.com/qnighy/satysfi.vim'
+on_ft = ['satysfi','saty']
+
+
+[[plugins]]
+repo = 'https://github.com/plasticboy/vim-markdown.git'
+on_ft = ['markdown']
+hook_source = '''
+let g:vim_markdown_conceal=0
+let g:vim_markdown_conceal_code_blocks=0
+let g:vim_markdown_math=1
+'''
+
+#  writing tools =============
+
+[[plugins]]
+repo = 'https://github.com/dense-analysis/ale'
+hook_source = '''
+" let g:ale_sign_column_always=1
+" let g:ale_lint_on_save=1
+" let g:ale_lint_on_text_changed=1
+" let g:ale_lint_on_enter=0
+" let g:ale_open_list=0
+let g:ale_completion_enabled=1
+
+nnoremap <leader>af :ALEFix<CR>
+nnoremap <leader>al :ALELint<CR>
+nnoremap ]a :ALENext<CR>
+nnoremap [a :ALEPrevious<CR>
+
+let g:ale_linters={}
+let g:ale_linters={
+      \ 'markdown' : ['textlint'],
+      \}
+'''
+on_ft=['markdown']
+
+
+[[plugins]]
+repo = "kamykn/spelunker.vim"
+on_ft = ["markdown"]
+hook_source = '''
+set nospell
+'''
+
+[[plugins]]
+repo = "rhysd/vim-grammarous"
+on_ft = ["markdown"]
+hook_source = '''
+let g:grammarous#enable_spell_check=0
+let g:grammarous#use_vim_spelllang=0
+'''

@@ -14,25 +14,34 @@ if dein#load_state(s:dein_dir)
   let g:rc_dir                    = s:cache_home . '/toml'
   let s:toml                      = g:rc_dir . '/dein.toml'
   let s:lazy_toml                 = g:rc_dir . '/dein_lazy.toml'
-  let s:without_vscode_toml       = g:rc_dir . '/dein_without_vscode.toml'
-  let s:without_vscode_lazy_toml  = g:rc_dir . '/dein_without_vscode_lazy.toml'
-  let s:with_vscode_toml          = g:rc_dir . '/dein_with_vscode.toml'
+  let s:ddc_toml                 = g:rc_dir . '/dein_ddc.toml'
+  let s:ddu_toml                 = g:rc_dir . '/dein_ddu.toml'
+  let s:quickrun_toml                 = g:rc_dir . '/dein_quickrun.toml'
+
+  let s:vscode_toml          = g:rc_dir . '/dein_vscode.toml'
+
   let s:colorscheme_toml          = g:rc_dir . '/dein_colorscheme.toml'
   let s:colorscheme_local_toml    = g:rc_dir . '/dein_colorscheme_local.toml'
 
   " read toml file and cache them
-  call dein#load_toml(s:toml,      {'lazy': 0})
-  call dein#load_toml(s:lazy_toml, {'lazy': 1})
   if !exists('g:vscode')
-    call dein#load_toml(s:without_vscode_toml, {'lazy': 0})
-    call dein#load_toml(s:without_vscode_lazy_toml, {'lazy': 1})
+    "  neovim
+    call dein#load_toml(s:toml, {'lazy': 0})
+    call dein#load_toml(s:quickrun_toml, {'lazy': 0})
+    call dein#load_toml(s:ddc_toml, {'lazy': 0})
+
+    call dein#load_toml(s:lazy_toml, {'lazy': 1})
+    call dein#load_toml(s:ddu_toml, {'lazy': 1})
+
+    "  colorscheme
     if filereadable(expand(s:colorscheme_local_toml))
       call dein#load_toml(s:colorscheme_local_toml, {'lazy': 0})
     else
       call dein#load_toml(s:colorscheme_toml, {'lazy': 0})
     endif
   else
-    call dein#load_toml(s:with_vscode_toml, {'lazy': 0})
+    " vscode
+    call dein#load_toml(s:vscode_toml, {'lazy': 0})
   endif
 
   call dein#end()
