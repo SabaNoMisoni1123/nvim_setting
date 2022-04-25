@@ -1,21 +1,3 @@
-# dap ===========================================
-
-[[plugins]]
-repo = "mfussenegger/nvim-dap-python"
-on_ft = ['python']
-depends = ['nvim-dap']
-hook_source = '''
-lua << EOF
-require('dap-python').setup('python')
-EOF
-
-nnoremap <silent> <C-d>pn :lua require('dap-python').test_method()<CR>
-nnoremap <silent> <C-d>pf :lua require('dap-python').test_class()<CR>
-vnoremap <silent> <C-d>ps <ESC>:lua require('dap-python').debug_selection()<CR>
-'''
-
-# ===============================================
-
 [[plugins]]
 repo = 'lervag/vimtex'
 # rev = 'v2.6'
