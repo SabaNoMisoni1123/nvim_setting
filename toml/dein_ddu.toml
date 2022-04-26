@@ -45,6 +45,16 @@ call ddu#custom#patch_local('filer', {
       \ },
       \ })
 
+call ddu#custom#patch_local('filer_float', {
+      \ 'ui': 'filer',
+      \ 'sources': [{'name': 'file'}],
+      \ 'uiParams': {
+      \   'filer': {
+      \     'split': 'floating',
+      \   },
+      \ },
+      \ })
+
 '''
 
 hook_add = '''
@@ -53,8 +63,10 @@ nnoremap <silent> <space>fr  <Cmd>call ddu#start({'sources': [{'name': 'file_old
 nnoremap <silent> <space>fl  <Cmd>call ddu#start({'sources': [{'name': 'line'}]})<CR>
 nnoremap <silent> <space>fb  <Cmd>call ddu#start({'sources': [{'name': 'buffer'}]})<CR>
 nnoremap <silent> <space>fc  <Cmd>call ddu#start({'sources': [{'name': 'command_history'}]})<CR>
-nnoremap <silent> <space>fd  <Cmd>call ddu#start({'name': 'filer'})<CR>
-" nnoremap <silent> <space>fn  <Cmd>topleft 40vsplit<CR><Cmd>call ddu#start({'name': 'filer'})<CR>
+nnoremap <silent> <space>d   <Cmd>call ddu#start({'name': 'filer'})<CR>
+nnoremap <silent> <space>z   <Cmd>call ddu#start({'name': 'filer_float'})<CR>
+nnoremap <silent> st         <Cmd>tabnew<CR><Cmd>call ddu#start({'name': 'filer'})<CR>
+nnoremap <silent> <space>n   <Cmd>topleft 40vsplit<CR><Cmd>call ddu#start({'name': 'filer'})<CR>
 '''
 
 #  ui
@@ -107,15 +119,17 @@ nnoremap <buffer><expr> l
   \ ddu#ui#filer#is_directory() ?
   \ "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow'})<CR>" : ""
 
-nnoremap <buffer><silent> h         <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'cd', 'params': {"path": fnamemodify(ddu#ui#filer#get_item().action.path, ':h:h')}})<CR>
+nnoremap <buffer><silent> h               <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow', 'params': {'path': '..'}})<CR>
+nnoremap <buffer><silent> ~               <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow', 'params': {'path': '~'}})<CR>
 
-nnoremap <buffer><silent> <Space>   <Cmd>call ddu#ui#filer#do_action('toggleSelectItem')<CR>
-nnoremap <buffer><silent> K         <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'newDirectory'})<CR>
-nnoremap <buffer><silent> L         <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'newFile'})<CR>
-nnoremap <buffer><silent> s         <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'loclist'})<CR>
-nnoremap <buffer><silent> x         <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'executeSystem'})<CR>
-nnoremap <buffer><silent> dd        <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'delete'})<CR>
-nnoremap <buffer><silent> q         <Cmd>call ddu#ui#filer#do_action('quit')<CR>
+nnoremap <buffer><silent> <Space>         <Cmd>call ddu#ui#filer#do_action('toggleSelectItem')<CR>
+nnoremap <buffer><silent> <2-LeftMouse>   <Cmd>call ddu#ui#filer#do_action('toggleSelectItem')<CR>
+nnoremap <buffer><silent> K               <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'newDirectory'})<CR>
+nnoremap <buffer><silent> L               <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'newFile'})<CR>
+nnoremap <buffer><silent> s               <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'loclist'})<CR>
+nnoremap <buffer><silent> x               <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'executeSystem'})<CR>
+nnoremap <buffer><silent> dd              <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'delete'})<CR>
+nnoremap <buffer><silent> q               <Cmd>call ddu#ui#filer#do_action('quit')<CR>
 '''
 
 
