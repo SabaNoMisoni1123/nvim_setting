@@ -20,6 +20,7 @@ call ddu#custom#patch_global({
       \ 'sourceOptions': {
       \   '_': {
       \     'matchers': ['matcher_substring'],
+      \     'path': expand("%:p:h"),
       \   },
       \ },
       \ 'kindOptions': {
@@ -38,6 +39,12 @@ call ddu#custom#patch_global({
 call ddu#custom#patch_local('filer', {
       \ 'ui': 'filer',
       \ 'sources': [{'name': 'file'}],
+      \ 'sourceOptions': {
+      \   '_': {
+      \     'matchers': ['matcher_substring'],
+      \     'path': expand("%:p:h"),
+      \   },
+      \ },
       \ 'uiParams': {
       \   'filer': {
       \     'split': 'no',
@@ -48,6 +55,12 @@ call ddu#custom#patch_local('filer', {
 call ddu#custom#patch_local('filer_float', {
       \ 'ui': 'filer',
       \ 'sources': [{'name': 'file'}],
+      \ 'sourceOptions': {
+      \   '_': {
+      \     'matchers': ['matcher_substring'],
+      \     'path': expand("%:p:h"),
+      \   },
+      \ },
       \ 'uiParams': {
       \   'filer': {
       \     'split': 'floating',
@@ -60,7 +73,7 @@ call ddu#custom#patch_local('filer_float', {
 hook_add = '''
 nnoremap <silent> <space>ff  <Cmd>call ddu#start({'sources': [{'name': 'file_rec'}]})<CR>
 nnoremap <silent> <space>fr  <Cmd>call ddu#start({'sources': [{'name': 'file_old'}]})<CR>
-nnoremap <silent> <space>fl  <Cmd>call ddu#start({'sources': [{'name': 'line'}]})<CR>
+nnoremap <silent> /          <Cmd>call ddu#start({'sources': [{'name': 'line'}]})<CR>
 nnoremap <silent> <space>fb  <Cmd>call ddu#start({'sources': [{'name': 'buffer'}]})<CR>
 nnoremap <silent> <space>fc  <Cmd>call ddu#start({'sources': [{'name': 'command_history'}]})<CR>
 nnoremap <silent> <space>d   <Cmd>call ddu#start({'name': 'filer'})<CR>

@@ -1,8 +1,13 @@
 "key mapping
 
+" terminal mapping
 tnoremap <silent> <C-c> <C-\><C-n>
+autocmd TermOpen * startinsert
 
-"move to the end of a text after copying/pasting it
+" search
+nnoremap <C-_> /
+
+" move to the end of a text after copying/pasting it
 vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
@@ -19,7 +24,6 @@ nnoremap <Space> <Nop>
 " window control
 nnoremap ss <Cmd>split<CR>
 nnoremap sv <Cmd>vsplit<CR>
-" st is used by defx
 nnoremap sc <Cmd>tab sp<CR>
 nnoremap sC <Cmd>-tab sp<CR>
 nnoremap sj <C-w>j
@@ -30,7 +34,8 @@ nnoremap sJ <C-w>J
 nnoremap sK <C-w>K
 nnoremap sL <C-w>L
 nnoremap sH <C-w>H
-nnoremap sZ :tabnew<CR>:terminal<CR>
+nnoremap sx <Cmd>tab sp<CR><Cmd>terminal<CR>
+nnoremap sz <Cmd>10sp<CR><Cmd>terminal<CR>
 nnoremap sn <Cmd>tabn<CR>
 nnoremap sp <Cmd>tabp<CR>
 nnoremap s= <C-w>=
@@ -154,12 +159,6 @@ set matchpairs+=「:」,（:）
 " 最後に設定
 filetype plugin indent on
 syntax enable
-
-" key mapping
-nnoremap<silent> gss :SaveSession<CR>
-nnoremap<silent> gsl :LoadSession<CR>
-nnoremap<silent> gsc :CleanUpSession<CR>
-let g:gitsession_tmp_dir = expand("~/.config/nvim/tmp/gitsession")
 
 " 追加キーマップ
 inoremap <silent>jj <ESC>
