@@ -89,11 +89,34 @@ let g:quickrun_config['cpp/clang++-9']={
 
 let g:quickrun_config['cmake'] = {
     \ 'command': 'cmake',
-    \ 'exec': ['%c ..', 'make -j', 'echo "\n\n===output==="', './a.out'],
-    \ 'hook/cd/directory' : '%S:h:h'.'/build',
+    \ 'exec': [
+    \   '%c -B build',
+    \   'make -j -C build',
+    \   'echo "\n\n===output==="',
+    \   './src/a.out'
+    \ ],
+    \ 'hook/cd/directory' : '%S:h',
     \}
 
 let g:quickrun_config['cmake/first'] = {
+    \ 'command': 'cmake',
+    \ 'exec': [
+    \   '%c -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -B build',
+    \   'cp ./build/compile_commands.json ./',
+    \   'make -j -C build',
+    \   'echo "\n\n===output==="',
+    \   './build/a.out'
+    \ ],
+    \ 'hook/cd/directory' : '%S:h',
+    \}
+
+let g:quickrun_config['make'] = {
+    \ 'command': 'make',
+    \ 'exec': ['%c -j', 'echo "\n\n===output==="', './a.out'],
+    \ 'hook/cd/directory' : '%S:h',
+    \}
+
+let g:quickrun_config['cmake/src'] = {
     \ 'command': 'cmake',
     \ 'exec': [
     \   '%c -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..',
@@ -105,7 +128,7 @@ let g:quickrun_config['cmake/first'] = {
     \ 'hook/cd/directory' : '%S:h:h'.'/build',
     \}
 
-let g:quickrun_config['make'] = {
+let g:quickrun_config['make/src'] = {
     \ 'command': 'make',
     \ 'exec': ['%c -j', 'echo "\n\n===output==="', './a.out'],
     \ 'hook/cd/directory' : '%S:h:h'.'/build',

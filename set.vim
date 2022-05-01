@@ -89,7 +89,7 @@ augroup fileType
   autocmd filetype           help     setlocal listchars=tab:\ \  noet
   autocmd filetype           markdown setlocal tabstop=4 shiftwidth=4 expandtab wrap
   autocmd BufNewFile,BufRead *.grg    setlocal nowrap
-  autocmd BufNewFile,BufRead *.jl     setf julia
+  autocmd BufNewFile,BufRead *.jl     setfiletype julia
   autocmd BufNewFile,BufRead *.plt    setfiletype gnuplot
   autocmd BufNewFile,BufRead *.m      setfiletype matlab
   autocmd BufNewFile,BufRead *.csv    setfiletype csv

@@ -166,9 +166,11 @@ nnoremap O O<ESC>0D
 
 augroup keymaps
   autocmd!
-  autocmd FileType csv imap , ,
-  autocmd FileType tex inoremap @ \
-  autocmd FileType tex inoremap \ @
+  autocmd FileType csv    imap , ,
+  autocmd FileType tex    inoremap @ \
+  autocmd FileType tex    inoremap \ @
+  autocmd FileType c,cpp  nnoremap ,x <Cmd>QuickRun make/src<CR>
+  autocmd FileType c,cpp  nnoremap ,,x <Cmd>QuickRun cmake/src<CR>
 augroup END
 
 " 行末空白の削除
