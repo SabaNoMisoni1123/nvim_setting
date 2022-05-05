@@ -71,19 +71,19 @@ let g:quickrun_config["cpp"]={
       \}
 
 let g:quickrun_config['cpp/g++']={
-      \ 'cmdopt' : '-std=c++17',
+      \ 'cmdopt' : '-std=c++2a',
       \ 'hook/cd/directory' : '%S:h',
       \}
 
 let g:quickrun_config['cpp/clang++']={
       \ 'command' : 'clang++-9',
-      \ 'cmdopt' : '-std=c++17',
+      \ 'cmdopt' : '-std=c++2a',
       \ 'hook/cd/directory' : '%S:h',
       \}
 
 let g:quickrun_config['cpp/clang++-9']={
       \ 'command' : 'clang++-9',
-      \ 'cmdopt' : '-std=c++17',
+      \ 'cmdopt' : '-std=c++2a',
       \ 'hook/cd/directory' : '%S:h',
       \}
 
