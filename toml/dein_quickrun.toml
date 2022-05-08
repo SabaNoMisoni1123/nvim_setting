@@ -93,7 +93,7 @@ let g:quickrun_config['cmake'] = {
     \   '%c -B build',
     \   'make -j -C build',
     \   'echo "\n\n===output==="',
-    \   './src/a.out'
+    \   './build/a.out'
     \ ],
     \ 'hook/cd/directory' : '%S:h',
     \}
