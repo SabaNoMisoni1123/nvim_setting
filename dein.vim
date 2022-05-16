@@ -14,11 +14,12 @@ if dein#load_state(s:dein_dir)
   let g:rc_dir                    = s:cache_home . '/toml'
   let s:toml                      = g:rc_dir . '/dein.toml'
   let s:lazy_toml                 = g:rc_dir . '/dein_lazy.toml'
-  let s:ddc_toml                 = g:rc_dir . '/dein_ddc.toml'
-  let s:ddu_toml                 = g:rc_dir . '/dein_ddu.toml'
-  let s:quickrun_toml                 = g:rc_dir . '/dein_quickrun.toml'
+  let s:ddc_toml                  = g:rc_dir . '/dein_ddc.toml'
+  let s:ddu_toml                  = g:rc_dir . '/dein_ddu.toml'
+  let s:quickrun_toml             = g:rc_dir . '/dein_quickrun.toml'
+  let s:fileype_toml              = g:rc_dir . '/dein_filetype.toml'
 
-  let s:vscode_toml          = g:rc_dir . '/dein_vscode.toml'
+  let s:vscode_toml               = g:rc_dir . '/dein_vscode.toml'
 
   let s:colorscheme_toml          = g:rc_dir . '/dein_colorscheme.toml'
   let s:colorscheme_local_toml    = g:rc_dir . '/dein_colorscheme_local.toml'
@@ -32,6 +33,8 @@ if dein#load_state(s:dein_dir)
 
     call dein#load_toml(s:lazy_toml, {'lazy': 1})
     call dein#load_toml(s:ddu_toml, {'lazy': 1})
+
+    call dein#load_toml(s:fileype_toml)
 
     "  colorscheme
     if filereadable(expand(s:colorscheme_local_toml))

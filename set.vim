@@ -77,17 +77,6 @@ set ambiwidth=double
 
 augroup fileType
   autocmd!
-  autocmd filetype           python   setlocal tabstop=4 shiftwidth=4 foldmethod=syntax expandtab
-  autocmd filetype           c,cpp    setlocal tabstop=2 shiftwidth=2 foldmethod=syntax expandtab
-  autocmd filetype           go       setlocal tabstop=4 shiftwidth=4 expandtab | set formatoptions+=r
-  autocmd filetype           tex      setlocal tabstop=2 shiftwidth=2 foldmethod=syntax expandtab wrap conceallevel=0
-  autocmd filetype           html     setlocal tabstop=2 shiftwidth=2 expandtab nowrap
-  autocmd filetype           css      setlocal tabstop=2 shiftwidth=2 expandtab nowrap
-  autocmd filetype           vim      setlocal tabstop=2 shiftwidth=2 expandtab nowrap
-  autocmd filetype           csv      setlocal tabstop=4 shiftwidth=4 nowrap noexpandtab
-  autocmd filetype           text     setlocal tabstop=4 shiftwidth=4 expandtab
-  autocmd filetype           help     setlocal listchars=tab:\ \  noet
-  autocmd filetype           markdown setlocal tabstop=4 shiftwidth=4 expandtab wrap
   autocmd BufNewFile,BufRead *.grg    setlocal nowrap
   autocmd BufNewFile,BufRead *.jl     setfiletype julia
   autocmd BufNewFile,BufRead *.plt    setfiletype gnuplot
@@ -147,9 +136,3 @@ set conceallevel=0
 " 分割の位置
 set splitbelow
 set splitright
-
-" 単語境界文字
-set iskeyword+=-
-
-" default filetype of tex
-let g:tex_flavor = "latex"

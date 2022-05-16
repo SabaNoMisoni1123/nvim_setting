@@ -1,0 +1,95 @@
+[ftplugin]
+python = '''
+setlocal tabstop=4
+setlocal shiftwidth=4
+setlocal foldmethod=syntax
+setlocal expandtab
+setlocal textwidth=100
+'''
+
+c = '''
+setlocal tabstop=2
+setlocal shiftwidth=2
+setlocal foldmethod=syntax
+setlocal expandtab
+nnoremap ,x <Cmd>QuickRun make/src<CR>
+nnoremap ,,x <Cmd>QuickRun cmake/src<CR>
+'''
+
+cpp = '''
+setlocal tabstop=2
+setlocal shiftwidth=2
+setlocal foldmethod=syntax
+setlocal expandtab
+nnoremap ,x <Cmd>QuickRun make/src<CR>
+nnoremap ,,x <Cmd>QuickRun cmake/src<CR>
+'''
+
+go = '''
+setlocal tabstop=4
+setlocal shiftwidth=4
+setlocal expandtab
+setlocal formatoptions+r
+'''
+
+tex = '''
+setlocal tabstop=2
+setlocal shiftwidth=2
+setlocal foldmethod=syntax
+setlocal expandtab
+setlocal wrap
+setlocal conceallevel=0
+let g:tex_flavor = "latex"
+inoremap @ \
+inoremap \ @
+'''
+
+html = '''
+setlocal tabstop=2
+setlocal shiftwidth=2
+setlocal expandtab
+setlocal nowrap
+setlocal iskeyword+=-
+'''
+
+css = '''
+setlocal tabstop=2
+setlocal shiftwidth=2
+setlocal expandtab
+setlocal nowrap
+setlocal iskeyword+=-
+'''
+
+vim = '''
+setlocal tabstop=2
+setlocal shiftwidth=2
+setlocal expandtab
+setlocal nowrap
+'''
+
+csv = '''
+setlocal tabstop=4
+setlocal shiftwidth=4
+setlocal expandtab
+setlocal nowrap
+imap , ,
+'''
+
+text = '''
+setlocal tabstop=4
+setlocal shiftwidth=4
+setlocal expandtab
+'''
+
+help = '''
+setlocal listchartab:\ \
+setlocal noet
+'''
+
+markdown = '''
+setlocal tabstop=4
+setlocal shiftwidth=4
+setlocal expandtab
+setlocal wrap
+'''
+
