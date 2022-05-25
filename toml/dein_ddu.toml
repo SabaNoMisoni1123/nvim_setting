@@ -19,7 +19,7 @@ call ddu#custom#patch_global({
       \ },
       \ 'sourceOptions': {
       \   '_': {
-      \     'matchers': ['matcher_substring'],
+      \     'matchers': ['matcher_substring', 'matcher_relative', 'matcher_hidden'],
       \     'path': expand("%:p:h"),
       \   },
       \ },
@@ -34,17 +34,14 @@ call ddu#custom#patch_global({
       \ 'actionOptions': {
       \   'narrow': {'quit': v:false},
       \ },
+      \ 'filterParams': {
+      \   'matcher_substring': {'highlightMatched': 'Search'},
+      \ },
       \ })
 
 call ddu#custom#patch_local('filer', {
       \ 'ui': 'filer',
       \ 'sources': [{'name': 'file'}],
-      \ 'sourceOptions': {
-      \   '_': {
-      \     'matchers': ['matcher_substring'],
-      \     'path': expand("%:p:h"),
-      \   },
-      \ },
       \ 'uiParams': {
       \   'filer': {
       \     'split': 'no',
@@ -52,15 +49,21 @@ call ddu#custom#patch_local('filer', {
       \ },
       \ })
 
+call ddu#custom#patch_local('filer_left', {
+      \ 'ui': 'filer',
+      \ 'sources': [{'name': 'file'}],
+      \ 'uiParams': {
+      \   'filer': {
+      \     'split': 'vertical',
+      \     'splitDirection': 'topleft',
+      \     'winWidth': 40,
+      \   },
+      \ },
+      \ })
+
 call ddu#custom#patch_local('filer_float', {
       \ 'ui': 'filer',
       \ 'sources': [{'name': 'file'}],
-      \ 'sourceOptions': {
-      \   '_': {
-      \     'matchers': ['matcher_substring'],
-      \     'path': expand("%:p:h"),
-      \   },
-      \ },
       \ 'uiParams': {
       \   'filer': {
       \     'split': 'floating',
@@ -77,9 +80,9 @@ nnoremap <silent> /          <Cmd>call ddu#start({'sources': [{'name': 'line'}]}
 nnoremap <silent> <space>fb  <Cmd>call ddu#start({'sources': [{'name': 'buffer'}]})<CR>
 nnoremap <silent> <space>fc  <Cmd>call ddu#start({'sources': [{'name': 'command_history'}]})<CR>
 nnoremap <silent> <space>d   <Cmd>call ddu#start({'name': 'filer'})<CR>
-nnoremap <silent> <space>z   <Cmd>call ddu#start({'name': 'filer_float'})<CR>
 nnoremap <silent> st         <Cmd>tabnew<CR><Cmd>call ddu#start({'name': 'filer'})<CR>
-nnoremap <silent> <space>n   <Cmd>topleft 40vsplit<CR><Cmd>call ddu#start({'name': 'filer'})<CR>
+nnoremap <silent> <space>n   <Cmd>call ddu#start({'name': 'filer_left'})<CR>
+nnoremap <silent> <space>z   <Cmd>call ddu#start({'name': 'filer_float'})<CR>
 '''
 
 #  ui
@@ -142,6 +145,7 @@ nnoremap <buffer><silent> L               <Cmd>call ddu#ui#filer#do_action('item
 nnoremap <buffer><silent> s               <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'loclist'})<CR>
 nnoremap <buffer><silent> x               <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'executeSystem'})<CR>
 nnoremap <buffer><silent> dd              <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'delete'})<CR>
+nnoremap <buffer><silent> yy              <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'yank'})<CR>
 nnoremap <buffer><silent> q               <Cmd>call ddu#ui#filer#do_action('quit')<CR>
 '''
 
@@ -175,4 +179,12 @@ on_source = 'ddu.vim'
 #  matcher
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_substring'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_relative'
+on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_hidden'
 on_source = 'ddu.vim'
