@@ -40,8 +40,6 @@ setlocal expandtab
 setlocal wrap
 setlocal conceallevel=0
 let g:tex_flavor = "latex"
-inoremap @ \
-inoremap \ @
 '''
 
 html = '''
