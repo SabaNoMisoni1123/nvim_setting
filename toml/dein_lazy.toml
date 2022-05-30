@@ -34,7 +34,7 @@ let g:vimtex_quickfix_ignore_filters = [
       \]
 
 if g:OSTYPE == "Darwin"
-  let g:vimtex_view_general_viewer = 'Skim.app'
+  let g:vimtex_view_method = 'skim'
 elseif g:OSTYPE == "Linux"
   let g:vimtex_view_general_viewer = 'evince'
 endif
