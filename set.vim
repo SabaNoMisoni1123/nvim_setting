@@ -136,3 +136,6 @@ set conceallevel=0
 " 分割の位置
 set splitbelow
 set splitright
+
+" .tex setting
+let g:tex_flavor = "latex"

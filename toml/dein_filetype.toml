@@ -12,6 +12,7 @@ setlocal tabstop=2
 setlocal shiftwidth=2
 setlocal foldmethod=syntax
 setlocal expandtab
+setlocal textwidth=80
 nnoremap ,x <Cmd>QuickRun make/src<CR>
 nnoremap ,,x <Cmd>QuickRun cmake/src<CR>
 '''
@@ -21,6 +22,7 @@ setlocal tabstop=2
 setlocal shiftwidth=2
 setlocal foldmethod=syntax
 setlocal expandtab
+setlocal textwidth=80
 nnoremap ,x <Cmd>QuickRun make/src<CR>
 nnoremap ,,x <Cmd>QuickRun cmake/src<CR>
 '''
@@ -39,7 +41,6 @@ setlocal foldmethod=syntax
 setlocal expandtab
 setlocal wrap
 setlocal conceallevel=0
-let g:tex_flavor = "latex"
 '''
 
 html = '''
