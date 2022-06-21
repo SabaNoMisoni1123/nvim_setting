@@ -81,7 +81,6 @@ setlocal expandtab
 '''
 
 help = '''
-setlocal listchartab:\ \
 setlocal noet
 '''
 
