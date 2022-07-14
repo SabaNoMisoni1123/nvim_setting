@@ -362,3 +362,55 @@ let g:deol#prompt_pattern = '% \|%$'
 nnoremap sx :tabnew:cd %:h<CR>:DeolEdit<CR>
 nnoremap sz :10new:cd %:h<CR>:Deol<CR>
 '''
+
+# colorscheme ===================================
+[[plugins]]
+repo = 'haishanh/night-owl.vim'
+hook_add = '''
+colorscheme night-owl
+set termguicolors
+let g:lightline = {
+      \ 'colorscheme': 'nightowl',
+      \ }
+'''
+
+[[plugins]]
+repo = 'cocopon/iceberg.vim'
+hook_add = '''
+colorscheme iceberg
+set termguicolors
+let g:lightline = {
+  \ 'colorscheme': 'iceberg',
+  \ }
+'''
+
+[[plugins]]
+repo = 'nanotech/jellybeans.vim'
+hook_add = '''
+colorscheme jellybeans
+set termguicolors
+let g:lightline = {
+  \ 'colorscheme': 'jellybeans',
+  \ }
+'''
+
+[[plugins]]
+repo = 'wadackel/vim-dogrun'
+hook_add = '''
+colorscheme dogrun
+set termguicolors
+let g:lightline = {
+  \ 'colorscheme': 'dogrun',
+  \ }
+'''
+
+[[plugins]]
+repo = 'sainnhe/everforest'
+hook_add = '''
+colorscheme everforest
+set termguicolors
+let g:everforest_background = 'soft'
+let g:lightline = {
+  \ 'colorscheme': 'everforest',
+  \ }
+'''

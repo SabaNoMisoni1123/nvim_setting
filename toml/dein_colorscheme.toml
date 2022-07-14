@@ -7,12 +7,11 @@ let g:lightline = {
 '''
 
 [[plugins]]
-repo = 'nanotech/jellybeans.vim'
+repo = 'morhetz/gruvbox'
 hook_add = '''
-colorscheme jellybeans
+colorscheme gruvbox
 set termguicolors
 let g:lightline = {
-  \ 'colorscheme': 'jellybeans',
+  \ 'colorscheme': 'gruvbox',
   \ }
 '''
-
