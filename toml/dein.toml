@@ -198,7 +198,7 @@ let g:tagbar_type_go = {
 [[plugins]]
 repo = 'glidenote/memolist.vim'
 hook_add = '''
-let g:memolist_path="~/memo"
+let g:memolist_path="$MEMO_DIR"
 let g:memolist_memo_date = "%Y%m%d-%H%M"
 let g:memolist_vimfiler_option = "-split -winwidth=50 -simple"
 let g:memolist_memo_suffix = "md"
