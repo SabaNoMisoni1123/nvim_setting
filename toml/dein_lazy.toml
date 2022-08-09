@@ -33,7 +33,7 @@ endif
 
 [[plugins]]
 repo = 'mattn/emmet-vim'
-on_ft = ['html','htm','md','markdown']
+on_ft = ['html','htm','md','markdown', 'vue']
 hook_source = '''
 let g:user_emmet_leader_key=',,'
 '''
