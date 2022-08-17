@@ -103,6 +103,8 @@ nnoremap <silent> <leader>fes <Cmd>tabnew ~/.config/nvim/set.vim<CR>
 
 " grep
 nnoremap <leader>vv :vimgrep // %:p:h/*<Left><Left><Left><Left><Left><Left><Left><Left><Left>
+nnoremap cn :cn
+nnoremap cp :cp
 
 " recursive search
 let s:use_vim_grep = 0
