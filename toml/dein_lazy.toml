@@ -121,6 +121,7 @@ let g:vim_markdown_auto_insert_bullets=1
 
 [[plugins]]
 repo = 'https://github.com/dense-analysis/ale'
+on_ft=['markdown']
 hook_source = '''
 " let g:ale_sign_column_always=1
 " let g:ale_lint_on_save=1
@@ -138,8 +139,10 @@ let g:ale_linters={}
 let g:ale_linters={
       \ 'markdown' : ['textlint'],
       \}
+let g:ale_fixers = {
+      \ 'markdown' : ['textlint'],
+      \}
 '''
-on_ft=['markdown']
 
 [[plugins]]
 repo = "rhysd/vim-grammarous"
