@@ -44,12 +44,12 @@ if executable('css-language-server')
 endif
 
 " typescript/javascript
-if executable('deno')
-  let g:LSP_commands['typescript'] = "denols"
-  let g:LSP_commands['javascript'] = "denols"
-elseif executable('typescript-language-server')
+if executable('typescript-language-server')
   let g:LSP_commands['typescript'] = "tsserver"
   let g:LSP_commands['javascript'] = "tsserver"
+elseif executable('deno')
+  let g:LSP_commands['typescript'] = "denols"
+  let g:LSP_commands['javascript'] = "denols"
 endif
 
 " html
