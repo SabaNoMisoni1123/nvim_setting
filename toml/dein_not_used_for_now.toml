@@ -363,6 +363,12 @@ nnoremap sx :tabnew:cd %:h<CR>:DeolEdit<CR>
 nnoremap sz :10new:cd %:h<CR>:Deol<CR>
 '''
 
+[[plugins]]
+repo = 'cohama/lexima.vim'
+hook_add = '''
+let g:lexima_enable_newline_eules=0
+'''
+
 # colorscheme ===================================
 [[plugins]]
 repo = 'haishanh/night-owl.vim'
@@ -414,3 +420,4 @@ let g:lightline = {
   \ 'colorscheme': 'everforest',
   \ }
 '''
+

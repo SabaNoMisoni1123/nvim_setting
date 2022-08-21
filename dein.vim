@@ -28,9 +28,9 @@ if dein#load_state(s:dein_dir)
   if !exists('g:vscode')
     "  neovim
     call dein#load_toml(s:toml, {'lazy': 0})
-    call dein#load_toml(s:quickrun_toml, {'lazy': 0})
-    call dein#load_toml(s:ddc_toml, {'lazy': 0})
 
+    call dein#load_toml(s:quickrun_toml, {'lazy': 1})
+    call dein#load_toml(s:ddc_toml, {'lazy': 1})
     call dein#load_toml(s:lazy_toml, {'lazy': 1})
     call dein#load_toml(s:ddu_toml, {'lazy': 1})
 

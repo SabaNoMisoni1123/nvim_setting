@@ -3,7 +3,7 @@ repo = 'Shougo/ddc.vim'
 depends = ["denops.vim"]
 on_event = ['InsertEnter', 'CursorHold']
 
-hook_add = '''
+hook_source = '''
 call ddc#custom#patch_global('sources', ['nvim-lsp', 'file', 'neosnippet', 'around', 'buffer'])
 setlocal dictionary+=/usr/share/dict/words
 

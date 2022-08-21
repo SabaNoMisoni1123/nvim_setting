@@ -42,58 +42,10 @@ xmap iv <Plug>(textobj-entire-i)
 '''
 
 [[plugins]]
-repo = 'junegunn/vim-easy-align'
-hook_add = '''
-xmap gga :Tabular
-xmap ga  <Plug>(EasyAlign)
-'''
-
-[[plugins]]
 repo = 'https://github.com/fuenor/jpmoveword.vim'
 
 [[plugins]]
-repo = 'cohama/lexima.vim'
-
-[[plugins]]
 repo = 'Shougo/context_filetype.vim'
-
-[[plugins]]
-repo = 'scrooloose/nerdcommenter'
-hook_add = '''
-let g:NERDSpaceDelims=1
-let g:NERDDefaultAlign='left'
-let g:NERDCustomDelimiters = {'vim': {'left': '"','right':''}}
-let g:NERDCreateDefaultMappings=0
-map <Leader>c<space> <plug>NERDCommenterToggle
-'''
-
-[[plugins]]
-repo='t9md/vim-quickhl.git'
-hook_add = '''
-nmap <leader>m <Plug>(quickhl-manual-this)
-xmap <leader>m <Plug>(quickhl-manual-this)
-nmap <leader>M <Plug>(quickhl-manual-reset)
-xmap <leader>M <Plug>(quickhl-manual-reset)
-'''
-
-
-# language server ===============================
-
-[[plugins]]
-repo = 'neovim/nvim-lspconfig'
-hook_add = '''
-call signature_help#enable()
-let g:signature_help_config = {
-      \ 'border': v:true,
-      \ 'maxWidth': 80,
-      \ 'maxHeight': 30,
-      \ 'style': "virtual",
-      \ 'onTriggerChar': v:false,
-      \ }
-'''
-
-[[plugins]]
-repo = "matsui54/denops-signature_help"
 
 # Snippet =======================================
 
@@ -225,12 +177,6 @@ vmap <space>b <Plug>(openbrowser-smart-search)
 repo = 'ncm2/float-preview.nvim.git'
 hook_add = '''
 let g:float_preview#docked = 0
-'''
-
-[[plugins]]
-repo = 'easymotion/vim-easymotion'
-hook_add = '''
-map <leader>e <Plug>(easymotion-prefix)
 '''
 
 # translate =====================================

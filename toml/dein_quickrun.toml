@@ -1,6 +1,7 @@
 [[plugins]]
 repo = 'thinca/vim-quickrun'
-hook_add = '''
+on_event = 'InsertEnter'
+hook_source = '''
 nmap <leader>x <Plug>(quickrun)
 nmap <leader><leader>x :QuickRun<Space>
 

@@ -1,4 +1,64 @@
 [[plugins]]
+repo = 'junegunn/vim-easy-align'
+hook_add = '''
+xmap gga :Tabular
+xmap ga  <Plug>(EasyAlign)
+'''
+on_map = '<Plug>(EasyAlign)'
+
+[[plugins]]
+repo = 'kana/vim-smartinput'
+on_event = 'InsertEnter'
+
+[[plugins]]
+repo = 'scrooloose/nerdcommenter'
+hook_add = '''
+let g:NERDSpaceDelims=1
+let g:NERDDefaultAlign='left'
+let g:NERDCustomDelimiters = {'vim': {'left': '"','right':''}}
+let g:NERDCreateDefaultMappings=0
+map <Leader>c<space> <plug>NERDCommenterToggle
+'''
+on_event = 'InsertEnter'
+
+[[plugins]]
+repo='t9md/vim-quickhl.git'
+hook_add = '''
+nmap <leader>m <Plug>(quickhl-manual-this)
+xmap <leader>m <Plug>(quickhl-manual-this)
+nmap <leader>M <Plug>(quickhl-manual-reset)
+xmap <leader>M <Plug>(quickhl-manual-reset)
+'''
+on_event = 'InsertEnter'
+
+[[plugins]]
+repo = 'easymotion/vim-easymotion'
+hook_add = '''
+map <leader>e <Plug>(easymotion-prefix)
+'''
+on_map = '<Plug>(easymotion-prefix)'
+
+# language server ===============================
+
+[[plugins]]
+repo = 'neovim/nvim-lspconfig'
+on_ft = ['c', 'cpp', 'rust', 'python', 'vim', 'tex', 'javascript', 'typescript', 'html', 'css', 'vue']
+hook_add = '''
+call signature_help#enable()
+let g:signature_help_config = {
+      \ 'border': v:true,
+      \ 'maxWidth': 80,
+      \ 'maxHeight': 30,
+      \ 'style': "virtual",
+      \ 'onTriggerChar': v:false,
+      \ }
+'''
+
+[[plugins]]
+repo = "matsui54/denops-signature_help"
+on_source = "nvim-lspconfig"
+
+[[plugins]]
 repo = 'lervag/vimtex'
 # rev = 'v2.6'
 on_ft = ['tex','cls']
@@ -26,7 +86,6 @@ if g:OSTYPE == "Darwin"
 elseif g:OSTYPE == "Linux"
   let g:vimtex_view_general_viewer = 'evince'
 endif
-
 '''
 
 #ここを参考https://qiita.com/alpaca_taichou/items/056a4c42fe7a928973e6
@@ -116,8 +175,6 @@ let g:vim_markdown_conceal_code_blocks=0
 let g:vim_markdown_math=1
 let g:vim_markdown_auto_insert_bullets=1
 '''
-
-#  writing tools =============
 
 [[plugins]]
 repo = 'https://github.com/dense-analysis/ale'
