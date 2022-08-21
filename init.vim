@@ -14,7 +14,6 @@ exe 'source' expand(g:nvim_home_dir . '/dein.vim')
 " other settings
 if !exists('g:vscode')
   exe 'source' expand(g:nvim_home_dir . '/set.vim')
-  exe 'source' expand(g:nvim_home_dir . '/lsp.vim')
   exe 'source' expand(g:nvim_home_dir . '/mapping.vim')
 else
   exe 'source' expand(g:nvim_home_dir . '/set_with_vscode.vim')

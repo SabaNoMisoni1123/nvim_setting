@@ -43,20 +43,26 @@ on_map = '<Plug>(easymotion-prefix)'
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
 on_ft = ['c', 'cpp', 'rust', 'python', 'vim', 'tex', 'javascript', 'typescript', 'html', 'css', 'vue']
-hook_add = '''
-call signature_help#enable()
-let g:signature_help_config = {
-      \ 'border': v:true,
-      \ 'maxWidth': 80,
-      \ 'maxHeight': 30,
-      \ 'style': "virtual",
-      \ 'onTriggerChar': v:false,
-      \ }
+depends = 'lsp_signature.nvim'
+# hook_source = '''
+# call signature_help#enable()
+# let g:signature_help_config = {
+#       \ 'border': v:true,
+#       \ 'maxWidth': 80,
+#       \ 'maxHeight': 30,
+#       \ 'style': "virtual",
+#       \ 'onTriggerChar': v:false,
+#       \ }
+# '''
+hook_post_source = '''
+if !exists('g:vscode')
+  exe 'source' expand(g:nvim_home_dir . '/lsp.vim')
+endif
+LspStart
 '''
 
 [[plugins]]
-repo = "matsui54/denops-signature_help"
-on_source = "nvim-lspconfig"
+repo = 'ray-x/lsp_signature.nvim'
 
 [[plugins]]
 repo = 'lervag/vimtex'
