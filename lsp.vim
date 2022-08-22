@@ -24,7 +24,6 @@ let g:LSP_commands = {}
 " それぞれの言語を追加
 " 例えば、C/C++:
 if executable('clangd')
-  let g:LSP_commands['c'] = 'clangd'
   let g:LSP_commands['cpp'] = 'clangd'
 endif
 
@@ -45,22 +44,9 @@ endif
 
 " typescript/javascript
 if executable('typescript-language-server')
-  let g:LSP_commands['typescript'] = "tsserver"
   let g:LSP_commands['javascript'] = "tsserver"
 elseif executable('deno')
-  let g:LSP_commands['typescript'] = "denols"
   let g:LSP_commands['javascript'] = "denols"
-endif
-
-" html
-if executable('vscode-html-language-server')
-lua << EOF
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-require'lspconfig'.html.setup {
-  capabilities = capabilities,
-}
-EOF
 endif
 
 " vue
@@ -82,9 +68,24 @@ endif
 " 追加したそれぞれの言語についてLSPコマンドを起動
 lua << EOF
 for key, val in pairs(vim.g.LSP_commands) do
-  require('lspconfig')[val].setup {}
+  local on_attach = function(client, bufnr)
+    require "lsp_signature".on_attach()
+  end
+
+  require('lspconfig')[val].setup {
+    on_attach = on_attach,
+  }
 end
 EOF
+
+lua require "lsp_signature".setup({
+    \ floating_window = true,
+    \ floating_window_above_cur_line = true,
+    \ bind = true,
+    \ handler_opts = {
+    \   border = "single",
+    \ },
+    \ })
 
 lua << EOF
 -- エラー表示
