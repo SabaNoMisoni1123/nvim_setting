@@ -95,7 +95,7 @@ let g:user_emmet_leader_key=',,'
 
 [[plugins]]
 repo = 'Yggdroot/indentLine'
-on_ft = ['c','cpp','python','tex', 'js', 'javascript', 'rust', 'html', 'css', 'java']
+on_ft = ['c','cpp','python','tex', 'javascript', 'rust', 'html', 'css', 'java', 'vue']
 
 
 [[plugins]]
