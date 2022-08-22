@@ -20,7 +20,8 @@ else
   exe 'source' expand(g:nvim_home_dir . '/mapping_vscode.vim')
 endif
 
-filetype plugin indent on
+filetype plugin on
+filetype indent on
 syntax enable
 set conceallevel=0
 

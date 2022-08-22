@@ -7,7 +7,7 @@ xmap ga  <Plug>(EasyAlign)
 on_map = '<Plug>(EasyAlign)'
 
 [[plugins]]
-repo = 'kana/vim-smartinput'
+repo = 'cohama/lexima.vim'
 on_event = 'InsertEnter'
 
 [[plugins]]

@@ -54,9 +54,9 @@ set showtabline=2 laststatus=2
 set winblend=8 pumblend=30
 
 " tab settings
-" set tabstop=4 shiftwidth=4
 set tabstop=2 shiftwidth=2
-set smarttab smartindent expandtab
+set expandtab autoindent
+set nosmartindent nocindent
 
 "日本語(マルチバイト文字)行の連結時には空白を入力しない
 setlocal formatoptions+=mM
