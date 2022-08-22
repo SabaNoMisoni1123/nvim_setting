@@ -1,7 +1,7 @@
 "key mapping
 
 " terminal mapping
-tnoremap <silent> <C-c> <C-\><C-n>
+tnoremap <Esc> <C-\><C-n>
 autocmd TermOpen * startinsert
 
 " search
