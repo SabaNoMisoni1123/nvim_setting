@@ -167,4 +167,4 @@ inoremap <silent>jj <ESC>
 nnoremap O O<ESC>0D
 
 " 行末空白の削除
-nmap ds :%s/ *$//g<CR><C-o>zz
+nmap ds :%s/\s\+$//e<CR><C-o>

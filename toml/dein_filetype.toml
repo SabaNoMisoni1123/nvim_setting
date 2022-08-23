@@ -91,3 +91,10 @@ setlocal expandtab
 setlocal wrap
 '''
 
+vue = '''
+setlocal tabstop=2
+setlocal shiftwidth=2
+setlocal expandtab
+setlocal nowrap
+setlocal iskeyword+=-
+'''
