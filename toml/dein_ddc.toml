@@ -4,11 +4,13 @@ depends = ["denops.vim"]
 on_event = ['InsertEnter', 'CursorHold']
 
 hook_source = '''
+let s:ftypes = ['c', 'cpp', 'rust', 'python', 'gnuplot', 'typescript', 'javascript', 'html', 'css']
+
 call ddc#custom#patch_global('sources', ['nvim-lsp', 'file', 'neosnippet', 'around', 'buffer'])
 setlocal dictionary+=/usr/share/dict/words
 
-call ddc#custom#set_context(["python", "c", "cpp", "[a-z, A-Z]+"], { ->
-  \ ddc#syntax#in('Comment') || ddc#syntax#in("String") ? {
+call ddc#custom#set_context(s:ftypes, { ->
+  \ ddc#syntax#in(['Comment', 'String']) ? {
   \   'sources': ['file', 'around', 'buffer', 'dictionary'],
   \ } : {} })
 

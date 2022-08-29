@@ -84,6 +84,7 @@ lua require "lsp_signature".setup({
     \ bind = true,
     \ handler_opts = {
     \   border = "single",
+    \ max_height = 5,
     \ },
     \ })
 
