@@ -70,6 +70,14 @@ setlocal nowrap
 setlocal foldmethod=indent
 '''
 
+javascript = '''
+setlocal tabstop=2
+setlocal shiftwidth=2
+setlocal expandtab
+setlocal nowrap
+setlocal foldmethod=indent
+'''
+
 csv = '''
 setlocal tabstop=4
 setlocal shiftwidth=4
