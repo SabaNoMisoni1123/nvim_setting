@@ -1,13 +1,13 @@
 " mapping for vscode
 
 function! s:split(...) abort
-    let direction = a:1
-    let file = exists('a:2') ? a:2 : ''
-    call VSCodeCall(direction ==# 'h' ? 'workbench.action.splitEditorDown' : 'workbench.action.splitEditorRight')
-    if !empty(file)
-        call VSCodeExtensionNotify('open-file', expand(file), 'all')
-    endif
-  endfunction
+  let direction = a:1
+  let file = exists('a:2') ? a:2 : ''
+  call VSCodeCall(direction ==# 'h' ? 'workbench.action.splitEditorDown' : 'workbench.action.splitEditorRight')
+  if !empty(file)
+      call VSCodeExtensionNotify('open-file', expand(file), 'all')
+  endif
+endfunction
 
 "s commands
 nnoremap s <Nop>

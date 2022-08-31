@@ -87,31 +87,31 @@ augroup END
 
 
 augroup Binary
-    au!
-    au BufReadPre  *.bin let &bin=1
+  au!
+  au BufReadPre  *.bin let &bin=1
 
-    au BufReadPost *.bin if &bin | %!xxd
-    au BufReadPost *.bin set ft=xxd | endif
+  au BufReadPost *.bin if &bin | %!xxd
+  au BufReadPost *.bin set ft=xxd | endif
 
-    au BufWritePre *.bin if &bin | %!xxd -r
-    au BufWritePre *.bin endif
+  au BufWritePre *.bin if &bin | %!xxd -r
+  au BufWritePre *.bin endif
 
-    au BufWritePost *.bin if &bin | %!xxd
-    au BufWritePost *.bin set nomod | endif
+  au BufWritePost *.bin if &bin | %!xxd
+  au BufWritePost *.bin set nomod | endif
 augroup END
 
 augroup pcap
-    au!
-    au BufReadPre  *.pcap let &bin=1
+  au!
+  au BufReadPre  *.pcap let &bin=1
 
-    au BufReadPost *.pcap if &bin | %!xxd
-    au BufReadPost *.pcap set ft=xxd | endif
+  au BufReadPost *.pcap if &bin | %!xxd
+  au BufReadPost *.pcap set ft=xxd | endif
 
-    au BufWritePre *.pcap if &bin | %!xxd -r
-    au BufWritePre *.pcap endif
+  au BufWritePre *.pcap if &bin | %!xxd -r
+  au BufWritePre *.pcap endif
 
-    au BufWritePost *.pcap if &bin | %!xxd
-    au BufWritePost *.pcap set nomod | endif
+  au BufWritePost *.pcap if &bin | %!xxd
+  au BufWritePost *.pcap set nomod | endif
 augroup END
 
 

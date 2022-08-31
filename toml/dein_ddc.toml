@@ -17,35 +17,35 @@ call ddc#custom#set_context(s:ftypes, { ->
 call ddc#custom#patch_filetype(["text", "markdown"], 'sources', ['file', 'around', 'buffer', 'dictionary'])
 
 call ddc#custom#patch_global('sourceOptions', {
-    \ 'file': { 'mark': 'F', 'forceCompletionPattern': '\S/\S*'},
-    \ 'nvim-lsp': { 'mark':'lsp', 'forceCompletionPattern': '\.\w*|:\w*|->\w*'},
-    \ 'around': { 'mark': 'A' },
-    \ 'buffer': { 'mark': 'B' },
-    \ 'ultisnips': { 'mark': 'US'},
-    \ 'neosnippet': { 'mark': 'NS', 'dup': v:true},
-    \ 'dictionary': { 'mark': 'D' },
-    \ '_': { 'matchers': ['matcher_fuzzy'],
-    \        'sorters':  ['sorter_rank'],
-    \        'ignoreCase': v:true},
-    \ })
+  \ 'file': { 'mark': 'F', 'forceCompletionPattern': '\S/\S*'},
+  \ 'nvim-lsp': { 'mark':'lsp', 'forceCompletionPattern': '\.\w*|:\w*|->\w*'},
+  \ 'around': { 'mark': 'A' },
+  \ 'buffer': { 'mark': 'B' },
+  \ 'ultisnips': { 'mark': 'US'},
+  \ 'neosnippet': { 'mark': 'NS', 'dup': v:true},
+  \ 'dictionary': { 'mark': 'D' },
+  \ '_': { 'matchers': ['matcher_fuzzy'],
+  \        'sorters':  ['sorter_rank'],
+  \        'ignoreCase': v:true},
+  \ })
 
 call ddc#custom#patch_global('sourceParams', {
-    \ 'nvim-lsp': { 'kindLabels': { 'Class': 'c' } },
-    \ 'buffer': {'requireSameFiletype': v:false},
-    \ 'dictionary': {
-    \ 'dictPaths': ['/usr/share/dict/words'],
-    \ 'smartCase': v:true,
-    \ },
-    \ })
+  \ 'nvim-lsp': { 'kindLabels': { 'Class': 'c' } },
+  \ 'buffer': {'requireSameFiletype': v:false},
+  \ 'dictionary': {
+  \ 'dictPaths': ['/usr/share/dict/words'],
+  \ 'smartCase': v:true,
+  \ },
+  \ })
 
 call ddc#custom#patch_global({
   \ 'backspaceCompletion': v:true,
   \ })
 
 inoremap <silent><expr> <TAB>
-\ pumvisible() ? '<C-n>' :
-\ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
-\ '<TAB>' : ddc#map#manual_complete()
+  \ pumvisible() ? '<C-n>' :
+  \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+  \ '<TAB>' : ddc#map#manual_complete()
 
 " <S-TAB>: completion back.
 inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'

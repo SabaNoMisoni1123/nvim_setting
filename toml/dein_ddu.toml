@@ -7,72 +7,71 @@ on_source = 'denops.vim'
 #  setting script
 hook_source = '''
 call ddu#custom#patch_global({
-      \ 'ui': 'ff',
-      \ 'uiParams': {
-      \   'ff':{
-      \     'split':  'floating',
-      \     'startFilter':  v:true,
-      \   },
-      \   'filer':{
-      \     'split':  'no',
-      \   },
-      \ },
-      \ 'sourceOptions': {
-      \   '_': {
-      \     'matchers': ['matcher_substring'],
-      \     'ignoreCase': v:true,
-      \     'path': expand("%:p:h"),
-      \     'columns': ['filename'],
-      \   },
-      \ },
-      \ 'kindOptions': {
-      \   'file': {
-      \     'defaultAction': 'open',
-      \   },
-      \   'command_history': {
-      \     'defaultAction': 'execute',
-      \   },
-      \ },
-      \ 'actionOptions': {
-      \   'narrow': {'quit': v:false},
-      \ },
-      \ 'filterParams': {
-      \   'matcher_substring': {'highlightMatched': 'Search'},
-      \ },
-      \ })
+  \ 'ui': 'ff',
+  \ 'uiParams': {
+  \   'ff':{
+  \     'split':  'floating',
+  \     'startFilter':  v:true,
+  \   },
+  \   'filer':{
+  \     'split':  'no',
+  \   },
+  \ },
+  \ 'sourceOptions': {
+  \   '_': {
+  \     'matchers': ['matcher_substring'],
+  \     'ignoreCase': v:true,
+  \     'path': expand("%:p:h"),
+  \     'columns': ['filename'],
+  \   },
+  \ },
+  \ 'kindOptions': {
+  \   'file': {
+  \     'defaultAction': 'open',
+  \   },
+  \   'command_history': {
+  \     'defaultAction': 'execute',
+  \   },
+  \ },
+  \ 'actionOptions': {
+  \   'narrow': {'quit': v:false},
+  \ },
+  \ 'filterParams': {
+  \   'matcher_substring': {'highlightMatched': 'Search'},
+  \ },
+  \ })
 
 call ddu#custom#patch_local('filer', {
-      \ 'ui': 'filer',
-      \ 'sources': [{'name': 'file'}],
-      \ 'uiParams': {
-      \   'filer': {
-      \     'split': 'no',
-      \   },
-      \ },
-      \ })
+  \ 'ui': 'filer',
+  \ 'sources': [{'name': 'file'}],
+  \ 'uiParams': {
+  \   'filer': {
+  \     'split': 'no',
+  \   },
+  \ },
+  \ })
 
 call ddu#custom#patch_local('filer_left', {
-      \ 'ui': 'filer',
-      \ 'sources': [{'name': 'file'}],
-      \ 'uiParams': {
-      \   'filer': {
-      \     'split': 'vertical',
-      \     'splitDirection': 'topleft',
-      \     'winWidth': 40,
-      \   },
-      \ },
-      \ })
+  \ 'ui': 'filer',
+  \ 'sources': [{'name': 'file'}],
+  \ 'uiParams': {
+  \   'filer': {
+  \     'split': 'vertical',
+  \     'splitDirection': 'topleft',
+  \     'winWidth': 40,
+  \   },
+  \ },
+  \ })
 
 call ddu#custom#patch_local('filer_float', {
-      \ 'ui': 'filer',
-      \ 'sources': [{'name': 'file'}],
-      \ 'uiParams': {
-      \   'filer': {
-      \     'split': 'floating',
-      \   },
-      \ },
-      \ })
-
+  \ 'ui': 'filer',
+  \ 'sources': [{'name': 'file'}],
+  \ 'uiParams': {
+  \   'filer': {
+  \     'split': 'floating',
+  \   },
+  \ },
+  \ })
 '''
 
 hook_add = '''

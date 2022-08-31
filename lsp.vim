@@ -79,14 +79,14 @@ end
 EOF
 
 lua require "lsp_signature".setup({
-    \ floating_window = true,
-    \ floating_window_above_cur_line = true,
-    \ bind = true,
-    \ handler_opts = {
-    \   border = "single",
-    \ max_height = 5,
-    \ },
-    \ })
+  \ floating_window = true,
+  \ floating_window_above_cur_line = true,
+  \ bind = true,
+  \ handler_opts = {
+  \   border = "single",
+  \ max_height = 5,
+  \ },
+  \ })
 
 lua << EOF
 -- エラー表示

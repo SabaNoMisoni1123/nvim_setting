@@ -96,6 +96,10 @@ let g:user_emmet_leader_key=',,'
 [[plugins]]
 repo = 'Yggdroot/indentLine'
 on_ft = ['c','cpp','python','tex', 'javascript', 'rust', 'html', 'css', 'java', 'vue']
+hook_source = '''
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+let g:indentLine_setColors = 0
+'''
 
 
 [[plugins]]
@@ -190,11 +194,11 @@ nnoremap [a :ALEPrevious<CR>
 
 let g:ale_linters={}
 let g:ale_linters={
-      \ 'markdown' : ['textlint'],
-      \}
+  \ 'markdown' : ['textlint'],
+  \}
 let g:ale_fixers = {
-      \ 'markdown' : ['textlint'],
-      \}
+  \ 'markdown' : ['textlint'],
+  \}
 '''
 
 [[plugins]]

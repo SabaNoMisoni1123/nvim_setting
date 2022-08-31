@@ -13,168 +13,168 @@ endfunction
 let g:quickrun_config = {}
 
 let g:quickrun_config._ = {
-      \ 'outputter/buffer/opener': '10new',
-      \ 'outputter/buffer/into': 1,
-      \ 'outputter/buffer/close_on_empty': 1,
-      \ }
+  \ 'outputter/buffer/opener': '10new',
+  \ 'outputter/buffer/into': 1,
+  \ 'outputter/buffer/close_on_empty': 1,
+  \ }
 
 let g:quickrun_config['gnuplot'] = {
-    \ 'type' : 'gnuplot',
-    \ 'command' : 'gnuplot',
-    \ 'cmdopt' : '--persist',
-    \ 'exec' : 'cd %s:h;%c %s %o',
-    \ 'hook/cd/directory' : '%S:h',
-    \}
+  \ 'type' : 'gnuplot',
+  \ 'command' : 'gnuplot',
+  \ 'cmdopt' : '--persist',
+  \ 'exec' : 'cd %s:h;%c %s %o',
+  \ 'hook/cd/directory' : '%S:h',
+  \}
 
 let g:quickrun_config['matlab'] = {
-    \ 'type' : 'matlab',
-    \ 'command' : 'octave',
-    \ 'exec' : 'cd %s:h;%c %s',
-    \ 'hook/cd/directory' : '%S:h',
-    \}
+  \ 'type' : 'matlab',
+  \ 'command' : 'octave',
+  \ 'exec' : 'cd %s:h;%c %s',
+  \ 'hook/cd/directory' : '%S:h',
+  \}
 
 let g:quickrun_config['tex']={
-      \ 'type' : 'tex',
-      \ 'command' : 'latexmk',
-      \ 'exec' : '%c %s',
-      \ 'hook/cd/directory' : '%S:h',
-      \}
+  \ 'type' : 'tex',
+  \ 'command' : 'latexmk',
+  \ 'exec' : '%c %s',
+  \ 'hook/cd/directory' : '%S:h',
+  \}
 
 let g:quickrun_config["c"]={
-      \ 'type':
-      \ executable('gcc')            ? 'c/gcc' :
-      \ executable('clang')          ? 'c/clang' :
-      \ executable('clang-9')        ? 'c/clang-9' : '',
-      \}
+  \ 'type':
+  \ executable('gcc')            ? 'c/gcc' :
+  \ executable('clang')          ? 'c/clang' :
+  \ executable('clang-9')        ? 'c/clang-9' : '',
+  \}
 
 let g:quickrun_config['c/gcc']={
-      \ 'cmdopt' : '-std=c11',
-      \ 'hook/cd/directory' : '%S:h',
-      \}
+  \ 'cmdopt' : '-std=c11',
+  \ 'hook/cd/directory' : '%S:h',
+  \}
 
 let g:quickrun_config['c/clang']={
-      \ 'command' : 'clang',
-      \ 'cmdopt' : '-std=c11',
-      \ 'hook/cd/directory' : '%S:h',
-      \}
+  \ 'command' : 'clang',
+  \ 'cmdopt' : '-std=c11',
+  \ 'hook/cd/directory' : '%S:h',
+  \}
 
 let g:quickrun_config['c/clang-9']={
-      \ 'command' : 'clang-9',
-      \ 'cmdopt' : '-std=c11',
-      \ 'hook/cd/directory' : '%S:h',
-      \}
+  \ 'command' : 'clang-9',
+  \ 'cmdopt' : '-std=c11',
+  \ 'hook/cd/directory' : '%S:h',
+  \}
 
 let g:quickrun_config["cpp"]={
-      \ 'type':
-      \ executable('g++')            ? 'cpp/g++' :
-      \ executable('clang++')        ? 'cpp/clang++'  :
-      \ executable('clang++-9')      ? 'cpp/clang++-9'  : '',
-      \}
+  \ 'type':
+  \ executable('g++')            ? 'cpp/g++' :
+  \ executable('clang++')        ? 'cpp/clang++'  :
+  \ executable('clang++-9')      ? 'cpp/clang++-9'  : '',
+  \}
 
 let g:quickrun_config['cpp/g++']={
-      \ 'cmdopt' : '-std=c++2a',
-      \ 'hook/cd/directory' : '%S:h',
-      \}
+  \ 'cmdopt' : '-std=c++2a',
+  \ 'hook/cd/directory' : '%S:h',
+  \}
 
 let g:quickrun_config['cpp/clang++']={
-      \ 'command' : 'clang++-9',
-      \ 'cmdopt' : '-std=c++2a',
-      \ 'hook/cd/directory' : '%S:h',
-      \}
+  \ 'command' : 'clang++-9',
+  \ 'cmdopt' : '-std=c++2a',
+  \ 'hook/cd/directory' : '%S:h',
+  \}
 
 let g:quickrun_config['cpp/clang++-9']={
-      \ 'command' : 'clang++-9',
-      \ 'cmdopt' : '-std=c++2a',
-      \ 'hook/cd/directory' : '%S:h',
-      \}
+  \ 'command' : 'clang++-9',
+  \ 'cmdopt' : '-std=c++2a',
+  \ 'hook/cd/directory' : '%S:h',
+  \}
 
 let g:quickrun_config['cmake'] = {
-    \ 'command': 'cmake',
-    \ 'exec': [
-    \   '%c -B build',
-    \   'make -j -C build',
-    \   'echo "\n\n===output==="',
-    \   './build/a.out'
-    \ ],
-    \ 'hook/cd/directory' : '%S:h',
-    \}
+  \ 'command': 'cmake',
+  \ 'exec': [
+  \   '%c -B build',
+  \   'make -j -C build',
+  \   'echo "\n\n===output==="',
+  \   './build/a.out'
+  \ ],
+  \ 'hook/cd/directory' : '%S:h',
+  \}
 
 let g:quickrun_config['cmake/first'] = {
-    \ 'command': 'cmake',
-    \ 'exec': [
-    \   '%c -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -B build',
-    \   'cp ./build/compile_commands.json ./',
-    \   'make -j -C build',
-    \   'echo "\n\n===output==="',
-    \   './build/a.out'
-    \ ],
-    \ 'hook/cd/directory' : '%S:h',
-    \}
+  \ 'command': 'cmake',
+  \ 'exec': [
+  \   '%c -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -B build',
+  \   'cp ./build/compile_commands.json ./',
+  \   'make -j -C build',
+  \   'echo "\n\n===output==="',
+  \   './build/a.out'
+  \ ],
+  \ 'hook/cd/directory' : '%S:h',
+  \}
 
 let g:quickrun_config['make'] = {
-    \ 'command': 'make',
-    \ 'exec': ['%c -j', 'echo "\n\n===output==="', './a.out'],
-    \ 'hook/cd/directory' : '%S:h',
-    \}
+  \ 'command': 'make',
+  \ 'exec': ['%c -j', 'echo "\n\n===output==="', './a.out'],
+  \ 'hook/cd/directory' : '%S:h',
+  \}
 
 let g:quickrun_config['cmake/src'] = {
-    \ 'command': 'cmake',
-    \ 'exec': [
-    \   '%c -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..',
-    \   'cp ./compile_commands.json ./../',
-    \   'make -j',
-    \   'echo "\n\n===output==="',
-    \   './a.out'
-    \ ],
-    \ 'hook/cd/directory' : '%S:h:h'.'/build',
-    \}
+  \ 'command': 'cmake',
+  \ 'exec': [
+  \   '%c -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..',
+  \   'cp ./compile_commands.json ./../',
+  \   'make -j',
+  \   'echo "\n\n===output==="',
+  \   './a.out'
+  \ ],
+  \ 'hook/cd/directory' : '%S:h:h'.'/build',
+  \}
 
 let g:quickrun_config['make/src'] = {
-    \ 'command': 'make',
-    \ 'exec': ['%c -j', 'echo "\n\n===output==="', './a.out'],
-    \ 'hook/cd/directory' : '%S:h:h'.'/build',
-    \}
+  \ 'command': 'make',
+  \ 'exec': ['%c -j', 'echo "\n\n===output==="', './a.out'],
+  \ 'hook/cd/directory' : '%S:h:h'.'/build',
+  \}
 
 let g:quickrun_config['python'] = {
-      \ 'hook/cd/directory' : '%S:h',
-      \}
+  \ 'hook/cd/directory' : '%S:h',
+  \}
 
 let g:quickrun_config['scilab'] = {
-      \ 'command' : 'scilab-cli',
-      \ 'exec': ['%c -f %s -quit'],
-      \ 'hook/cd/directory' : '%S:h',
-      \}
+  \ 'command' : 'scilab-cli',
+  \ 'exec': ['%c -f %s -quit'],
+  \ 'hook/cd/directory' : '%S:h',
+  \}
 
 let g:quickrun_config['markdown']={
-      \ 'type':
-      \ executable('pandoc') ? 'markdown/mysetting': '',
-      \}
+  \ 'type':
+  \ executable('pandoc') ? 'markdown/mysetting': '',
+  \}
 
 let g:quickrun_config['markdown/mysetting'] = {
-      \ 'command': 'pandoc',
-      \ 'exec': [
-      \   '%c %s %o %a -o %s:r.html',
-      \   'cat %s:r.html',
-      \ ],
-      \ 'cmdopt' : '-f markdown -t html5 -s --self-contained --css=$XDG_CONFIG_HOME/nvim/template/memo-template.css',
-      \ 'hook/cd/directory' : '%S:h',
-      \}
+  \ 'command': 'pandoc',
+  \ 'exec': [
+  \   '%c %s %o %a -o %s:r.html',
+  \   'cat %s:r.html',
+  \ ],
+  \ 'cmdopt' : '-f markdown -t html5 -s --self-contained --css=$XDG_CONFIG_HOME/nvim/template/memo-template.css',
+  \ 'hook/cd/directory' : '%S:h',
+  \ }
 
 let g:quickrun_config['javascript'] = {
-      \ 'type':
-      \ executable('js') ? 'javascript/spidermonkey':
-      \ executable('d8') ? 'javascript/v8':
-      \ executable('node') ? 'javascript/nodejs':
-      \ executable('phantomjs') ? 'javascript/phantomjs':
-      \ executable('jrunscript') ? 'javascript/rhino':
-      \ executable('cscript') ? 'javascript/cscript':
-      \ executable('deno') ? 'javascript/deno':
-      \ '',
-      \ }
+  \ 'type':
+  \ executable('js') ? 'javascript/spidermonkey':
+  \ executable('d8') ? 'javascript/v8':
+  \ executable('node') ? 'javascript/nodejs':
+  \ executable('phantomjs') ? 'javascript/phantomjs':
+  \ executable('jrunscript') ? 'javascript/rhino':
+  \ executable('cscript') ? 'javascript/cscript':
+  \ executable('deno') ? 'javascript/deno':
+  \ '',
+  \ }
 
 let g:quickrun_config['javascript/deno'] = {
-      \ 'command': 'deno',
-      \ 'exec': ['%c run -q %s'],
-      \ 'hook/cd/directory' : '%S:h',
-      \ }
+  \ 'command': 'deno',
+  \ 'exec': ['%c run -q %s'],
+  \ 'hook/cd/directory' : '%S:h',
+  \ }
 '''

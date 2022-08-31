@@ -111,8 +111,8 @@ let s:use_vim_grep = 0
 if s:use_vim_grep
     nnoremap <leader>vr :vimgrep // %:p:h/**<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 else
-    set grepprg=rg\ --vimgrep\ --no-heading\ -uuu
-    nnoremap <leader>vr :grep -e ""<Left>
+  set grepprg=rg\ --vimgrep\ --no-heading\ -uuu
+  nnoremap <leader>vr :grep -e ""<Left>
 endif
 
 " quickfix jump
