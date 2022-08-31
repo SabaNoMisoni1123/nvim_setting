@@ -97,8 +97,8 @@ let g:user_emmet_leader_key=',,'
 repo = 'Yggdroot/indentLine'
 on_ft = ['c','cpp','python','tex', 'javascript', 'rust', 'html', 'css', 'java', 'vue']
 hook_source = '''
-let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-let g:indentLine_setColors = 0
+let g:indentLine_char_list = ['|', '¦']
+let g:indentLine_setColors = 1
 '''
 
 
