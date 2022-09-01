@@ -72,17 +72,11 @@ repo = 'tpope/vim-fugitive'
 hook_add = '''
 "gitgutter
 let g:gitgutter_preview_win_floating = 0
+let g:gitgutter_map_keys = 0
+
 nmap <Leader>hs <Plug>(GitGutterStageHunk)
-nmap <Leader>ha <Plug>(GitGutterStageHunk)
 nmap <Leader>hu <Plug>(GitGutterUndoHunk)
 nmap <Leader>hp <Plug>(GitGutterPreviewHunk)
-nmap <Leader>hv <Plug>(GitGutterPreviewHunk)
-nmap ]c         <Plug>(GitGutterNextHunk)
-nmap [c         <Plug>(GitGutterPrevHunk)
-omap ic         <Plug>(GitGutterTextObjectInnerPending)
-omap ac         <Plug>(GitGutterTextObjectOuterPending)
-xmap ic         <Plug>(GitGutterTextObjectInnerVisual)
-xmap ac         <Plug>(GitGutterTextObjectOuterVisual)
 nmap ]h         <Plug>(GitGutterNextHunk)
 nmap [h         <Plug>(GitGutterPrevHunk)
 omap ih         <Plug>(GitGutterTextObjectInnerPending)
@@ -91,18 +85,17 @@ xmap ih         <Plug>(GitGutterTextObjectInnerVisual)
 xmap ah         <Plug>(GitGutterTextObjectOuterVisual)
 
 " vim-fugitive
-nnoremap <leader>gs :Gstatus<CR><C-w>T
-nnoremap <leader>ga :Gwrite<CR>
-nnoremap <leader>gc :Gcommit-v<CR>
-nnoremap <leader>gb :Gblame<CR>
-nnoremap <leader>gl :Glog<CR>
-nnoremap <leader>gh :0Glog<CR> " abbrev for git history: create new quickfix tab for history
-nnoremap <leader>gp :Gpush<CR>
-nnoremap <leader>gf :Gfetch<CR>
-nnoremap <leader>gd :Gvdiff<CR>
-nnoremap <leader>gr :Grebase -i<CR>
-nnoremap <leader>gg :Glgrep ""<Left>
-nnoremap <leader>gm :Gmerge
+nnoremap <leader>gs <CMD>Git<CR>
+nnoremap <leader>ga <CMD>Gwrite<CR>
+nnoremap <leader>gc <CMD>Git commit<CR>
+nnoremap <leader>gb <CMD>Git blame<CR>
+nnoremap <leader>gl <CMD>Gclog<CR>
+nnoremap <leader>gp <CMD>Gpush<CR>
+nnoremap <leader>gf <CMD>Gfetch<CR>
+nnoremap <leader>gd <CMD>Gvdiffsplit<CR>
+nnoremap <leader>gr <CMD>Git rebase<CR>
+nnoremap <leader>gg <CMD>Glgrep ""<Left>
+nnoremap <leader>gm <CMD>Git merge
 '''
 
 # ctag ==========================================
