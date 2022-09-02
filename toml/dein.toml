@@ -151,7 +151,7 @@ let g:memolist_filename_date = "%y%m%d_"
 let g:memolist_delimiter_yaml_start = "---"
 let g:memolist_delimiter_yaml_end  = "---"
 
-let g:memolist_memo_suffix = "markdown"
+let g:memolist_memo_suffix = "md"
 let g:memolist_template_dir_path = g:nvim_home_dir . "/template"
 
 map <Leader><Leader>mn  :MemoNew<CR>
