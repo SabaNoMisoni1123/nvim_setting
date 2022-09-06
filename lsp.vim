@@ -50,8 +50,8 @@ elseif executable('deno')
 endif
 
 " vue
-if executable("vls")
-  let g:LSP_commands['vls'] = "vuels"
+if executable("vue-language-server")
+  let g:LSP_commands['vue-language-server'] = "volar"
 endif
 
 " vim script
