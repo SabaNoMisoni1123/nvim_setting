@@ -19,7 +19,7 @@ let g:NERDCustomDelimiters = {'vim': {'left': '"','right':''}}
 let g:NERDCreateDefaultMappings=0
 map <Leader>c<space> <plug>NERDCommenterToggle
 '''
-on_event = 'InsertEnter'
+on_map = '<plug>NERDCommenterToggle'
 
 [[plugins]]
 repo='t9md/vim-quickhl.git'
@@ -29,7 +29,7 @@ xmap <leader>m <Plug>(quickhl-manual-this)
 nmap <leader>M <Plug>(quickhl-manual-reset)
 xmap <leader>M <Plug>(quickhl-manual-reset)
 '''
-on_event = 'InsertEnter'
+on_map = '<Plug>(quickhl-manual-this)'
 
 [[plugins]]
 repo = 'easymotion/vim-easymotion'
