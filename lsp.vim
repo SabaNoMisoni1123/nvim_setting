@@ -78,15 +78,19 @@ for key, val in pairs(vim.g.LSP_commands) do
 end
 EOF
 
-lua require "lsp_signature".setup({
-  \ floating_window = true,
-  \ floating_window_above_cur_line = true,
-  \ bind = true,
-  \ handler_opts = {
-  \   border = "single",
-  \ max_height = 5,
-  \ },
-  \ })
+lua << EOF
+cfg = {
+  floating_window = true,
+  floating_window_above_cur_line = true,
+  bind = true,
+  handler_opts = {
+    border = "single"
+  },
+  zindex = 10,
+  doc_lines = 0,
+}
+require'lsp_signature'.setup(cfg)
+EOF
 
 lua << EOF
 -- エラー表示
