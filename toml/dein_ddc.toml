@@ -14,7 +14,7 @@ call ddc#custom#set_context(s:ftypes, { ->
   \   'sources': ['file', 'around', 'buffer', 'dictionary'],
   \ } : {} })
 
-call ddc#custom#patch_filetype(["text", "markdown"], 'sources', ['file', 'around', 'buffer', 'dictionary'])
+call ddc#custom#patch_filetype(["text", "markdown", "gitcommit", "conf", "csv", "tsv", "toml", "json", "no ft"], 'sources', ['file', 'around', 'buffer', 'dictionary'])
 
 call ddc#custom#patch_global('sourceOptions', {
   \ 'file': { 'mark': 'F', 'forceCompletionPattern': '\S/\S*'},
