@@ -75,46 +75,6 @@ set list listchars=tab:»-,trail:~,extends:»,precedes:«,nbsp:%
 " show double width characters properly
 set ambiwidth=double
 
-augroup fileType
-  autocmd!
-  autocmd BufNewFile,BufRead *.grg    setlocal nowrap
-  autocmd BufNewFile,BufRead *.jl     setfiletype julia
-  autocmd BufNewFile,BufRead *.plt    setfiletype gnuplot
-  autocmd BufNewFile,BufRead *.m      setfiletype matlab
-  autocmd BufNewFile,BufRead *.csv    setfiletype csv
-  autocmd BufNewFile,BufRead *.toml   setfiletype conf
-augroup END
-
-
-augroup Binary
-  au!
-  au BufReadPre  *.bin let &bin=1
-
-  au BufReadPost *.bin if &bin | %!xxd
-  au BufReadPost *.bin set ft=xxd | endif
-
-  au BufWritePre *.bin if &bin | %!xxd -r
-  au BufWritePre *.bin endif
-
-  au BufWritePost *.bin if &bin | %!xxd
-  au BufWritePost *.bin set nomod | endif
-augroup END
-
-augroup pcap
-  au!
-  au BufReadPre  *.pcap let &bin=1
-
-  au BufReadPost *.pcap if &bin | %!xxd
-  au BufReadPost *.pcap set ft=xxd | endif
-
-  au BufWritePre *.pcap if &bin | %!xxd -r
-  au BufWritePre *.pcap endif
-
-  au BufWritePost *.pcap if &bin | %!xxd
-  au BufWritePost *.pcap set nomod | endif
-augroup END
-
-
 set backspace=eol,indent,start
 
 set wildmenu
@@ -139,3 +99,48 @@ set splitright
 
 " .tex setting
 let g:tex_flavor = "latex"
+
+augroup fileType
+  autocmd!
+  autocmd BufNewFile,BufRead *.grg    setlocal nowrap
+  autocmd BufNewFile,BufRead *.jl     setfiletype julia
+  autocmd BufNewFile,BufRead *.plt    setfiletype gnuplot
+  autocmd BufNewFile,BufRead *.m      setfiletype matlab
+  autocmd BufNewFile,BufRead *.csv    setfiletype csv
+  autocmd BufNewFile,BufRead *.toml   setfiletype conf
+augroup END
+
+augroup Binary
+  au!
+  au BufReadPre   *.bin let &bin=1
+  au BufReadPost  *.bin if &bin | %!xxd
+  au BufReadPost  *.bin set ft=xxd | endif
+  au BufWritePre  *.bin if &bin | %!xxd -r
+  au BufWritePre  *.bin endif
+  au BufWritePost *.bin if &bin | %!xxd
+  au BufWritePost *.bin set nomod | endif
+
+  au BufReadPre   *.pcap let &bin=1
+  au BufReadPost  *.pcap if &bin | %!xxd
+  au BufReadPost  *.pcap set ft=xxd | endif
+  au BufWritePre  *.pcap if &bin | %!xxd -r
+  au BufWritePre  *.pcap endif
+  au BufWritePost *.pcap if &bin | %!xxd
+  au BufWritePost *.pcap set nomod | endif
+
+  au BufReadPre   *.npy let &bin=1
+  au BufReadPost  *.npy if &bin | %!xxd
+  au BufReadPost  *.npy set ft=xxd | endif
+  au BufWritePre  *.npy if &bin | %!xxd -r
+  au BufWritePre  *.npy endif
+  au BufWritePost *.npy if &bin | %!xxd
+  au BufWritePost *.npy set nomod | endif
+
+  au BufReadPre   *.pkl let &bin=1
+  au BufReadPost  *.pkl if &bin | %!xxd
+  au BufReadPost  *.pkl set ft=xxd | endif
+  au BufWritePre  *.pkl if &bin | %!xxd -r
+  au BufWritePre  *.pkl endif
+  au BufWritePost *.pkl if &bin | %!xxd
+  au BufWritePost *.pkl set nomod | endif
+augroup END
