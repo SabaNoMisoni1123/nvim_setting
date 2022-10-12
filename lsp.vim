@@ -25,6 +25,7 @@ let g:LSP_commands = {}
 " 例えば、C/C++:
 if executable('clangd')
   let g:LSP_commands['cpp'] = 'clangd'
+  let g:LSP_commands['c'] = ''
 endif
 
 " Rust
@@ -68,13 +69,14 @@ endif
 " 追加したそれぞれの言語についてLSPコマンドを起動
 lua << EOF
 for key, val in pairs(vim.g.LSP_commands) do
-  local on_attach = function(client, bufnr)
-    require "lsp_signature".on_attach()
+  if val ~= '' then
+    local on_attach = function(client, bufnr)
+      require "lsp_signature".on_attach()
+    end
+    require('lspconfig')[val].setup {
+      on_attach = on_attach,
+    }
   end
-
-  require('lspconfig')[val].setup {
-    on_attach = on_attach,
-  }
 end
 EOF
 
