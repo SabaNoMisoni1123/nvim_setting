@@ -147,7 +147,9 @@ let g:quickrun_config['scilab'] = {
 
 let g:quickrun_config['markdown']={
   \ 'type':
-  \ executable('pandoc') ? 'markdown/mysetting': '',
+  \ executable('pandoc') ? 'markdown/mysetting':
+  \ executable('marp') ? 'markdown/marp':
+  \ '',
   \}
 
 let g:quickrun_config['markdown/mysetting'] = {
@@ -157,6 +159,14 @@ let g:quickrun_config['markdown/mysetting'] = {
   \   'cat %s:r.html',
   \ ],
   \ 'cmdopt' : '-f markdown -t html5 -s --self-contained --css=$XDG_CONFIG_HOME/nvim/template/memo-template.css',
+  \ 'hook/cd/directory' : '%S:h',
+  \ }
+
+let g:quickrun_config['markdown/marp'] = {
+  \ 'command': 'marp',
+  \ 'exec': [
+  \   '%c %s',
+  \ ],
   \ 'hook/cd/directory' : '%S:h',
   \ }
 
