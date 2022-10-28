@@ -4,12 +4,13 @@ options     head
   ---
 
   marp: true
-  <!-- header: "" -->
-  footer: "${1:footer}"
   theme: default
+  header: ${1:header}
+  footer: ${2:footer}
+  size: 4k
+  math: katex
+  headingDivider: 1
 
   ---
-
-  <!-- headingDivider: 1 -->
 
   ${0:TARGET}

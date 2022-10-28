@@ -165,7 +165,7 @@ let g:quickrun_config['markdown/mysetting'] = {
 let g:quickrun_config['markdown/marp'] = {
   \ 'command': 'marp',
   \ 'exec': [
-  \   '%c %s',
+  \   '%c --allow-local-files %s',
   \ ],
   \ 'hook/cd/directory' : '%S:h',
   \ }
@@ -173,7 +173,7 @@ let g:quickrun_config['markdown/marp'] = {
 let g:quickrun_config['markdown/marp-pdf'] = {
   \ 'command': 'marp',
   \ 'exec': [
-  \   '%c --pdf --pdf-outlines %s',
+  \   '%c --pdf --pdf-outlines --allow-local-files %s',
   \ ],
   \ 'hook/cd/directory' : '%S:h',
   \ }
