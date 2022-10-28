@@ -170,6 +170,14 @@ let g:quickrun_config['markdown/marp'] = {
   \ 'hook/cd/directory' : '%S:h',
   \ }
 
+let g:quickrun_config['markdown/marp-pdf'] = {
+  \ 'command': 'marp',
+  \ 'exec': [
+  \   '%c --pdf --pdf-outlines %s',
+  \ ],
+  \ 'hook/cd/directory' : '%S:h',
+  \ }
+
 let g:quickrun_config['javascript'] = {
   \ 'type':
   \ executable('js') ? 'javascript/spidermonkey':

@@ -103,6 +103,7 @@ setlocal shiftwidth=4
 setlocal expandtab
 setlocal wrap
 nnoremap ,x <Cmd>QuickRun markdown/marp<CR>
+nnoremap ,,x <Cmd>QuickRun markdown/marp-pdf<CR>
 '''
 
 vue = '''
