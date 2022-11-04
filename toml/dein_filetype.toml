@@ -114,3 +114,11 @@ setlocal nowrap
 setlocal iskeyword+=-
 setlocal foldmethod=indent
 '''
+
+json = '''
+setlocal tabstop=2
+setlocal shiftwidth=2
+setlocal expandtab
+setlocal foldmethod=indent
+setlocal conceallevel=0
+'''
