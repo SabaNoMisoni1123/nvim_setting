@@ -34,7 +34,7 @@ if dein#load_state(s:dein_dir)
     call dein#load_toml(s:lazy_toml, {'lazy': 1})
     call dein#load_toml(s:ddu_toml, {'lazy': 1})
 
-    call dein#load_toml(s:fileype_toml)
+    call dein#load_toml(s:fileype_toml, {'lazy': 0})
 
     "  colorscheme
     if filereadable(expand(s:colorscheme_local_toml))
