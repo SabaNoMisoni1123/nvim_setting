@@ -5,6 +5,7 @@ setlocal shiftwidth=4
 setlocal expandtab
 setlocal textwidth=100
 setlocal foldmethod=indent
+setlocal conceallevel=0
 '''
 
 c = '''
@@ -15,6 +16,7 @@ setlocal expandtab
 setlocal textwidth=80
 nnoremap ,x <Cmd>QuickRun make/src<CR>
 nnoremap ,,x <Cmd>QuickRun cmake/src<CR>
+setlocal conceallevel=0
 '''
 
 cpp = '''
@@ -25,6 +27,7 @@ setlocal expandtab
 setlocal textwidth=80
 nnoremap ,x <Cmd>QuickRun make/src<CR>
 nnoremap ,,x <Cmd>QuickRun cmake/src<CR>
+setlocal conceallevel=0
 '''
 
 go = '''
@@ -33,6 +36,7 @@ setlocal shiftwidth=4
 setlocal expandtab
 setlocal formatoptions+r
 setlocal foldmethod=indent
+setlocal conceallevel=0
 '''
 
 tex = '''
@@ -51,6 +55,7 @@ setlocal expandtab
 setlocal nowrap
 setlocal iskeyword+=-
 setlocal foldmethod=indent
+setlocal conceallevel=0
 '''
 
 css = '''
@@ -60,6 +65,7 @@ setlocal expandtab
 setlocal nowrap
 setlocal iskeyword+=-
 setlocal foldmethod=indent
+setlocal conceallevel=0
 '''
 
 vim = '''
@@ -68,6 +74,7 @@ setlocal shiftwidth=2
 setlocal expandtab
 setlocal nowrap
 setlocal foldmethod=indent
+setlocal conceallevel=0
 '''
 
 javascript = '''
@@ -76,6 +83,7 @@ setlocal shiftwidth=2
 setlocal expandtab
 setlocal nowrap
 setlocal foldmethod=indent
+setlocal conceallevel=0
 '''
 
 csv = '''
@@ -84,17 +92,20 @@ setlocal shiftwidth=4
 setlocal expandtab
 setlocal nowrap
 imap , ,
+setlocal conceallevel=0
 '''
 
 text = '''
 setlocal tabstop=4
 setlocal shiftwidth=4
 setlocal expandtab
+setlocal conceallevel=0
 '''
 
 help = '''
 setlocal noet
 setlocal foldmethod=indent
+setlocal conceallevel=0
 '''
 
 markdown = '''
@@ -104,6 +115,7 @@ setlocal expandtab
 setlocal wrap
 nnoremap ,x <Cmd>QuickRun markdown/marp<CR>
 nnoremap ,,x <Cmd>QuickRun markdown/marp-pdf<CR>
+setlocal conceallevel=0
 '''
 
 vue = '''
@@ -113,6 +125,7 @@ setlocal expandtab
 setlocal nowrap
 setlocal iskeyword+=-
 setlocal foldmethod=indent
+setlocal conceallevel=0
 '''
 
 json = '''
