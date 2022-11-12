@@ -94,18 +94,8 @@ let g:user_emmet_leader_key=',,'
 '''
 
 [[plugins]]
-repo = 'Yggdroot/indentLine'
-on_ft = ['c','cpp','python','tex', 'javascript', 'rust', 'html', 'css', 'java', 'vue']
-hook_source = '''
-let g:indentLine_char_list = ['|', '¦']
-let g:indentLine_setColors = 1
-'''
-
-
-[[plugins]]
 repo = 'https://github.com/hail2u/vim-css3-syntax'
 on_ft = ['html','htm']
-
 
 [[plugins]]
 repo = 'https://github.com/kchmck/vim-coffee-script'
