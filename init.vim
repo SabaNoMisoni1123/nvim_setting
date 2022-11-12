@@ -9,15 +9,15 @@ let g:python3_host_prog = substitute(system("which python"), '\n', '', 'g')
 let g:nvim_home_dir = expand('~/.config/nvim')
 
 "  plugin settings
-exe 'source' expand(g:nvim_home_dir . '/dein.vim')
+exe 'source' expand(g:nvim_home_dir . '/rcs/dein.vim')
 
 " other settings
 if !exists('g:vscode')
-  exe 'source' expand(g:nvim_home_dir . '/set.vim')
-  exe 'source' expand(g:nvim_home_dir . '/mapping.vim')
+  exe 'source' expand(g:nvim_home_dir . '/rcs/set.vim')
+  exe 'source' expand(g:nvim_home_dir . '/rcs/mapping.vim')
 else
-  exe 'source' expand(g:nvim_home_dir . '/set_with_vscode.vim')
-  exe 'source' expand(g:nvim_home_dir . '/mapping_vscode.vim')
+  exe 'source' expand(g:nvim_home_dir . '/rcs/set_with_vscode.vim')
+  exe 'source' expand(g:nvim_home_dir . '/rcs/mapping_vscode.vim')
 endif
 
 filetype plugin on

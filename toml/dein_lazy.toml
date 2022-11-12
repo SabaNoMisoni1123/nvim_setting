@@ -46,7 +46,7 @@ on_ft = ['c', 'cpp', 'rust', 'python', 'vim', 'tex', 'javascript', 'typescript',
 depends = 'lsp_signature.nvim'
 hook_post_source = '''
 if !exists('g:vscode')
-  exe 'source' expand(g:nvim_home_dir . '/lsp.vim')
+  exe 'source' expand(g:nvim_home_dir . '/rcs/lsp.vim')
 endif
 LspStart
 '''
