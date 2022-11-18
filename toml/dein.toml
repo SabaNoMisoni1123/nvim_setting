@@ -21,6 +21,15 @@ let g:lightline = {
   \ }
 '''
 
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+merged = '0'
+hook_post_source = '''
+exe 'source' expand(g:nvim_home_dir . '/luascripts/treesitter.lua')
+'''
+hook_install = 'TSUpdate'
+hook_post_update = 'TSUpdate'
+
 # text object ===================================
 [[plugins]]
 repo = 'kana/vim-operator-user'

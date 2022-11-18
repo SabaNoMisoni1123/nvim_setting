@@ -23,7 +23,7 @@ nmap <silent> <leader>st  :<C-u>tab sp<CR><leader>d
 nmap <silent> <leader>n   <Cmd>NvimTreeFocus<CR>
 '''
 hook_post_source = '''
-exe 'source' $HOME . '/.config/nvim/luascripts/nvim-tree.lua'
+exe 'source' expand(g:nvim_home_dir . '/luascripts/nvim-tree.lua')
 '''
 on_map = ['<Cmd>NvimTreeToggle', '<Cmd>NvimTreeFocus']
 
@@ -37,7 +37,7 @@ xmap <C-k> <Plug>(neosnippet_expand_target)
 if has('conceal')
   set conceallevel=0 concealcursor=niv
 endif
-let g:neosnippet#snippets_directory=expand('~/.config/nvim/NeoSnips')
+let g:neosnippet#snippets_directory=expand(g:nvim_home_dir . '/NeoSnips')
 '''
 on_source = 'ddc.vim'
 on_event = 'InsertCharPre'
