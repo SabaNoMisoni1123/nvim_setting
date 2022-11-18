@@ -20,9 +20,6 @@ if dein#load_state(s:dein_dir)
     call dein#load_toml(s:toml, {'lazy': 0})
     call dein#load_toml(s:lazy_toml, {'lazy': 1})
     call dein#load_toml(s:fileype_toml, {'lazy': 0})
-
-    let s:ddu_toml                  = s:rc_dir . '/dein_ddu.toml'
-    call dein#load_toml(s:ddu_toml, {'lazy': 1})
   else
     let s:vscode_toml               = s:rc_dir . '/dein_vscode.toml'
     call dein#load_toml(s:vscode_toml, {'lazy': 0})

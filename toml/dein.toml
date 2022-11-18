@@ -2,10 +2,6 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
-# deno ==========================================
-[[plugins]]
-repo = 'vim-denops/denops.vim'
-
 # color scheme ==================================
 [[plugins]]
 repo = 'https://github.com/itchyny/lightline.vim'
@@ -198,3 +194,6 @@ command! CheckTransrateLang call s:check_translate_language()
 # other =========================================
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
+
+[[plugins]]
+repo = 'kyazdani42/nvim-web-devicons'

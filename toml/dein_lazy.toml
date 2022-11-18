@@ -12,50 +12,9 @@ LspStart
 repo = 'ray-x/lsp_signature.nvim'
 
 # auto complete =================================
-[[plugins]]
-repo = 'Shougo/ddc.vim'
-depends = ["denops.vim"]
-on_event = ['InsertEnter', 'CursorHold']
-hook_source = '''
-exe 'source' expand(g:nvim_home_dir . '/vim/ddc_setting.vim')
-'''
-
-# ui
-[[plugins]]
-repo = 'Shougo/ddc-ui-native'
-on_source = 'ddc.vim'
-
-# matcher
-# souter
-# converter
-[[plugins]]
-repo = 'tani/ddc-fuzzy'
-on_source = 'ddc.vim'
-
-# source
-[[plugins]]
-repo = 'Shougo/ddc-nvim-lsp'
-on_source = 'ddc.vim'
-
-[[plugins]]
-repo = 'Shougo/ddc-around'
-on_source = 'ddc.vim'
-
-[[plugins]]
-repo = 'matsui54/ddc-buffer'
-on_source = 'ddc.vim'
-
-[[plugins]]
-repo = 'LumaKernel/ddc-file'
-on_source = 'ddc.vim'
-
-[[plugins]]
-repo = 'matsui54/ddc-dictionary'
-on_source = 'ddc.vim'
 
 # fuzzy finder ==================================
 # filer =========================================
-# load dein_ddu.toml
 
 # Snippet =======================================
 [[plugins]]
