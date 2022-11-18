@@ -6,18 +6,18 @@ let g:OSTYPE=substitute(system("uname"), '\n', '', 'g')
 
 let g:python3_host_prog = substitute(system("which python"), '\n', '', 'g')
 
-let g:nvim_home_dir = expand('~/.config/nvim')
+let g:nvim_home_dir = expand($XDG_CONFIG_HOME . "/nvim")
 
 "  plugin settings
-exe 'source' expand(g:nvim_home_dir . '/rcs/dein.vim')
+exe 'source' expand(g:nvim_home_dir . '/vim/dein.vim')
 
 " other settings
 if !exists('g:vscode')
-  exe 'source' expand(g:nvim_home_dir . '/rcs/set.vim')
-  exe 'source' expand(g:nvim_home_dir . '/rcs/mapping.vim')
+  exe 'source' expand(g:nvim_home_dir . '/vim/set.vim')
+  exe 'source' expand(g:nvim_home_dir . '/vim/mapping.vim')
 else
-  exe 'source' expand(g:nvim_home_dir . '/rcs/set_with_vscode.vim')
-  exe 'source' expand(g:nvim_home_dir . '/rcs/mapping_vscode.vim')
+  exe 'source' expand(g:nvim_home_dir . '/vim/set_with_vscode.vim')
+  exe 'source' expand(g:nvim_home_dir . '/vim/mapping_vscode.vim')
 endif
 
 filetype plugin on

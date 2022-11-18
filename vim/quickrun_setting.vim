@@ -1,7 +1,3 @@
-[[plugins]]
-repo = 'thinca/vim-quickrun'
-on_map = '<Plug>(quickrun)'
-hook_add = '''
 nmap <leader>x <Plug>(quickrun)
 nmap <leader><leader>x :QuickRun<Space>
 
@@ -195,4 +191,3 @@ let g:quickrun_config['javascript/deno'] = {
   \ 'exec': ['%c run -q %s'],
   \ 'hook/cd/directory' : '%S:h',
   \ }
-'''

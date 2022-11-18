@@ -1,9 +1,31 @@
+# plugin manager ================================
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
+# deno ==========================================
 [[plugins]]
 repo = 'vim-denops/denops.vim'
 
+# color scheme ==================================
+[[plugins]]
+repo = 'https://github.com/itchyny/lightline.vim'
+hook_add = '''
+let g:lightline = {
+  \ 'separator': { 'left': '', 'right': '' },
+  \ }
+'''
+
+[[plugins]]
+repo = 'morhetz/gruvbox'
+hook_add = '''
+colorscheme gruvbox
+set termguicolors
+let g:lightline = {
+  \ 'colorscheme': 'gruvbox',
+  \ }
+'''
+
+# text object ===================================
 [[plugins]]
 repo = 'kana/vim-operator-user'
 [[plugins]]
@@ -44,27 +66,7 @@ xmap iv <Plug>(textobj-entire-i)
 [[plugins]]
 repo = 'https://github.com/fuenor/jpmoveword.vim'
 
-[[plugins]]
-repo = 'Shougo/context_filetype.vim'
-
-# Snippet =======================================
-
-[[plugins]]
-repo = 'Shougo/neosnippet'
-hook_add= '''
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
-if has('conceal')
-  set conceallevel=0 concealcursor=niv
-endif
-let g:neosnippet#snippets_directory=expand('~/.config/nvim/NeoSnips')
-'''
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
 # git ===========================================
-
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
 [[plugins]]
@@ -99,7 +101,6 @@ nnoremap <leader>gm <CMD>Git merge
 '''
 
 # ctag ==========================================
-
 [[plugins]]
 repo = 'soramugi/auto-ctags.vim'
 hook_add = '''
@@ -139,7 +140,6 @@ let g:tagbar_type_go = {
 '''
 
 # others ========================================
-
 [[plugins]]
 repo = 'glidenote/memolist.vim'
 hook_add = '''
@@ -167,13 +167,12 @@ vmap <space>b <Plug>(openbrowser-smart-search)
 '''
 
 [[plugins]]
-repo = 'ncm2/float-preview.nvim.git'
+repo = 'ncm2/float-preview.nvim'
 hook_add = '''
 let g:float_preview#docked = 0
 '''
 
 # translate =====================================
-
 [[plugins]]
 repo = 'skanehira/translate.vim'
 hook_add = '''
@@ -195,3 +194,7 @@ endfunction
 command! SwapTransrateLang call s:swap_translate_language()
 command! CheckTransrateLang call s:check_translate_language()
 '''
+
+# other =========================================
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'

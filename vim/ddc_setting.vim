@@ -1,9 +1,3 @@
-[[plugins]]
-repo = 'Shougo/ddc.vim'
-depends = ["denops.vim"]
-on_event = ['InsertEnter', 'CursorHold']
-
-hook_source = '''
 let s:ftypes = ['c', 'cpp', 'rust', 'python', 'gnuplot', 'typescript', 'javascript', 'html', 'css', 'vue']
 
 call ddc#custom#patch_global('ui', 'native')
@@ -61,37 +55,3 @@ inoremap <silent><expr> <TAB>
 inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
 
 call ddc#enable()
-'''
-
-# ui
-[[plugins]]
-repo = 'Shougo/ddc-ui-native'
-on_source = 'ddc.vim'
-
-# matcher
-# souter
-# converter
-[[plugins]]
-repo = 'tani/ddc-fuzzy'
-on_source = 'ddc.vim'
-
-# source
-[[plugins]]
-repo = 'Shougo/ddc-nvim-lsp'
-on_source = 'ddc.vim'
-
-[[plugins]]
-repo = 'Shougo/ddc-around'
-on_source = 'ddc.vim'
-
-[[plugins]]
-repo = 'matsui54/ddc-buffer'
-on_source = 'ddc.vim'
-
-[[plugins]]
-repo = 'LumaKernel/ddc-file'
-on_source = 'ddc.vim'
-
-[[plugins]]
-repo = 'matsui54/ddc-dictionary'
-on_source = 'ddc.vim'

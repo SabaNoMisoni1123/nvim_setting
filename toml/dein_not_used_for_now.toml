@@ -1,5 +1,4 @@
 # dap ===========================================j
-
 [[plugins]]
 repo = "mfussenegger/nvim-dap"
 [[plugins]]

@@ -3,7 +3,6 @@ repo = 'Shougo/ddu.vim'
 depends = "denops.vim"
 on_source = 'denops.vim'
 
-
 #  setting script
 hook_source = '''
 call ddu#custom#patch_global({
