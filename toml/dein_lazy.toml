@@ -12,6 +12,29 @@ LspStart
 repo = 'ray-x/lsp_signature.nvim'
 
 # auto complete =================================
+[[plugins]]
+repo = 'octaltree/cmp-look'
+[[plugins]]
+repo = 'hrsh7th/cmp-nvim-lsp'
+[[plugins]]
+repo = 'hrsh7th/cmp-buffer'
+[[plugins]]
+repo = 'hrsh7th/cmp-path'
+[[plugins]]
+repo = 'hrsh7th/cmp-cmdline'
+[[plugins]]
+repo = 'saadparwaiz1/cmp_luasnip'
+[[plugins]]
+repo = 'onsails/lspkind.nvim'
+[[plugins]]
+repo = 'hrsh7th/cmp-nvim-lsp-signature-help'
+[[plugins]]
+repo = 'hrsh7th/nvim-cmp'
+depends = ['nvim-lspconfig', 'cmp-nvim-lsp', 'cmp-buffer', 'cmp-path', 'cmp-cmdline', 'cmp_luasnip', 'lspkind.nvim', 'cmp-look']
+on_event = ['InsertEnter', 'CmdlineEnter']
+hook_post_source = '''
+exe 'source' expand(g:nvim_home_dir . '/luascripts/nvim-cmp.lua')
+'''
 
 # fuzzy finder ==================================
 # filer =========================================
@@ -29,22 +52,25 @@ on_map = ['<Cmd>NvimTreeToggle', '<Cmd>NvimTreeFocus']
 
 # Snippet =======================================
 [[plugins]]
-repo = 'Shougo/neosnippet'
-hook_add= '''
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
-if has('conceal')
-  set conceallevel=0 concealcursor=niv
-endif
-let g:neosnippet#snippets_directory=expand(g:nvim_home_dir . '/NeoSnips')
+repo = 'L3MON4D3/LuaSnip'
+hook_add = '''
+" press <Tab> to expand or jump in a snippet. These can also be mapped separately
+" via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
+imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
+" -1 for jumping backwards.
+inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
+snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
+snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
+" For changing choices in choiceNodes (not strictly necessary for a basic setup).
+imap <silent><expr> <C-e> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-e>'
+smap <silent><expr> <C-e> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-e>'
+exe 'source' expand(g:nvim_home_dir . '/luascripts/luasnip.lua')
 '''
-on_source = 'ddc.vim'
-on_event = 'InsertCharPre'
-depends = 'neosnippet-snippets'
-
 [[plugins]]
-repo = 'Shougo/neosnippet-snippets'
+repo = 'iurimateus/luasnip-latex-snippets.nvim'
+hook_add = '''
+lua require'luasnip-latex-snippets'.setup({use_treesitter = true})
+'''
 
 # quick run =====================================
 [[plugins]]
