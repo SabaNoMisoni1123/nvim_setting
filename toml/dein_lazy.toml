@@ -24,10 +24,12 @@ repo = 'hrsh7th/cmp-path'
 repo = 'hrsh7th/cmp-cmdline'
 [[plugins]]
 repo = 'saadparwaiz1/cmp_luasnip'
+depends = 'LuaSnip'
 [[plugins]]
 repo = 'onsails/lspkind.nvim'
 [[plugins]]
 repo = 'hrsh7th/cmp-nvim-lsp-signature-help'
+
 [[plugins]]
 repo = 'hrsh7th/nvim-cmp'
 depends = ['nvim-lspconfig', 'cmp-nvim-lsp', 'cmp-buffer', 'cmp-path', 'cmp-cmdline', 'cmp_luasnip', 'lspkind.nvim', 'cmp-look']
@@ -64,13 +66,18 @@ snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
 " For changing choices in choiceNodes (not strictly necessary for a basic setup).
 imap <silent><expr> <C-e> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-e>'
 smap <silent><expr> <C-e> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-e>'
+'''
+hook_post_source = '''
 exe 'source' expand(g:nvim_home_dir . '/luascripts/luasnip.lua')
 '''
+
+
 [[plugins]]
 repo = 'iurimateus/luasnip-latex-snippets.nvim'
-hook_add = '''
+hook_post_source = '''
 lua require'luasnip-latex-snippets'.setup({use_treesitter = true})
 '''
+on_source = ["LuaSnip"]
 
 # quick run =====================================
 [[plugins]]
