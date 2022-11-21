@@ -6,7 +6,6 @@ repo = 'Shougo/dein.vim'
 # dependence
 [[plugins]]
 repo = 'nvim-lua/plenary.nvim'
-
 [[plugins]]
 repo = 'nvim-telescope/telescope-fzf-native.nvim'
 
@@ -18,11 +17,10 @@ repo = 'nvim-telescope/telescope-fzf-native.nvim'
 # telescope
 [[plugins]]
 repo = 'nvim-telescope/telescope.nvim'
+rev = '0.1.0'
 depends = ['plenary.nvim', 'telescope-fzf-native.nvim']
 hook_add = '''
   exe 'source' expand(g:nvim_home_dir . '/luascripts/telescope.lua')
-  nnoremap <leader>ff  <cmd>Telescope live_grep<cr>
-  " nnoremap <leader>fr  <cmd>Telescope frecency<cr>
 '''
 
 # color scheme ==================================
