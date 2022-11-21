@@ -1,4 +1,3 @@
-
 local ls = require("luasnip")
 local s = ls.snippet
 
@@ -21,7 +20,7 @@ local rep = extras.rep
 local postfix = require("luasnip.extras.postfix").postfix
 
 ls.add_snippets("python", {
-    ls.parser.parse_snippet("pf", "print(f\"{$1}\")$0"),
-    ls.parser.parse_snippet("todo", "# TODO: "),
-    ls.parser.parse_snippet("pltimport", "import matplotlib.pyplot as plt"),
+  ls.parser.parse_snippet("pf", "print(f\"{$1}\")$0"),
+  ls.parser.parse_snippet("todo", "# TODO: "),
+  ls.parser.parse_snippet("pltimport", "import matplotlib.pyplot as plt"),
 })

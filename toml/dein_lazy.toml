@@ -38,7 +38,6 @@ hook_post_source = '''
 exe 'source' expand(g:nvim_home_dir . '/luascripts/nvim-cmp.lua')
 '''
 
-# fuzzy finder ==================================
 # filer =========================================
 [[plugins]]
 repo =  'kyazdani42/nvim-tree.lua'
@@ -167,28 +166,6 @@ on_ft = ['html','htm','md','markdown', 'vue']
 hook_source = '''
 let g:user_emmet_leader_key=',,'
 '''
-
-[[plugins]]
-repo = 'https://github.com/hail2u/vim-css3-syntax'
-on_ft = ['html','htm']
-
-[[plugins]]
-repo = 'https://github.com/kchmck/vim-coffee-script'
-on_ft = ['html','htm']
-
-[[plugins]]
-repo = 'https://github.com/AtsushiM/sass-compile.vim'
-on_ft = ['sass','scss','css']
-hook_source = '''
-let g:sass_compile_auto                 = 1
-let g:sass_compile_cdloop               = 5
-let g:sass_compile_cssdir               = ['css', 'stylesheet']
-let g:sass_compile_file                 = ['scss', 'sass']
-let g:sass_started_dirs                 = []
-let g:sass_compile_beforecmd            = ''
-autocmd FileType less,sass  setlocal sw = 2 sts=2 ts=2 et
-'''
-depends = ['search-parent']
 
 [[plugins]]
 repo='maksimr/vim-jsbeautify'
