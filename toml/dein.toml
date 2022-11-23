@@ -190,12 +190,6 @@ nmap <space>b <Plug>(openbrowser-smart-search)
 vmap <space>b <Plug>(openbrowser-smart-search)
 '''
 
-[[plugins]]
-repo = 'ncm2/float-preview.nvim'
-hook_add = '''
-let g:float_preview#docked = 0
-'''
-
 # translate =====================================
 [[plugins]]
 repo = 'skanehira/translate.vim'
@@ -220,8 +214,5 @@ command! CheckTransrateLang call s:check_translate_language()
 '''
 
 # other =========================================
-[[plugins]]
-repo = 'Shougo/context_filetype.vim'
-
 [[plugins]]
 repo = 'kyazdani42/nvim-web-devicons'
