@@ -2,6 +2,7 @@
 let s:cache_home = g:nvim_home_dir
 let s:dein_dir = s:cache_home . '/dein'
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+let g:plugins_github_dir = s:dein_dir . '/repos/github.com'
 if !isdirectory(s:dein_repo_dir)
   call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
 endif
