@@ -52,12 +52,12 @@ cmp.setup({
     end,
   }),
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-    { name = 'buffer' },
-    { name = 'path' },
-    { name = 'nvim_lsp_signature_help' },
-    { name = 'look' }
+    { name = 'nvim_lsp' , group_index = 1},
+    { name = 'luasnip', group_index = 1 },
+    { name = 'nvim_lsp_signature_help', group_index = 1 },
+    { name = 'buffer', group_index = 2 },
+    { name = 'path', group_index = 2 },
+    { name = 'look', group_index = 2 }
   }),
   formatting = {
     format = function(entry, vim_item)
@@ -85,20 +85,6 @@ cmp.setup.filetype('gitcommit', {
     })
 })
 
--- Set configuration for specific filetype.
-cmp.setup.filetype('tex', {
-    sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'luasnip' },
-        { name = 'buffer' },
-        { name = 'path' },
-        {
-            name = 'look',
-            keyword_length = 2,
-        }
-    })
-})
-
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline({ '/', '?' }, {
     mapping = cmp.mapping.preset.cmdline(),
@@ -115,19 +101,3 @@ cmp.setup.cmdline(':', {
         { name = 'cmdline' }
     })
 })
-
--- cmp.setup {
---     formatting = {
---         format = function(entry, vim_item)
---             if vim.tbl_contains({ 'path' }, entry.source.name) then
---                 local icon, hl_group = require('nvim-web-devicons').get_icon(entry:get_completion_item().label)
---                 if icon then
---                     vim_item.kind = icon
---                     vim_item.kind_hl_group = hl_group
---                     return vim_item
---                 end
---             end
---             return lspkind.cmp_format({ with_text = true })(entry, vim_item)
---         end
---     }
--- }
