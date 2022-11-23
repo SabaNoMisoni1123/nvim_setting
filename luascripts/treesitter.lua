@@ -12,7 +12,9 @@ require'nvim-treesitter.configs'.setup {
     },
   },
   indent = {
-    enable = false
+    enable = true
   },
   auto_install = true,
 }
+
+require"treesitter-context".setup()

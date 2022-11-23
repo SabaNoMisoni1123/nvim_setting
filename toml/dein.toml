@@ -2,6 +2,21 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
+# fuzzy finder ==================================
+[[plugins]]
+repo = 'nvim-lua/plenary.nvim'
+[[plugins]]
+repo = 'nvim-telescope/telescope-fzf-native.nvim'
+build = 'make'
+
+[[plugins]]
+repo = 'nvim-telescope/telescope.nvim'
+rev = '0.1.0'
+depends = ['plenary.nvim', 'telescope-fzf-native.nvim']
+hook_post_source = '''
+  exe 'source' expand(g:nvim_home_dir . '/luascripts/telescope.lua')
+'''
+
 # color scheme ==================================
 [[plugins]]
 repo = 'https://github.com/itchyny/lightline.vim'
@@ -10,7 +25,6 @@ let g:lightline = {
   \ 'separator': { 'left': '', 'right': '' },
   \ }
 '''
-
 [[plugins]]
 repo = 'morhetz/gruvbox'
 hook_add = '''
@@ -21,14 +35,18 @@ let g:lightline = {
   \ }
 '''
 
-[[plugins]]
-repo = 'nvim-treesitter/nvim-treesitter'
-merged = '0'
-hook_post_source = '''
-exe 'source' expand(g:nvim_home_dir . '/luascripts/treesitter.lua')
-'''
-hook_install = 'TSUpdate'
-hook_post_update = 'TSUpdate'
+# [[plugins]]
+# repo = 'nvim-treesitter/nvim-treesitter'
+# depends = ["nvim-treesitter-context"]
+# merged = '0'
+# hook_install = 'TSUpdate'
+# hook_post_update = 'TSUpdate'
+# [[plugins]]
+# repo = 'nvim-treesitter/nvim-treesitter-context'
+# depends = ['nvim-treesitter']
+# hook_post_source = '''
+# exe 'source' expand(g:nvim_home_dir . '/luascripts/treesitter.lua')
+# '''
 
 # text object ===================================
 [[plugins]]

@@ -11,22 +11,6 @@ LspStart
 [[plugins]]
 repo = 'ray-x/lsp_signature.nvim'
 
-# fuzzy finder ==================================
-[[plugins]]
-repo = 'nvim-lua/plenary.nvim'
-[[plugins]]
-repo = 'nvim-telescope/telescope-fzf-native.nvim'
-build = 'make'
-
-[[plugins]]
-repo = 'nvim-telescope/telescope.nvim'
-rev = '0.1.0'
-depends = ['plenary.nvim', 'telescope-fzf-native.nvim']
-on_event = ['InsertEnter', 'CmdlineEnter']
-hook_post_source = '''
-  exe 'source' expand(g:nvim_home_dir . '/luascripts/telescope.lua')
-'''
-
 # auto complete =================================
 [[plugins]]
 repo = 'octaltree/cmp-look'
@@ -59,7 +43,7 @@ exe 'source' expand(g:nvim_home_dir . '/luascripts/nvim-cmp.lua')
 repo =  'kyazdani42/nvim-tree.lua'
 hook_add = '''
 nmap <silent> <leader>d   :<C-u>exe 'lcd' expand('%:p:h')<CR><Cmd>NvimTreeToggle<CR>
-nmap <silent> <leader>st  :<C-u>tab sp<CR><leader>d
+nmap <silent> st          :<C-u>tab sp<CR><leader>d
 nmap <silent> <leader>n   <Cmd>NvimTreeFocus<CR>
 '''
 hook_post_source = '''
@@ -90,7 +74,6 @@ on_map = '<Plug>(quickrun)'
 hook_add = '''
 exe 'source' expand(g:nvim_home_dir . '/vimscripts/quickrun_setting.vim')
 '''
-
 
 # tools =========================================
 [[plugins]]

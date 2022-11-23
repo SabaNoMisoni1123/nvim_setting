@@ -57,7 +57,7 @@ cmp.setup({
     { name = 'nvim_lsp_signature_help', group_index = 1 },
     { name = 'buffer', group_index = 2 },
     { name = 'path', group_index = 2 },
-    { name = 'look', group_index = 2 }
+    { name = 'look', group_index = 3 }
   }),
   formatting = {
     format = function(entry, vim_item)
