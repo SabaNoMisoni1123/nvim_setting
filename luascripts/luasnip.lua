@@ -24,3 +24,5 @@ ls.add_snippets("python", {
   ls.parser.parse_snippet("todo", "# TODO: "),
   ls.parser.parse_snippet("pltimport", "import matplotlib.pyplot as plt"),
 })
+
+require("luasnip.loaders.from_snipmate").load()

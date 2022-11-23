@@ -69,6 +69,9 @@ on_map = ['<Cmd>NvimTreeToggle', '<Cmd>NvimTreeFocus']
 
 # Snippet =======================================
 [[plugins]]
+repo = 'honza/vim-snippets'
+
+[[plugins]]
 repo = 'L3MON4D3/LuaSnip'
 hook_add = '''
 " press <Tab> to expand or jump in a snippet. These can also be mapped separately
@@ -85,14 +88,7 @@ smap <silent><expr> <C-e> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
 hook_post_source = '''
 exe 'source' expand(g:nvim_home_dir . '/luascripts/luasnip.lua')
 '''
-
-
-[[plugins]]
-repo = 'iurimateus/luasnip-latex-snippets.nvim'
-hook_post_source = '''
-lua require'luasnip-latex-snippets'.setup({use_treesitter = true})
-'''
-on_source = ["LuaSnip"]
+depends = ['vim-snippets']
 
 # quick run =====================================
 [[plugins]]
