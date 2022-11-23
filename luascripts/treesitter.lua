@@ -1,6 +1,7 @@
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
+    disable = { "tex", "latex" },
   },
   incremental_selection = {
     enable = true,
@@ -12,9 +13,8 @@ require'nvim-treesitter.configs'.setup {
     },
   },
   indent = {
-    enable = true
+    enable = false
   },
   auto_install = true,
+  ignore_install = { "tex", "latex" },
 }
-
-require"treesitter-context".setup()
