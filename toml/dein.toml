@@ -124,6 +124,13 @@ nnoremap <leader>gg <CMD>Glgrep ""<Left>
 nnoremap <leader>gm <CMD>Git merge
 '''
 
+# indentline ====================================
+[[plugins]]
+repo = 'lukas-reineke/indent-blankline.nvim'
+hook_post_source = '''
+  exe 'source' expand(g:nvim_home_dir . '/luascripts/indent-blankline.lua')
+'''
+
 # ctag ==========================================
 [[plugins]]
 repo = 'soramugi/auto-ctags.vim'
