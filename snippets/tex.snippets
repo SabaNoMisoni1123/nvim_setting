@@ -1,0 +1,152 @@
+snippet documentclass \documentclass[]{}
+	\\documentclass[${1:options}]{${2:class}} ${0}
+
+snippet document \begin{document} ... \end{document} block
+	\\begin{document}
+		${0}
+	\\end{document}
+
+snippet table table env
+	\\begin{table}[$1]
+		\\centering
+		\\caption{${2}}
+		\\label{${3}}
+		\\begin{tabular}{${4}}
+			${5}
+		\\end{tabular}
+	\\end{table}
+	${0}
+
+snippet figure figure environment (includegraphics)
+	\\begin{figure}
+		\\centering
+		\\includegraphics[scale=${1}]{Figures/${2}}
+		\\caption{${3}}
+		\\label{${4}}
+	\\end{figure}
+	${0}
+
+
+snippet eqnonumber
+    \\[
+        ${1}
+    \\]
+    ${0}
+
+snippet \sum
+    \\sum_{${1}}^{${2}} ${0}
+
+snippet \mathrm
+    \\mathrm{${1}}${0}
+
+snippet \intInf
+    \\int_{\\infty}^{\\infty} ${0}
+
+snippet \int
+    \\int_{${1}}^{${2}} ${0}
+
+snippet inval
+  $${1}\\, \\mathrm{${2}}$${0}
+
+snippet pack1
+  \\usepackage{graphicx}
+  \\usepackage{amsmath}
+  \\usepackage{amssymb}
+  \\usepackage{ascmac}
+  \\usepackage{txfonts}
+  \\usepackage{url}
+  \\usepackage{bm}
+  \\usepackage{booktabs}
+  \\usepackage{algorithm}
+  \\usepackage{algpseudocode}
+  \\usepackage{docmute}
+  \\usepackage{subfigure}
+  \\usepackage{tikz}
+  \\usetikzlibrary{calc}
+  \\usetikzlibrary{intersections}
+  \\usetikzlibrary{shapes}
+  ${0}
+
+snippet toc
+  \\usepackage[dvipdfmx]{hyperref}
+  \\usepackage{pxjahyper}
+  ${0}
+
+snippet lstlsting
+  \\usepackage{listings, jlisting}
+  \\lstset{
+      language = Python,
+      breaklines = true,
+      classoffset = 0,
+      framesep = 5pt,
+      numbers = left,
+      stepnumber =1,
+      tabsize = 4,
+      frame = tlrb,
+      keywordstyle = \\ttfamily,
+  }
+  ${0}
+
+snippet noLabelNom
+  \\usepackage{mathtools}
+  \\mathtoolsset{showonlyrefs}
+  ${0}
+
+snippet texslide
+  \\usetheme{Madrid}
+  \\usefonttheme{professionalfonts}
+  \\usepackage{helvet}
+  \\usepackage[deluxe, expert]{otf}
+  \\renewcommand{\\kanjifamilydefault}{\\gtdefault}
+  ${0}
+
+snippet margin
+  \\usepackage[top=${1}in, bottom=${2}in, left=${3}in, right=${4}in]{geometry}
+  ${0}
+
+snippet tikzset
+  \\documentclass[tikz, dvipdfmx]{standalone}
+
+  \\usepackage{graphics}
+  \\usepackage{amsmath}
+  \\usepackage{amssymb}
+  \\usepackage{ascmac}
+  \\usepackage{txfonts}
+  \\usepackage{url}
+  \\usepackage{bm}
+  \\usepackage{booktabs}
+  \\usepackage{algorithm}
+  \\usepackage{algpseudocode}
+  \\usepackage{docmute}
+  \\usepackage{subfigure}
+  \\usepackage{tikz}
+  \\usetikzlibrary{calc}
+  \\usetikzlibrary{intersections}
+  \\usetikzlibrary{shapes}
+  ${0}
+
+snippet article
+  \\documentclass[dvipdfmx]{jsarticle}
+  \\usepackage{graphics}
+  \\usepackage{amsmath}
+  \\usepackage{amssymb}
+  \\usepackage{ascmac}
+  \\usepackage{txfonts}
+  \\usepackage{url}
+  \\usepackage{bm}
+  \\usepackage{booktabs}
+  \\usepackage{algorithm}
+  \\usepackage{algpseudocode}
+  \\usepackage{docmute}
+  \\usepackage{subfigure}
+  \\usepackage{tikz}
+  \\usetikzlibrary{calc}
+  \\usetikzlibrary{intersections}
+  \\usetikzlibrary{shapes}
+  \\title{${1: TITLE}}
+  \\author{${2: AUTHOR}}
+
+  \\begin{document}
+    \\maketitle
+    ${0:TARGET}
+  \\end{document}

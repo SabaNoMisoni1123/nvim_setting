@@ -21,10 +21,5 @@ local postfix = require("luasnip.extras.postfix").postfix
 
 -- load vim-snippets
 require("luasnip.loaders.from_snipmate").lazy_load({path=vim.g.plugins_github_dir .. '/honza/vim-snippets/snippets/'})
-
--- my snippets
-ls.add_snippets("python", {
-  ls.parser.parse_snippet("pf", "print(f\"{$1}\")$0"),
-  ls.parser.parse_snippet("todo", "# TODO: "),
-  ls.parser.parse_snippet("pltimport", "import matplotlib.pyplot as plt"),
-})
+-- load my snippets
+require("luasnip.loaders.from_snipmate").lazy_load({path=vim.g.nvim_home_dir .. '/snippets/'})
