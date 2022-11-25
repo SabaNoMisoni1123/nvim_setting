@@ -1,11 +1,9 @@
 "key mapping
 
 " terminal mapping
-tnoremap <Esc> <C-\><C-n>
+tnoremap <Esc>  <C-\><C-n>
+tnoremap jj     <C-\><C-n>
 autocmd TermOpen * startinsert
-
-" search
-nnoremap <C-_> /
 
 " move to the end of a text after copying/pasting it
 vnoremap <silent> y y`]
@@ -81,10 +79,6 @@ nnoremap -  <C-x>
 vmap     g+ g<C-a>
 vmap     g- g<C-x>
 
-" switch quote and backquote
-" nnoremap ' `
-" nnoremap ` '
-
 " save with <C-g> in insert mode
 inoremap <C-g> <ESC>:update<CR>a
 
@@ -101,20 +95,6 @@ nnoremap <silent> <leader>fed <Cmd>tabnew ~/.config/nvim/init.vim<CR>
 nnoremap <silent> <leader>few <Cmd>tabnew ~/.config/nvim/mapping.vim<CR>
 nnoremap <silent> <leader>fes <Cmd>tabnew ~/.config/nvim/set.vim<CR>
 
-" grep
-nnoremap <leader>vv :vimgrep // %:p:h/*<Left><Left><Left><Left><Left><Left><Left><Left><Left>
-nnoremap cn :cn
-nnoremap cp :cp
-
-" recursive search
-let s:use_vim_grep = 0
-if s:use_vim_grep
-    nnoremap <leader>vr :vimgrep // %:p:h/**<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
-else
-  set grepprg=rg\ --vimgrep\ --no-heading\ -uuu
-  nnoremap <leader>vr :grep -e ""<Left>
-endif
-
 " quickfix jump
 nnoremap [q :cprevious<CR>   " 前へ
 nnoremap ]q :cnext<CR>       " 次へ
@@ -127,14 +107,6 @@ nnoremap ]w :lnext<CR>       " 次へ
 nnoremap [W :<C-u>lfirst<CR> " 最初へ
 nnoremap ]W :<C-u>llast<CR>  " 最後へ
 
-" In quickfix window...
-" augroup QuickfixWindow
-"     autocmd!
-"     autocmd filetype qf nnoremap <buffer>p <CR>zz<C-w>j
-"     autocmd filetype qf unmap j
-"     autocmd filetype qf unmap k
-" augroup END
-
 " one push to add/remove tabs
 nnoremap > >>
 nnoremap < <<
@@ -142,25 +114,9 @@ nnoremap < <<
 vnoremap > >gv
 vnoremap < <gv
 
-" tagsジャンプの時に複数ある時は一覧表示
-nnoremap <C-]> g<C-]>
-""
-" 行移動
-inoremap <silent> <expr> <C-p> "<C-r>=ExecExCommand('normal k')<CR>"
-inoremap <silent> <expr> <C-n> "<C-r>=ExecExCommand('normal j')<CR>"
-
-function! ExecExCommand(cmd)
-  silent exec a:cmd
-  return ''
-endfunction
-
 set signcolumn=yes
 
 set matchpairs+=「:」,（:）
-
-" 最後に設定
-filetype plugin indent on
-syntax enable
 
 " 追加キーマップ
 inoremap <silent>jj <ESC>
@@ -168,3 +124,7 @@ nnoremap O O<ESC>0D
 
 " 行末空白の削除
 nmap ds :%s/\s\+$//e<CR><C-o>
+
+" 最後に設定
+filetype plugin indent on
+syntax enable
