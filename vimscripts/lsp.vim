@@ -34,7 +34,9 @@ if executable('rust-analyzer')
 endif
 
 " Python
-if executable('pylsp')
+if executable('pyright')
+  let g:LSP_commands['python'] = "pyright"
+elseif executable('pylsp')
   let g:LSP_commands['python'] = "pylsp"
 endif
 

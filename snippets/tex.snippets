@@ -107,7 +107,7 @@ snippet margin
 snippet tikzset
   \\documentclass[tikz, dvipdfmx]{standalone}
 
-  \\usepackage{graphics}
+  \\usepackage{graphicx}
   \\usepackage{amsmath}
   \\usepackage{amssymb}
   \\usepackage{ascmac}
@@ -127,7 +127,7 @@ snippet tikzset
 
 snippet article
   \\documentclass[dvipdfmx]{jsarticle}
-  \\usepackage{graphics}
+  \\usepackage{graphicx}
   \\usepackage{amsmath}
   \\usepackage{amssymb}
   \\usepackage{ascmac}
@@ -150,3 +150,25 @@ snippet article
     \\maketitle
     ${0:TARGET}
   \\end{document}
+
+snippet tikzpicture
+	\\begin{tikzpicture}[${1}]
+		${0}
+	\\end{tikzpicture}
+
+snippet draw
+	\\draw[${1}] ${0};
+
+snippet fill
+	\\fill[${1}] ${0};
+
+snippet filldraw
+	\\filldraw[${1}] ${0};
+
+snippet node
+	\\node[${1}] (${2}) at (${3}) {${4}};
+	${0}
+
+snippet coordinate
+	\\coordinate (${1}) at (${2});
+	${0}

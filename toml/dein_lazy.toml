@@ -13,6 +13,8 @@ repo = 'ray-x/lsp_signature.nvim'
 
 # auto complete =================================
 [[plugins]]
+repo = 'hrsh7th/cmp-omni'
+[[plugins]]
 repo = 'octaltree/cmp-look'
 [[plugins]]
 repo = 'hrsh7th/cmp-nvim-lsp'
@@ -32,7 +34,7 @@ repo = 'hrsh7th/cmp-nvim-lsp-signature-help'
 
 [[plugins]]
 repo = 'hrsh7th/nvim-cmp'
-depends = ['nvim-lspconfig', 'cmp-nvim-lsp', 'cmp-buffer', 'cmp-path', 'cmp-cmdline', 'cmp_luasnip', 'lspkind.nvim', 'cmp-look']
+depends = ['nvim-lspconfig', 'cmp-nvim-lsp', 'cmp-buffer', 'cmp-path', 'cmp-cmdline', 'cmp_luasnip', 'lspkind.nvim', 'cmp-look', 'cmp-omni']
 on_event = ['InsertEnter', 'CmdlineEnter']
 hook_post_source = '''
 exe 'source' expand(g:nvim_home_dir . '/luascripts/nvim-cmp.lua')

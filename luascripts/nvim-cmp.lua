@@ -55,12 +55,13 @@ cmp.setup({
     end,
   }),
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' , group_index = 1},
-    { name = 'luasnip', group_index = 1 },
-    { name = 'nvim_lsp_signature_help', group_index = 1 },
-    { name = 'buffer', group_index = 2 },
-    { name = 'path', group_index = 2 },
-    { name = 'look', group_index = 3 }
+    { name = 'nvim_lsp' , group_index = 1, priority = 10},
+    { name = 'luasnip', group_index = 1, priority = 10 },
+    { name = 'nvim_lsp_signature_help', group_index = 2, priority = 7 },
+    { name = 'buffer', group_index = 2, priority = 5 },
+    { name = 'omni', group_index = 2, priority = 5 },
+    { name = 'path', group_index = 2, priority = 5 },
+    { name = 'look', group_index = 3, priority = 1 }
   }),
   formatting = {
     format = function(entry, vim_item)
