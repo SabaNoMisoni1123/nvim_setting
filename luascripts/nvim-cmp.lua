@@ -55,7 +55,7 @@ cmp.setup({
     end,
   }),
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' , group_index = 1, priority = 10},
+    { name = 'nvim_lsp' , group_index = 1, priority = 20},
     { name = 'luasnip', group_index = 1, priority = 10 },
     { name = 'nvim_lsp_signature_help', group_index = 2, priority = 7 },
     { name = 'buffer', group_index = 2, priority = 5 },
