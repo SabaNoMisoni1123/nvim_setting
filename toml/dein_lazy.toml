@@ -4,7 +4,7 @@ repo = 'neovim/nvim-lspconfig'
 on_ft = ['c', 'cpp', 'rust', 'python', 'vim', 'tex', 'javascript', 'typescript', 'css', 'vue']
 depends = 'lsp_signature.nvim'
 hook_post_source = '''
-exe 'source' expand(g:nvim_home_dir . '/vimscripts/lsp.vim')
+exe 'source' expand(g:nvim_home_dir . '/luascripts/lsp.lua')
 LspStart
 '''
 
