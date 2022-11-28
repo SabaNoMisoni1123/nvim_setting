@@ -18,11 +18,11 @@ snippet table table env
 	${0}
 
 snippet figure figure environment (includegraphics)
-	\\begin{figure}
+	\\begin{figure}[${1}]
 		\\centering
-		\\includegraphics[scale=${1}]{Figures/${2}}
-		\\caption{${3}}
-		\\label{${4}}
+		\\includegraphics[scale=${2}]{${3}}
+		\\caption{${4}}
+		\\label{${5}}
 	\\end{figure}
 	${0}
 
@@ -59,7 +59,6 @@ snippet pack1
   \\usepackage{booktabs}
   \\usepackage{algorithm}
   \\usepackage{algpseudocode}
-  \\usepackage{docmute}
   \\usepackage{subfigure}
   \\usepackage{tikz}
   \\usetikzlibrary{calc}
@@ -101,7 +100,7 @@ snippet texslide
   ${0}
 
 snippet margin
-  \\usepackage[top=${1}in, bottom=${2}in, left=${3}in, right=${4}in]{geometry}
+  \\usepackage[top=${1}in, bottom=${1}in, left=${2}in, right=${2}in]{geometry}
   ${0}
 
 snippet tikzset
@@ -117,7 +116,6 @@ snippet tikzset
   \\usepackage{booktabs}
   \\usepackage{algorithm}
   \\usepackage{algpseudocode}
-  \\usepackage{docmute}
   \\usepackage{subfigure}
   \\usepackage{tikz}
   \\usetikzlibrary{calc}
@@ -137,7 +135,6 @@ snippet article
   \\usepackage{booktabs}
   \\usepackage{algorithm}
   \\usepackage{algpseudocode}
-  \\usepackage{docmute}
   \\usepackage{subfigure}
   \\usepackage{tikz}
   \\usetikzlibrary{calc}
