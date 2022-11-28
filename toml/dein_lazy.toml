@@ -181,12 +181,39 @@ repo = 'plasticboy/vim-markdown.git'
 on_ft = ['markdown']
 hook_source = '''
 let g:vim_markdown_no_default_key_mappings=1
-let g:vim_markdown_new_list_item_indent=0
 let g:vim_markdown_conceal=0
 let g:vim_markdown_conceal_code_blocks=0
 let g:vim_markdown_math=1
-let g:vim_markdown_auto_insert_bullets=1
+let g:vim_markdown_new_list_item_indent=0
 '''
+
+[[plugins]]
+repo = 'dkarter/bullets.vim'
+on_ft = ['markdown', 'text', 'gitcommit']
+hook_source = '''
+let g:bullets_enabled_file_types = [
+  \ 'markdown',
+  \ 'text',
+  \ 'gitcommit',
+  \]
+let g:bullets_enable_in_empty_buffers = 0
+let g:bullets_set_mappings = 0
+let g:bullets_custom_mappings = [
+  \ ['imap', '<cr>', '<Plug>(bullets-newline)'],
+  \ ['inoremap', '<C-cr>', '<cr>'],
+  \ ['nmap', 'o', '<Plug>(bullets-newline)'],
+  \ ['vmap', '<leader>cn', '<Plug>(bullets-renumber)'],
+  \ ['nmap', '<leader>cn', '<Plug>(bullets-renumber)'],
+  \ ['nmap', '<leader>cc', '<Plug>(bullets-toggle-checkbox)'],
+  \ ['imap', '<C-t>', '<Plug>(bullets-demote)'],
+  \ ['nmap', '>', '<Plug>(bullets-demote)'],
+  \ ['vmap', '>', '<Plug>(bullets-demote)'],
+  \ ['imap', '<C-d>', '<Plug>(bullets-promote)'],
+  \ ['nmap', '<', '<Plug>(bullets-promote)'],
+  \ ['vmap', '<', '<Plug>(bullets-promote)'],
+  \ ]
+'''
+
 
 # writing tools =================================
 [[plugins]]
