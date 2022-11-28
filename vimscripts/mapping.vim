@@ -121,6 +121,7 @@ set matchpairs+=「:」,（:）
 " 追加キーマップ
 inoremap <silent>jj <ESC>
 nnoremap O O<ESC>0D
+nnoremap <C-_> /
 
 " 行末空白の削除
 nmap ds :%s/\s\+$//e<CR><C-o>

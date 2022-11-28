@@ -1,6 +1,6 @@
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
-local lspkind = require('lspkind')
+local lspkind = require 'lspkind'
 
 cmp.setup({
   snippet = {
@@ -55,13 +55,23 @@ cmp.setup({
     end,
   }),
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' , group_index = 1, priority = 20},
-    { name = 'luasnip', group_index = 1, priority = 10 },
-    { name = 'nvim_lsp_signature_help', group_index = 2, priority = 7 },
-    { name = 'buffer', group_index = 2, priority = 5 },
-    { name = 'omni', group_index = 2, priority = 5 },
-    { name = 'path', group_index = 2, priority = 5 },
-    { name = 'look', group_index = 3, priority = 1 }
+    { name = 'nvim_lsp' , group_index = 1, priority = 30},
+    { name = 'luasnip', group_index = 1, priority = 20 },
+    { name = 'nvim_lsp_signature_help', group_index = 2, priority = 15 },
+    { name = 'buffer', group_index = 2, priority = 10 },
+    { name = 'omni', group_index = 2, priority = 7 },
+    { name = 'path', group_index = 2, priority = 7 },
+    {
+      name = 'look',
+      keyword_length = 2,
+      option = {
+        convert_case = ture,
+        loud = ture,
+        dict = '/usr/share/dict/words',
+      },
+      group_index = 3,
+      priority = 1
+    }
   }),
   formatting = {
     format = function(entry, vim_item)
@@ -73,9 +83,21 @@ cmp.setup({
             return vim_item
         end
       end
-      return lspkind.cmp_format({ with_text = true })(entry, vim_item)
+      return lspkind.cmp_format({
+        with_text = true,
+        mode = "symbol_text",
+        menu = ({
+          buffer = "[Buffer]",
+          nvim_lsp = "[LSP]",
+          luasnip = "[LuaSnip]",
+          nvim_lsp_signature_help = "[Help]",
+          omni = "[Omni]",
+          path = "[Path]",
+          look = "[Look]",
+        }),
+      })(entry, vim_item)
     end
-  }
+  },
 })
 
 -- Set configuration for specific filetype.

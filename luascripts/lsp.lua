@@ -52,10 +52,13 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<leader>le', vim.diagnostic.open_float, bufopts)
 end
 
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
 for key, val in pairs(lsp_commands) do
   require('lspconfig')[val].setup{
     on_attach = on_attach,
     flags = lsp_flags,
+    capabilities = capabilities,
   }
 end
 
