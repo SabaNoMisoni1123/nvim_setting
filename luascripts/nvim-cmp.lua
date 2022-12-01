@@ -55,23 +55,28 @@ cmp.setup({
     end,
   }),
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' , group_index = 1, priority = 30},
-    { name = 'luasnip', group_index = 1, priority = 20 },
-    { name = 'nvim_lsp_signature_help', group_index = 2, priority = 15 },
-    { name = 'buffer', group_index = 2, priority = 10 },
-    { name = 'omni', group_index = 2, priority = 7 },
-    { name = 'path', group_index = 2, priority = 7 },
+    { name = 'nvim_lsp' , group_index = 1, priority = 300 },
+    { name = 'luasnip', group_index = 1, priority = 200 },
+    { name = 'nvim_lsp_signature_help', group_index = 2, priority = 150 },
+    { name = 'buffer', group_index = 2, priority = 100 },
+    { name = 'omni', group_index = 2, priority = 70 },
+    { name = 'path', group_index = 2, priority = 70 },
     {
       name = 'look',
       keyword_length = 2,
       option = {
         convert_case = ture,
         loud = ture,
-        dict = '/usr/share/dict/words',
       },
       group_index = 3,
-      priority = 1
-    }
+      priority = 30,
+    },
+    {
+      name = 'dictionary',
+      keyword_length = 2,
+      group_index = 3,
+      priority = 10,
+    },
   }),
   formatting = {
     format = function(entry, vim_item)
@@ -94,20 +99,27 @@ cmp.setup({
           omni = "[Omni]",
           path = "[Path]",
           look = "[Look]",
+          dictionary = "[dict]"
         }),
       })(entry, vim_item)
     end
   },
 })
 
+require("cmp_dictionary").setup({
+  dic = {
+    -- If you always use the English dictionary, The following settings are suitable:
+    ["*"] = "/usr/share/dict/words",
+  },
+  max_items = 50,
+})
+
 -- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {
     sources = cmp.config.sources({
         { name = 'buffer' },
-        {
-            name = 'look',
-            keyword_length = 2,
-        },
+        { name = 'look' },
+        { name = 'dictionary' },
     })
 })
 

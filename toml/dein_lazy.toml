@@ -25,6 +25,8 @@ repo = 'hrsh7th/cmp-path'
 [[plugins]]
 repo = 'hrsh7th/cmp-cmdline'
 [[plugins]]
+repo = 'uga-rosa/cmp-dictionary'
+[[plugins]]
 repo = 'saadparwaiz1/cmp_luasnip'
 depends = 'LuaSnip'
 [[plugins]]
@@ -33,7 +35,7 @@ repo = 'onsails/lspkind.nvim'
 repo = 'hrsh7th/cmp-nvim-lsp-signature-help'
 [[plugins]]
 repo = 'hrsh7th/nvim-cmp'
-depends = ['nvim-lspconfig', 'cmp-nvim-lsp', 'cmp-buffer', 'cmp-path', 'cmp-cmdline', 'cmp_luasnip', 'lspkind.nvim', 'cmp-look', 'cmp-omni']
+depends = ['nvim-lspconfig', 'cmp-nvim-lsp', 'cmp-buffer', 'cmp-path', 'cmp-cmdline', 'cmp_luasnip', 'lspkind.nvim', 'cmp-look', 'cmp-omni', 'cmp-dictionary']
 on_event = ['InsertEnter', 'CmdlineEnter']
 hook_post_source = '''
 exe 'source' expand(g:nvim_home_dir . '/luascripts/nvim-cmp.lua')
