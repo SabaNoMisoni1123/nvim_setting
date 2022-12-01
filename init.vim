@@ -23,9 +23,3 @@ endif
 filetype plugin on
 filetype indent on
 syntax enable
-set conceallevel=0
-
-" local setting
-if filereadable(expand(g:nvim_home_dir . '/init_local.vim'))
-  exe 'source' expand(g:nvim_home_dir . '/init_local.vim')
-endif

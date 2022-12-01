@@ -126,7 +126,3 @@ snoremap p <C-g>cp
 
 " 行末空白の削除
 nmap ds :%s/\s\+$//e<CR><C-o>
-
-" 最後に設定
-filetype plugin indent on
-syntax enable

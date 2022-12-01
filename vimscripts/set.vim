@@ -66,7 +66,7 @@ set inccommand=split
 " don't fold by default
 set foldlevel=99
 " reserve two columns for fold
-set foldcolumn=2
+" set foldcolumn=2
 
 " listchar settings
 set list listchars=tab:»-,trail:~,extends:»,precedes:«,nbsp:%

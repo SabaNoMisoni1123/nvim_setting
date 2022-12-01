@@ -139,3 +139,7 @@ cmp.setup.cmdline(':', {
         { name = 'cmdline' }
     })
 })
+
+cmp.setup {
+  preselect = cmp.PreselectMode.None
+}
