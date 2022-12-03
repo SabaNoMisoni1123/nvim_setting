@@ -32,6 +32,10 @@ if vim.fn.executable('rust-analyzer') == 1 then
   lsp_commands['rust'] = 'rust_analyzer'
 end
 
+if vim.fn.executable('grammarly-languageserver') == 1 then
+  lsp_commands['markdown'] = 'grammarly'
+end
+
 -- 諸設定
 local opts = { noremap = true, silent = true }
 local lsp_flags = {
