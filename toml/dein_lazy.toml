@@ -215,33 +215,7 @@ let g:bullets_custom_mappings = [
   \ ]
 '''
 
-
 # writing tools =================================
-[[plugins]]
-repo = 'https://github.com/dense-analysis/ale'
-on_ft=['markdown']
-hook_source = '''
-" let g:ale_sign_column_always=1
-" let g:ale_lint_on_save=1
-" let g:ale_lint_on_text_changed=1
-" let g:ale_lint_on_enter=0
-" let g:ale_open_list=0
-let g:ale_completion_enabled=1
-
-nnoremap <leader>af :ALEFix<CR>
-nnoremap <leader>al :ALELint<CR>
-nnoremap ]a :ALENext<CR>
-nnoremap [a :ALEPrevious<CR>
-
-let g:ale_linters={}
-let g:ale_linters={
-  \ 'markdown' : ['textlint'],
-  \}
-let g:ale_fixers = {
-  \ 'markdown' : ['textlint'],
-  \}
-'''
-
 [[plugins]]
 repo = "rhysd/vim-grammarous"
 on_ft = ["markdown", "txt"]

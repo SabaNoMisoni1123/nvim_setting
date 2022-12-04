@@ -1,40 +1,22 @@
 -- 言語の追加
+-- key: command, val: setting strings
 local lsp_commands = {}
+
 if vim.fn.executable('pyright') == 1 then
-  lsp_commands['python'] = 'pyright'
-elseif vim.fn.executable('pylsp') == 1 then
-  lsp_commands['python'] = 'pylsp'
+  lsp_commands['pyright'] = 'pyright'
+else
+  lsp_commands['pylsp'] = 'pylsp'
 end
 
-if vim.fn.executable('typescript-language-server') == 1 then
-  lsp_commands['javascript'] = 'tsserver'
-elseif vim.fn.executable('deno') == 1 then
-  lsp_commands['javascript'] = 'deno'
-end
-
-if vim.fn.executable('vue-language-server') == 1 then
-  lsp_commands['vue'] = 'volar'
-end
-
-if vim.fn.executable('vim-language-server') == 1 then
-  lsp_commands['vim'] = 'vimls'
-end
-
-if vim.fn.executable('texlab') == 1 then
-  lsp_commands['tex'] = 'texlab'
-end
-
-if vim.fn.executable('clangd') == 1 then
-  lsp_commands['c_cpp'] = 'clangd'
-end
-
-if vim.fn.executable('rust-analyzer') == 1 then
-  lsp_commands['rust'] = 'rust_analyzer'
-end
-
-if vim.fn.executable('grammarly-languageserver') == 1 then
-  lsp_commands['markdown'] = 'grammarly'
-end
+lsp_commands['typescript-language-server'] = 'tsserver'
+lsp_commands['vue-language-server'] = 'volar'
+lsp_commands['vim-language-server'] = 'vimls'
+lsp_commands['texlab'] = 'texlab'
+lsp_commands['clangd'] = 'clangd'
+lsp_commands['rust-analyzer'] = 'rust_analyzer'
+lsp_commands['grammarly-languageserver'] = 'grammarly'
+lsp_commands['ltex-ls'] = 'ltex'
+lsp_commands['efm-langserver'] = 'efm'
 
 -- 諸設定
 local opts = { noremap = true, silent = true }
@@ -59,11 +41,31 @@ end
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 for key, val in pairs(lsp_commands) do
-  require('lspconfig')[val].setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
-    capabilities = capabilities,
-  }
+  -- コマンドの存在を確認
+  if vim.fn.executable(key) == 1 then
+    -- 基本設定
+    require('lspconfig')[val].setup{
+      on_attach = on_attach,
+      flags = lsp_flags,
+      capabilities = capabilities,
+    }
+    -- 詳細設定
+    -- LSPごとにif文
+    if val == 'grammarly' then
+      require('lspconfig')[val].setup{
+        filetypes = { "markdown", "text", "tex" },
+      }
+    end
+    if val == 'emf' then
+      require('lspconfig')[val].setup{
+        filetypes = { "markdown", "text", "tex" },
+        init_options = { documentFormatting = true },
+        settings = {
+          rootMarkers = { ".git/" },
+        }
+      }
+    end
+  end
 end
 
 require('lsp_signature').setup{
