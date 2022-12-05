@@ -14,8 +14,8 @@ setlocal shiftwidth=2
 setlocal foldmethod=syntax
 setlocal expandtab
 setlocal textwidth=80
-nnoremap ,x <Cmd>QuickRun make/src<CR>
-nnoremap ,,x <Cmd>QuickRun cmake/src<CR>
+nnoremap <buffer> ,x  <Cmd>QuickRun make/src<CR>
+nnoremap <buffer> ,,x <Cmd>QuickRun cmake/src<CR>
 setlocal conceallevel=0
 '''
 
@@ -25,8 +25,8 @@ setlocal shiftwidth=2
 setlocal foldmethod=syntax
 setlocal expandtab
 setlocal textwidth=80
-nnoremap ,x <Cmd>QuickRun make/src<CR>
-nnoremap ,,x <Cmd>QuickRun cmake/src<CR>
+nnoremap <buffer> ,x  <Cmd>QuickRun make/src<CR>
+nnoremap <buffer> ,,x <Cmd>QuickRun cmake/src<CR>
 setlocal conceallevel=0
 '''
 
@@ -113,8 +113,8 @@ setlocal tabstop=4
 setlocal shiftwidth=4
 setlocal expandtab
 setlocal wrap
-nnoremap ,x <Cmd>QuickRun markdown/marp<CR>
-nnoremap ,,x <Cmd>QuickRun markdown/marp-pdf<CR>
+nnoremap <buffer> ,x  <Cmd>QuickRun markdown/marp<CR>
+nnoremap <buffer> ,,x <Cmd>QuickRun markdown/marp-pdf<CR>
 setlocal conceallevel=0
 '''
 
@@ -142,4 +142,25 @@ setlocal shiftwidth=2
 setlocal expandtab
 setlocal foldmethod=indent
 setlocal conceallevel=0
+'''
+
+NvimTree = '''
+nmap <buffer> >  <Cmd>NvimTreeResize +10<CR>
+nmap <buffer> <  <Cmd>NvimTreeResize -10<CR>
+'''
+
+tagbar = '''
+function! s:tagbar_width_plus()
+  let g:tagbar_width = g:tagbar_width + 10
+endfunction
+
+function! s:tagbar_width_minus()
+  let g:tagbar_width = g:tagbar_width - 10
+endfunction
+
+command! TagbarWidthPlus  call s:tagbar_width_plus()
+command! TagbarWidthMinus call s:tagbar_width_minus()
+
+nmap <buffer> <   <Cmd>TagbarToggle<CR>:TagbarWidthPlus<CR>:TagbarToggle<CR>sl
+nmap <buffer> >   <Cmd>TagbarToggle<CR>:TagbarWidthMinus<CR>:TagbarToggle<CR>sl
 '''
