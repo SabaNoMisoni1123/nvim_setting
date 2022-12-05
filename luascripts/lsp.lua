@@ -43,26 +43,32 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protoc
 for key, val in pairs(lsp_commands) do
   -- コマンドの存在を確認
   if vim.fn.executable(key) == 1 then
-    -- 基本設定
-    require('lspconfig')[val].setup{
-      on_attach = on_attach,
-      flags = lsp_flags,
-      capabilities = capabilities,
-    }
-    -- 詳細設定
+    -- LSPの起動
     -- LSPごとにif文
     if val == 'grammarly' then
       require('lspconfig')[val].setup{
+        on_attach = on_attach,
+        flags = lsp_flags,
+        capabilities = capabilities,
         filetypes = { "markdown", "text", "tex" },
       }
-    end
-    if val == 'emf' then
+    elseif val == 'efm' then
       require('lspconfig')[val].setup{
+        on_attach = on_attach,
+        flags = lsp_flags,
+        capabilities = capabilities,
         filetypes = { "markdown", "text", "tex" },
         init_options = { documentFormatting = true },
         settings = {
           rootMarkers = { ".git/" },
         }
+      }
+    else
+      -- 基本設定
+      require('lspconfig')[val].setup{
+        on_attach = on_attach,
+        flags = lsp_flags,
+        capabilities = capabilities,
       }
     end
   end
