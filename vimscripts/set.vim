@@ -68,6 +68,9 @@ set foldlevel=99
 " reserve two columns for fold
 " set foldcolumn=2
 
+" foldmethod
+setlocal foldmethod=indent
+
 " listchar settings
 set list listchars=tab:»-,trail:~,extends:»,precedes:«,nbsp:%
 

@@ -4,14 +4,12 @@ setlocal tabstop=4
 setlocal shiftwidth=4
 setlocal expandtab
 setlocal textwidth=100
-setlocal foldmethod=indent
 setlocal conceallevel=0
 '''
 
 c = '''
 setlocal tabstop=2
 setlocal shiftwidth=2
-setlocal foldmethod=syntax
 setlocal expandtab
 setlocal textwidth=80
 nnoremap <buffer> ,x  <Cmd>QuickRun make/src<CR>
@@ -22,7 +20,6 @@ setlocal conceallevel=0
 cpp = '''
 setlocal tabstop=2
 setlocal shiftwidth=2
-setlocal foldmethod=syntax
 setlocal expandtab
 setlocal textwidth=80
 nnoremap <buffer> ,x  <Cmd>QuickRun make/src<CR>
@@ -35,14 +32,12 @@ setlocal tabstop=4
 setlocal shiftwidth=4
 setlocal expandtab
 setlocal formatoptions+r
-setlocal foldmethod=indent
 setlocal conceallevel=0
 '''
 
 tex = '''
 setlocal tabstop=2
 setlocal shiftwidth=2
-setlocal foldmethod=indent
 setlocal expandtab
 setlocal wrap
 setlocal conceallevel=0
@@ -54,7 +49,6 @@ setlocal shiftwidth=2
 setlocal expandtab
 setlocal nowrap
 setlocal iskeyword+=-
-setlocal foldmethod=indent
 setlocal conceallevel=0
 '''
 
@@ -64,7 +58,6 @@ setlocal shiftwidth=2
 setlocal expandtab
 setlocal nowrap
 setlocal iskeyword+=-
-setlocal foldmethod=indent
 setlocal conceallevel=0
 '''
 
@@ -73,7 +66,6 @@ setlocal tabstop=2
 setlocal shiftwidth=2
 setlocal expandtab
 setlocal nowrap
-setlocal foldmethod=indent
 setlocal conceallevel=0
 '''
 
@@ -82,7 +74,6 @@ setlocal tabstop=2
 setlocal shiftwidth=2
 setlocal expandtab
 setlocal nowrap
-setlocal foldmethod=indent
 setlocal conceallevel=0
 '''
 
@@ -104,7 +95,6 @@ setlocal conceallevel=0
 
 help = '''
 setlocal noet
-setlocal foldmethod=indent
 setlocal conceallevel=0
 '''
 
@@ -124,7 +114,6 @@ setlocal shiftwidth=2
 setlocal expandtab
 setlocal nowrap
 setlocal iskeyword+=-
-setlocal foldmethod=indent
 setlocal conceallevel=0
 '''
 
@@ -132,7 +121,6 @@ json = '''
 setlocal tabstop=2
 setlocal shiftwidth=2
 setlocal expandtab
-setlocal foldmethod=indent
 setlocal conceallevel=0
 '''
 
@@ -140,7 +128,6 @@ lua = '''
 setlocal tabstop=2
 setlocal shiftwidth=2
 setlocal expandtab
-setlocal foldmethod=indent
 setlocal conceallevel=0
 '''
 
