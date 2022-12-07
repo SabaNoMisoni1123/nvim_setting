@@ -241,14 +241,7 @@ let g:bullets_custom_mappings = [
   \ ]
 '''
 
-# writing tools =================================
-[[plugins]]
-repo = "rhysd/vim-grammarous"
-on_ft = ["markdown", "txt"]
-hook_source = '''
-let g:grammarous#enable_spell_check=1
-'''
-
+# spell checker =================================
 [[plugins]]
 repo = "kamykn/spelunker.vim"
 on_ft = ["markdown", "latex"]
