@@ -5,5 +5,5 @@ tmp/
 LC.log
 colorscheme.vim
 toml/dein_colorscheme_local.toml
-init_local.vim
+local_settings.vim
 test*

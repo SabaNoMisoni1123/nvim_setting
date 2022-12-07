@@ -20,6 +20,11 @@ else
   exe 'source' expand(g:nvim_home_dir . '/vimscripts/mapping_vscode.vim')
 endif
 
+" load local setting
+if filereadable(expand(g:nvim_home_dir . '/local_settings.vim'))
+  exe 'source' expand(g:nvim_home_dir . '/local_settings.vim')
+endif
+
 filetype plugin on
 filetype indent on
 syntax enable

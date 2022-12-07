@@ -166,40 +166,14 @@ on_map = ['<Cmd>TagbarToggle']
 # tex ===========================================
 [[plugins]]
 repo = 'lervag/vimtex'
-# rev = 'v2.6'
 on_ft = ['tex','cls']
-hook_source= '''
-let g:vimtex_syntax_conceal_disable=1
-let g:vimtex_mappings_enabled=0
-let g:vimtex_compiler_latexmk = {
-    \ 'build_dir' : '',
-    \ 'callback' : 1,
-    \ 'continuous' : 1,
-    \ 'executable' : 'latexmk',
-    \ 'hooks' : [],
-    \ 'options' : [
-    \   '-verbose',
-    \   '-file-line-error',
-    \   '-synctex=1',
-    \   '-interaction=nonstopmode',
-    \ ],
-    \}
-
+hook_add = '''
 nmap <localleader>ll  <plug>(vimtex-compile)
-nmap <localleader>lt  <plug>(vimtex-toc-toggle)
-nmap <localleader>ls  <plug>(vimtex-status-all)
-nmap <localleader>lf  <plug>(vimtex-synctex-forward-search)
+nmap <localleader>lv  <plug>(vimtex-view)
+'''
 
-let g:vimtex_quickfix_ignore_filters = [
-      \ 'Font Warning',
-      \ 'Underfull',
-      \]
-
-if g:OSTYPE == "Darwin"
-  let g:vimtex_view_method = 'skim'
-elseif g:OSTYPE == "Linux"
-  let g:vimtex_view_general_viewer = 'evince'
-endif
+hook_post_source= '''
+exe 'source' expand(g:nvim_home_dir . '/vimscripts/vimtex.vim')
 '''
 
 # html / css / js ===============================
