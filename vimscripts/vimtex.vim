@@ -27,7 +27,7 @@ elseif g:OSTYPE == "Linux"
   if executable('zathura')
     let g:vimtex_view_method = 'zathura'
   else
+    let g:vimtex_view_method = 'general'
     let g:vimtex_view_general_viewer = 'evince'
   end
-
 endif
