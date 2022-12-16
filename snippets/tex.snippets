@@ -20,7 +20,7 @@ snippet table table env
 snippet figure figure environment (includegraphics)
 	\\begin{figure}[${1}]
 		\\centering
-		\\includegraphics[scale=${2}]{${3}}
+		\\includegraphics[width=${2}]{${3}}
 		\\caption{${4}}
 		\\label{${5}}
 	\\end{figure}
@@ -169,3 +169,8 @@ snippet node
 snippet coordinate
 	\\coordinate (${1}) at (${2});
 	${0}
+
+snippet todo
+	% ToDo: ${1}
+	${0}
+

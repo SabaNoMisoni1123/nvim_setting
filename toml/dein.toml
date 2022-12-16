@@ -152,6 +152,8 @@ endfunction
 
 command! SwapTransrateLang call s:swap_translate_language()
 command! CheckTransrateLang call s:check_translate_language()
+
+vnoremap <leader>x <Plug>(VTranslate)
 '''
 
 # other =========================================
