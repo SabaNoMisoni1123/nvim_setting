@@ -1,6 +1,3 @@
-nmap <leader>x <Plug>(quickrun)
-nmap <leader><leader>x :QuickRun<Space>
-
 autocmd FileType quickrun call s:quickrun_py_settings()
 function! s:quickrun_py_settings() abort
   nnoremap <buffer><silent> q   <Cmd>quit!<CR>

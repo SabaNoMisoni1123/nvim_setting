@@ -75,8 +75,27 @@ depends = ['vim-snippets']
 repo = 'thinca/vim-quickrun'
 on_map = '<Plug>(quickrun)'
 hook_add = '''
+nmap <leader>x <Plug>(quickrun)
+nmap <leader><leader>x :QuickRun<Space>
+'''
+hook_post_source = '''
 exe 'source' expand(g:nvim_home_dir . '/vimscripts/quickrun_setting.vim')
 '''
+
+# tree sitter ===================================
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+merged = '0'
+on_ft = ['c', 'cpp', 'rust', 'python', 'vim', 'tex', 'javascript', 'typescript', 'css', 'vue']
+hook_install = 'TSUpdate'
+hook_post_update = 'TSUpdate'
+hook_post_source = '''
+exe 'source' expand(g:nvim_home_dir . '/luascripts/treesitter.lua')
+'''
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter-context'
+on_source = ['nvim-treesitter']
+hook_post_source ='lua require"treesitter-context".setup()'
 
 # tools =========================================
 [[plugins]]
@@ -245,6 +264,69 @@ let g:bullets_custom_mappings = [
 [[plugins]]
 repo = "kamykn/spelunker.vim"
 on_ft = ["markdown", "latex"]
+
+# git ===========================================
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+on_event = ['InsertEnter', 'CmdlineEnter']
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+on_event = ['InsertEnter', 'CmdlineEnter']
+hook_add = '''
+"gitgutter
+let g:gitgutter_preview_win_floating = 0
+let g:gitgutter_map_keys = 0
+
+nmap <Leader>hs <Plug>(GitGutterStageHunk)
+nmap <Leader>hu <Plug>(GitGutterUndoHunk)
+nmap <Leader>hp <Plug>(GitGutterPreviewHunk)
+nmap ]h         <Plug>(GitGutterNextHunk)
+nmap [h         <Plug>(GitGutterPrevHunk)
+omap ih         <Plug>(GitGutterTextObjectInnerPending)
+omap ah         <Plug>(GitGutterTextObjectOuterPending)
+xmap ih         <Plug>(GitGutterTextObjectInnerVisual)
+xmap ah         <Plug>(GitGutterTextObjectOuterVisual)
+
+" vim-fugitive
+nnoremap <leader>gs <CMD>Git<CR>
+nnoremap <leader>ga <CMD>Gwrite<CR>
+nnoremap <leader>gc <CMD>Git commit<CR>
+nnoremap <leader>gb <CMD>Git blame<CR>
+nnoremap <leader>gl <CMD>Gclog<CR>
+nnoremap <leader>gp <CMD>Gpush<CR>
+nnoremap <leader>gf <CMD>Gfetch<CR>
+nnoremap <leader>gd <CMD>Gvdiffsplit<CR>
+nnoremap <leader>gr <CMD>Git rebase<CR>
+nnoremap <leader>gg <CMD>Glgrep ""<Left>
+nnoremap <leader>gm <CMD>Git merge
+'''
+
+# translate =====================================
+[[plugins]]
+repo = 'skanehira/translate.vim'
+on_event = ['InsertEnter', 'CmdlineEnter']
+on_map = ['<Plug>(VTranslate)']
+hook_add = '''
+let g:translate_source = "en"
+let g:translate_target = "ja"
+let g:translate_popup_window = 0
+let g:translate_winsize = 10
+
+function! s:swap_translate_language()
+  let l:temp = g:translate_target
+  let g:translate_target = g:translate_source
+  let g:translate_source = l:temp
+endfunction
+
+function! s:check_translate_language()
+  echo(g:translate_source . "->" . g:translate_target)
+endfunction
+
+command! SwapTransrateLang call s:swap_translate_language()
+command! CheckTransrateLang call s:check_translate_language()
+
+vnoremap <leader>x <Plug>(VTranslate)
+'''
 
 # others ========================================
 [[plugins]]
