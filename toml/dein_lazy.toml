@@ -11,6 +11,22 @@ LspStart
 [[plugins]]
 repo = 'ray-x/lsp_signature.nvim'
 
+# fuzzy finder ==================================
+[[plugins]]
+repo = 'nvim-lua/plenary.nvim'
+[[plugins]]
+repo = 'nvim-telescope/telescope-fzf-native.nvim'
+build = 'make'
+
+[[plugins]]
+repo = 'nvim-telescope/telescope.nvim'
+rev = '0.1.x'
+depends = ['plenary.nvim', 'telescope-fzf-native.nvim']
+on_event = ['InsertEnter', 'CmdlineEnter', 'CursorHold']
+hook_post_source = '''
+  exe 'source' expand(g:nvim_home_dir . '/luascripts/telescope.lua')
+'''
+
 # auto complete =================================
 [[plugins]]
 repo = 'hrsh7th/cmp-omni'
@@ -81,21 +97,6 @@ nmap <leader><leader>x :QuickRun<Space>
 hook_post_source = '''
 exe 'source' expand(g:nvim_home_dir . '/vimscripts/quickrun_setting.vim')
 '''
-
-# tree sitter ===================================
-[[plugins]]
-repo = 'nvim-treesitter/nvim-treesitter'
-merged = '0'
-on_ft = ['c', 'cpp', 'rust', 'python', 'vim', 'tex', 'javascript', 'typescript', 'css', 'vue']
-hook_install = 'TSUpdate'
-hook_post_update = 'TSUpdate'
-hook_post_source = '''
-exe 'source' expand(g:nvim_home_dir . '/luascripts/treesitter.lua')
-'''
-[[plugins]]
-repo = 'nvim-treesitter/nvim-treesitter-context'
-on_source = ['nvim-treesitter']
-hook_post_source ='lua require"treesitter-context".setup()'
 
 # tools =========================================
 [[plugins]]
@@ -326,6 +327,30 @@ command! SwapTransrateLang call s:swap_translate_language()
 command! CheckTransrateLang call s:check_translate_language()
 
 vnoremap <leader>x <Plug>(VTranslate)
+'''
+
+# tree sitter ===================================
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+merged = '0'
+on_event = ['BufRead', 'CursorHold']
+hook_install = 'TSUpdate'
+hook_post_update = 'TSUpdate'
+hook_post_source = '''
+exe 'source' expand(g:nvim_home_dir . '/luascripts/treesitter.lua')
+'''
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter-context'
+on_source = ['nvim-treesitter']
+hook_post_source ='lua require"treesitter-context".setup()'
+
+# indentline ====================================
+[[plugins]]
+repo = 'lukas-reineke/indent-blankline.nvim'
+on_event = ['BufRead', 'CursorHold']
+depends = ['nvim-treesitter']
+hook_post_source = '''
+  exe 'source' expand(g:nvim_home_dir . '/luascripts/indent-blankline.lua')
 '''
 
 # others ========================================

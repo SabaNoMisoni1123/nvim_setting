@@ -2,21 +2,6 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
-# fuzzy finder ==================================
-[[plugins]]
-repo = 'nvim-lua/plenary.nvim'
-[[plugins]]
-repo = 'nvim-telescope/telescope-fzf-native.nvim'
-build = 'make'
-
-[[plugins]]
-repo = 'nvim-telescope/telescope.nvim'
-rev = '0.1.x'
-depends = ['plenary.nvim', 'telescope-fzf-native.nvim']
-hook_post_source = '''
-  exe 'source' expand(g:nvim_home_dir . '/luascripts/telescope.lua')
-'''
-
 # color scheme ==================================
 [[plugins]]
 repo = 'https://github.com/itchyny/lightline.vim'
@@ -75,13 +60,6 @@ xmap iv <Plug>(textobj-entire-i)
 
 [[plugins]]
 repo = 'https://github.com/fuenor/jpmoveword.vim'
-
-# indentline ====================================
-[[plugins]]
-repo = 'lukas-reineke/indent-blankline.nvim'
-hook_post_source = '''
-  exe 'source' expand(g:nvim_home_dir . '/luascripts/indent-blankline.lua')
-'''
 
 # other =========================================
 [[plugins]]
