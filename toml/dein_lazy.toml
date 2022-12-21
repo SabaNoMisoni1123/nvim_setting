@@ -147,7 +147,7 @@ let g:auto_ctags_set_tags_option=1
 '''
 [[plugins]]
 repo = 'majutsushi/tagbar.git'
-depends = ["auto-ctags.vim"]
+depends = ['auto-ctags.vim']
 hook_post_source = '''
 let g:tagbar_width = 30
 let g:tagbar_type_go = {
@@ -263,8 +263,8 @@ let g:bullets_custom_mappings = [
 
 # spell checker =================================
 [[plugins]]
-repo = "kamykn/spelunker.vim"
-on_ft = ["markdown", "latex"]
+repo = 'kamykn/spelunker.vim'
+on_ft = ['markdown', 'latex']
 
 # git ===========================================
 [[plugins]]
@@ -308,8 +308,8 @@ repo = 'skanehira/translate.vim'
 on_event = ['InsertEnter', 'CmdlineEnter']
 on_map = ['<Plug>(VTranslate)']
 hook_add = '''
-let g:translate_source = "en"
-let g:translate_target = "ja"
+let g:translate_source = 'en'
+let g:translate_target = 'ja'
 let g:translate_popup_window = 0
 let g:translate_winsize = 10
 
@@ -320,7 +320,7 @@ function! s:swap_translate_language()
 endfunction
 
 function! s:check_translate_language()
-  echo(g:translate_source . "->" . g:translate_target)
+  echo(g:translate_source . '>' . g:translate_target)
 endfunction
 
 command! SwapTransrateLang call s:swap_translate_language()
@@ -353,27 +353,99 @@ hook_post_source = '''
   exe 'source' expand(g:nvim_home_dir . '/luascripts/indent-blankline.lua')
 '''
 
+# text object ===================================
+[[plugins]]
+repo = 'kana/vim-operator-user'
+[[plugins]]
+repo = 'kana/vim-textobj-user'
+
+
+[[plugins]]
+repo = 'kana/vim-textobj-syntax'
+depends = ['vim-textobj-user']
+on_map = '<Plug>(textobj-syntax'
+hook_add = '''
+omap  ay  <Plug>(textobj-syntax-a)
+omap  iy  <Plug>(textobj-syntax-i)
+vmap  ay  <Plug>(textobj-syntax-a)
+vmap  iy  <Plug>(textobj-syntax-i)
+'''
+
+[[plugins]]
+repo = 'thinca/vim-textobj-between'
+depends = ['vim-textobj-user']
+on_map = '<Plug>(textobj-between'
+hook_add = '''
+let g:textobj_between_no_default_key_mappings = 1
+omap  af  <Plug>(textobj-between-a)
+omap  if  <Plug>(textobj-between-i)
+vmap  af  <Plug>(textobj-between-a)
+vmap  if  <Plug>(textobj-between-i)
+'''
+
+[[plugins]]
+repo = 'osyo-manga/vim-textobj-multiblock'
+on_map = '<Plug>(textobj-multiblock'
+depends = ['vim-textobj-user']
+hook_add = '''
+omap  ab  <Plug>(textobj-multiblock-a)
+omap  ib  <Plug>(textobj-multiblock-i)
+vmap  ab  <Plug>(textobj-multiblock-a)
+vmap  ib  <Plug>(textobj-multiblock-i)
+'''
+
+[[plugins]]
+repo = 'kana/vim-textobj-entire'
+on_map = '<Plug>(textobj-entire'
+depends = ['vim-textobj-user']
+hook_add = '''
+let g:textobj_entire_no_default_key_mappings = 1
+omap  av  <Plug>(textobj-entire-a)
+omap  iv  <Plug>(textobj-entire-i)
+xmap  av  <Plug>(textobj-entire-a)
+xmap  iv  <Plug>(textobj-entire-i)
+'''
+
+[[plugins]]
+repo = 'rhysd/vim-operator-surround'
+depends = ['vim-operator-user', 'vim-textobj-multiblock']
+on_map = '<Plug>(operator-surround'
+hook_add = '''
+" operator mappings
+vmap  <silent>sa  <Plug>(operator-surround-append)
+vmap  <silent>sd  <Plug>(operator-surround-delete)
+vmap  <silent>sr  <Plug>(operator-surround-replace)
+
+" if you use vim-textobj-multiblock
+nmap  <silent>sdd   <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
+nmap  <silent>srr   <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
+'''
+
+[[plugins]]
+repo = 'https://github.com/fuenor/jpmoveword.vim'
+on_event = ['BufRead', 'CursorHold']
+
 # others ========================================
 [[plugins]]
 repo = 'glidenote/memolist.vim'
 hook_post_source = '''
-let g:memolist_path="$MEMO_DIR"
-let g:memolist_memo_date = "%Y%m%d-%H%M"
-let g:memolist_vimfiler_option = "-split -winwidth=50 -simple"
-let g:memolist_memo_suffix = "md"
-let g:memolist_filename_date = "%y%m%d_"
-let g:memolist_delimiter_yaml_start = "---"
-let g:memolist_delimiter_yaml_end  = "---"
+let g:memolist_path='$MEMO_DIR'
+let g:memolist_memo_date = '%Y%m%d-%H%M'
+let g:memolist_vimfiler_option = '-split -winwidth=50 -simple'
+let g:memolist_memo_suffix = 'md'
+let g:memolist_filename_date = '%y%m%d_'
+let g:memolist_delimiter_yaml_start = '---'
+let g:memolist_delimiter_yaml_end  = '---'
 
-let g:memolist_memo_suffix = "md"
-let g:memolist_template_dir_path = g:nvim_home_dir . "/template"
+let g:memolist_memo_suffix = 'md'
+let g:memolist_template_dir_path = g:nvim_home_dir . '/template'
 '''
 hook_add = '''
 map <Leader><Leader>mn  <Cmd>MemoNew<CR>
 map <Leader><Leader>ml  <Cmd>MemoList<CR>
 map <Leader><Leader>mg  <Cmd>MemoGrep<CR>
 '''
-on_map = ["<Cmd>MemoNew", "<Cmd>MemoList", "<Cmd>MemoGrep"]
+on_map = ['<Cmd>MemoNew', '<Cmd>MemoList', '<Cmd>MemoGrep']
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'
@@ -381,4 +453,4 @@ hook_add = '''
 nmap <space>b <Plug>(openbrowser-smart-search)
 vmap <space>b <Plug>(openbrowser-smart-search)
 '''
-on_map = ["<Plug>(openbrowser-smart-search)", "<Plug>(openbrowser-smart-search)"]
+on_map = ['<Plug>(openbrowser-smart-search)', '<Plug>(openbrowser-smart-search)']
