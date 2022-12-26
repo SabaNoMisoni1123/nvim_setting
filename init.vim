@@ -7,6 +7,9 @@ let g:OSTYPE=substitute(system("uname"), '\n', '', 'g')
 let g:python3_host_prog = substitute(system("which python"), '\n', '', 'g')
 
 let g:nvim_home_dir = expand($XDG_CONFIG_HOME . "/nvim")
+if $XDG_CONFIG_HOME == ""
+  let g:nvim_home_dir = expand("~/.config/nvim")
+endif
 
 "  plugin settings
 exe 'source' expand(g:nvim_home_dir . '/vimscripts/dein.vim')
