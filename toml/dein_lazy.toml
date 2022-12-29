@@ -12,79 +12,72 @@ LspStart
 repo = 'ray-x/lsp_signature.nvim'
 
 # fuzzy finder ==================================
+# filer =========================================
 [[plugins]]
-repo = 'nvim-lua/plenary.nvim'
-[[plugins]]
-repo = 'nvim-telescope/telescope-fzf-native.nvim'
-build = 'make'
+repo = 'vim-denops/denops.vim'
 
-[[plugins]]
-repo = 'nvim-telescope/telescope.nvim'
-rev = '0.1.x'
-depends = ['plenary.nvim', 'telescope-fzf-native.nvim']
-on_event = ['InsertEnter', 'CmdlineEnter', 'CursorHold']
-hook_post_source = '''
-  exe 'source' expand(g:nvim_home_dir . '/luascripts/telescope.lua')
-'''
+# load dein_ddu.toml
 
 # auto complete =================================
 [[plugins]]
-repo = 'hrsh7th/cmp-omni'
-[[plugins]]
-repo = 'octaltree/cmp-look'
-[[plugins]]
-repo = 'hrsh7th/cmp-nvim-lsp'
-[[plugins]]
-repo = 'hrsh7th/cmp-buffer'
-[[plugins]]
-repo = 'hrsh7th/cmp-path'
-[[plugins]]
-repo = 'hrsh7th/cmp-cmdline'
-[[plugins]]
-repo = 'uga-rosa/cmp-dictionary'
-[[plugins]]
-repo = 'saadparwaiz1/cmp_luasnip'
-depends = 'LuaSnip'
-[[plugins]]
-repo = 'onsails/lspkind.nvim'
-[[plugins]]
-repo = 'hrsh7th/cmp-nvim-lsp-signature-help'
-[[plugins]]
-repo = 'hrsh7th/nvim-cmp'
-depends = ['nvim-lspconfig', 'cmp-nvim-lsp', 'cmp-buffer', 'cmp-path', 'cmp-cmdline', 'cmp_luasnip', 'lspkind.nvim', 'cmp-look', 'cmp-omni', 'cmp-dictionary']
-on_event = ['InsertEnter', 'CmdlineEnter']
-hook_post_source = '''
-exe 'source' expand(g:nvim_home_dir . '/luascripts/nvim-cmp.lua')
+repo = 'Shougo/ddc.vim'
+depends = ["denops.vim"]
+on_event = ['InsertEnter', 'CursorHold']
+hook_source = '''
+exe 'source' expand(g:nvim_home_dir . '/vimscripts/ddc_setting.vim')
 '''
 
-# filer =========================================
+# ui
 [[plugins]]
-repo =  'kyazdani42/nvim-tree.lua'
-hook_add = '''
-nmap <silent> <leader>d   :<C-u>exe 'lcd' expand('%:p:h')<CR><Cmd>NvimTreeToggle<CR>
-nmap <silent> st          :<C-u>tab sp<CR><leader>d
-nmap <silent> <leader>n   <Cmd>NvimTreeFocus<CR>
-'''
-hook_post_source = '''
-exe 'source' expand(g:nvim_home_dir . '/luascripts/nvim-tree.lua')
-'''
-on_map = ['<Cmd>NvimTreeToggle', '<Cmd>NvimTreeFocus']
+repo = 'Shougo/ddc-ui-native'
+on_source = 'ddc.vim'
+
+# matcher
+# souter
+# converter
+[[plugins]]
+repo = 'tani/ddc-fuzzy'
+on_source = 'ddc.vim'
+
+# source
+[[plugins]]
+repo = 'Shougo/ddc-nvim-lsp'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-around'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'matsui54/ddc-buffer'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'LumaKernel/ddc-file'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'matsui54/ddc-dictionary'
+on_source = 'ddc.vim'
 
 # Snippet =======================================
 [[plugins]]
-repo = 'honza/vim-snippets'
+repo = 'Shougo/neosnippet'
+hook_add= '''
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+if has('conceal')
+  set conceallevel=0 concealcursor=niv
+endif
+let g:neosnippet#snippets_directory=expand(g:nvim_home_dir . '/NeoSnips')
+'''
+on_source = 'ddc.vim'
+on_event = 'InsertCharPre'
+depends = 'neosnippet-snippets'
 
 [[plugins]]
-repo = 'L3MON4D3/LuaSnip'
-hook_add = '''
-" For changing choices in choiceNodes (not strictly necessary for a basic setup).
-imap <silent><expr> <C-e> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-e>'
-smap <silent><expr> <C-e> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-e>'
-'''
-hook_post_source = '''
-exe 'source' expand(g:nvim_home_dir . '/luascripts/luasnip.lua')
-'''
-depends = ['vim-snippets']
+repo = 'Shougo/neosnippet-snippets'
 
 # quick run =====================================
 [[plugins]]

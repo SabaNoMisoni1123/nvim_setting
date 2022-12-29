@@ -19,12 +19,16 @@ let s:toml            = s:cache_home . '/toml/dein.toml'
 let s:lazy_toml       = s:cache_home . '/toml/dein_lazy.toml'
 let s:filetype_toml   = s:cache_home . '/toml/dein_filetype.toml'
 
+let s:ddu_toml        = s:cache_home . '/toml/dein_ddu.toml'
+
 if dein#min#load_state(s:dein_dir)
   call dein#begin(s:dein_dir, [s:toml, s:lazy_toml, s:filetype_toml])
 
   call dein#load_toml(s:toml, #{ lazy: 0 })
   call dein#load_toml(s:lazy_toml, #{ lazy: 1 })
   call dein#load_toml(s:filetype_toml, #{ lazy: 0 })
+
+  call dein#load_toml(s:ddu_toml, #{ lazy: 1 })
 
   call dein#end()
   call dein#save_state()
