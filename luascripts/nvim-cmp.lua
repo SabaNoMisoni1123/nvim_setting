@@ -59,7 +59,6 @@ cmp.setup({
     { name = 'luasnip', group_index = 1, priority = 200 },
     { name = 'nvim_lsp_signature_help', group_index = 2, priority = 150 },
     { name = 'buffer', group_index = 2, priority = 100 },
-    { name = 'omni', group_index = 2, priority = 70 },
     { name = 'path', group_index = 2, priority = 70 },
     {
       name = 'look',
