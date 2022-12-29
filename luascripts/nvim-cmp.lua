@@ -116,28 +116,53 @@ require("cmp_dictionary").setup({
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {
-    sources = cmp.config.sources({
-        { name = 'buffer' },
-        { name = 'look' },
-        { name = 'dictionary' },
-    })
+  sources = cmp.config.sources({
+    { name = 'buffer' },
+    { name = 'look' },
+    { name = 'dictionary' },
+  })
+})
+
+cmp.setup.filetype('tex', {
+  sources = cmp.config.sources({
+    { name = 'luasnip', group_index = 1, priority = 200 },
+    { name = 'buffer', group_index = 2, priority = 100 },
+    { name = 'omni', group_index = 2, priority = 70 },
+    { name = 'path', group_index = 2, priority = 70 },
+    {
+      name = 'look',
+      keyword_length = 2,
+      option = {
+        convert_case = ture,
+        loud = ture,
+      },
+      group_index = 3,
+      priority = 30,
+    },
+    {
+      name = 'dictionary',
+      keyword_length = 2,
+      group_index = 3,
+      priority = 10,
+    },
+  })
 })
 
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline({ '/', '?' }, {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-        { name = 'buffer' }
-    }
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
 })
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-        { name = 'path' },
-        { name = 'cmdline' }
-    })
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' },
+    { name = 'cmdline' }
+  })
 })
 
 cmp.setup {
