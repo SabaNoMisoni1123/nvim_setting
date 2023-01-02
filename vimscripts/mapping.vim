@@ -122,11 +122,13 @@ set matchpairs+=「:」,（:）
 inoremap <silent>jj <ESC>
 nnoremap O O<ESC>0D
 nnoremap <C-_> /
-snoremap p <C-g>cp
-snoremap j <C-g>cj
-snoremap k <C-g>ck
-snoremap h <C-g>ch
-snoremap l <C-g>cl
+
+snoremap p      <C-g>cp
+snoremap j      <C-g>cj
+snoremap k      <C-g>ck
+snoremap h      <C-g>ch
+snoremap l      <C-g>cl
+snoremap <tab>  <C-g>c<tab>
 
 " 行末空白の削除
 nmap ds :%s/\s\+$//e<CR><C-o>
