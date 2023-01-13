@@ -177,6 +177,10 @@ let g:tagbar_type_go = {
   \ 'ctagsbin'  : 'gotags',
   \ 'ctagsargs' : '-sort -silent'
   \ }
+
+let g:tagbar_map_togglesort="S"
+let g:tagbar_map_togglepause="T"
+let g:tagbar_map_toggleautoclose="C"
 '''
 hook_add = '''
 nmap <leader>t <Cmd>TagbarToggle<CR>
