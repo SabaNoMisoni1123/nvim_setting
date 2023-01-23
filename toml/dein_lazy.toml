@@ -2,7 +2,7 @@
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
 on_ft = ['c', 'cpp', 'rust', 'python', 'vim', 'tex', 'javascript', 'typescript', 'css', 'vue']
-depends = ['lsp_signature.nvim', 'nvim-cmp']
+depends = ['lsp_signature.nvim', 'nvim-cmp', 'nlsp-settings.nvim']
 hook_post_source = '''
 exe 'source' expand(g:nvim_home_dir . '/luascripts/lsp.lua')
 LspStart
@@ -10,6 +10,9 @@ LspStart
 
 [[plugins]]
 repo = 'ray-x/lsp_signature.nvim'
+
+[[plugins]]
+repo = 'tamago324/nlsp-settings.nvim'
 
 # fuzzy finder ==================================
 [[plugins]]
@@ -138,6 +141,10 @@ hook_add = '''
 map <leader>e <Plug>(easymotion-prefix)
 '''
 on_map = '<Plug>(easymotion-prefix)'
+
+hook_post_source = '''
+exe 'source' expand(g:nvim_home_dir . '/luascripts/todo-comments.lua')
+'''
 
 # ctag ==========================================
 [[plugins]]

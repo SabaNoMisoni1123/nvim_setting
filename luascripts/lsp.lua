@@ -17,6 +17,17 @@ lsp_commands['rust-analyzer'] = 'rust_analyzer'
 lsp_commands['grammarly-languageserver'] = 'grammarly'
 lsp_commands['ltex-ls'] = 'ltex'
 lsp_commands['efm-langserver'] = 'efm'
+lsp_commands['vscode-json-language-server'] = 'jsonls'
+
+-- local lsp setting
+local nlspsettings = require("nlspsettings")
+nlspsettings.setup({
+  config_home = vim.fn.stdpath('config') .. '/nlsp-settings',
+  local_settings_dir = ".nlsp-settings",
+  -- local_settings_root_markers_fallback = { '.git' },
+  append_default_schemas = true,
+  loader = 'json',
+})
 
 -- 諸設定
 local opts = { noremap = true, silent = true }
@@ -93,3 +104,4 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     underline = true,
   }
 )
+

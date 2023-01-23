@@ -2,8 +2,8 @@ dein/
 haven/
 .DS_Store
 tmp/
+nlsp-settings/
 LC.log
-colorscheme.vim
 toml/dein_colorscheme_local.toml
 local_settings.vim
 test*

@@ -4,20 +4,17 @@ repo = 'Shougo/dein.vim'
 
 # color scheme ==================================
 [[plugins]]
-repo = 'https://github.com/itchyny/lightline.vim'
-hook_add = '''
-let g:lightline = {
-  \ 'separator': { 'left': '', 'right': '' },
-  \ }
+repo = 'nvim-lualine/lualine.nvim'
+depends = ['nvim-web-devicons', 'gruvbox']
+hook_post_source = '''
+  exe 'source' expand(g:nvim_home_dir . '/luascripts/lualine.lua')
 '''
+
 [[plugins]]
 repo = 'morhetz/gruvbox'
 hook_add = '''
 colorscheme gruvbox
 set termguicolors
-let g:lightline = {
-  \ 'colorscheme': 'gruvbox',
-  \ }
 '''
 
 # icon ==========================================
