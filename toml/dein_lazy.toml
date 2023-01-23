@@ -101,49 +101,36 @@ hook_post_source = '''
 exe 'source' expand(g:nvim_home_dir . '/vimscripts/quickrun_setting.vim')
 '''
 
-# tools =========================================
+# tree sitter ===================================
 [[plugins]]
-repo = 'junegunn/vim-easy-align'
-hook_add = '''
-xmap gga :Tabular
-xmap ga  <Plug>(EasyAlign)
-'''
-on_map = '<Plug>(EasyAlign)'
-
-[[plugins]]
-repo = 'cohama/lexima.vim'
-on_event = 'InsertEnter'
-
-[[plugins]]
-repo = 'scrooloose/nerdcommenter'
-hook_add = '''
-let g:NERDSpaceDelims=1
-let g:NERDDefaultAlign='left'
-let g:NERDCustomDelimiters = {'vim': {'left': '"','right':''}}
-let g:NERDCreateDefaultMappings=0
-map <Leader>c<space> <plug>NERDCommenterToggle
-'''
-on_map = '<plug>NERDCommenterToggle'
-
-[[plugins]]
-repo='t9md/vim-quickhl.git'
-hook_add = '''
-nmap <leader>m <Plug>(quickhl-manual-this)
-xmap <leader>m <Plug>(quickhl-manual-this)
-nmap <leader>M <Plug>(quickhl-manual-reset)
-xmap <leader>M <Plug>(quickhl-manual-reset)
-'''
-on_map = '<Plug>(quickhl-manual-this)'
-
-[[plugins]]
-repo = 'easymotion/vim-easymotion'
-hook_add = '''
-map <leader>e <Plug>(easymotion-prefix)
-'''
-on_map = '<Plug>(easymotion-prefix)'
-
+repo = 'nvim-treesitter/nvim-treesitter'
+merged = '0'
+on_event = ['BufRead', 'CursorHold']
+hook_install = 'TSUpdate'
+hook_post_update = 'TSUpdate'
 hook_post_source = '''
-exe 'source' expand(g:nvim_home_dir . '/luascripts/todo-comments.lua')
+exe 'source' expand(g:nvim_home_dir . '/luascripts/treesitter.lua')
+'''
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter-context'
+on_source = ['nvim-treesitter']
+hook_post_source ='lua require"treesitter-context".setup()'
+
+[[plugins]]
+repo = 'folke/todo-comments.nvim'
+on_event = ['InsertEnter', 'CmdlineEnter', 'CursorHold']
+depends = ['plenary.nvim']
+hook_post_source = '''
+  exe 'source' expand(g:nvim_home_dir . '/luascripts/todo-comments.lua')
+'''
+
+# indentline ====================================
+[[plugins]]
+repo = 'lukas-reineke/indent-blankline.nvim'
+on_event = ['BufRead', 'CursorHold']
+depends = ['nvim-treesitter']
+hook_post_source = '''
+  exe 'source' expand(g:nvim_home_dir . '/luascripts/indent-blankline.lua')
 '''
 
 # ctag ==========================================
@@ -193,6 +180,85 @@ hook_add = '''
 nmap <leader>t <Cmd>TagbarToggle<CR>
 '''
 on_map = ['<Cmd>TagbarToggle']
+
+# spell checker =================================
+[[plugins]]
+repo = 'kamykn/spelunker.vim'
+on_ft = ['markdown', 'latex']
+
+# other tools ===================================
+[[plugins]]
+repo = 'junegunn/vim-easy-align'
+hook_add = '''
+xmap gga :Tabular
+xmap ga  <Plug>(EasyAlign)
+'''
+on_map = '<Plug>(EasyAlign)'
+
+[[plugins]]
+repo = 'cohama/lexima.vim'
+on_event = 'InsertEnter'
+
+[[plugins]]
+repo = 'scrooloose/nerdcommenter'
+hook_add = '''
+let g:NERDSpaceDelims=1
+let g:NERDDefaultAlign='left'
+let g:NERDCustomDelimiters = {'vim': {'left': '"','right':''}}
+let g:NERDCreateDefaultMappings=0
+map <Leader>c<space> <plug>NERDCommenterToggle
+'''
+on_map = '<plug>NERDCommenterToggle'
+
+[[plugins]]
+repo='t9md/vim-quickhl.git'
+hook_add = '''
+nmap <leader>m <Plug>(quickhl-manual-this)
+xmap <leader>m <Plug>(quickhl-manual-this)
+nmap <leader>M <Plug>(quickhl-manual-reset)
+xmap <leader>M <Plug>(quickhl-manual-reset)
+'''
+on_map = '<Plug>(quickhl-manual-this)'
+
+[[plugins]]
+repo = 'easymotion/vim-easymotion'
+hook_add = '''
+map <leader>e <Plug>(easymotion-prefix)
+'''
+on_map = '<Plug>(easymotion-prefix)'
+
+hook_post_source = '''
+exe 'source' expand(g:nvim_home_dir . '/luascripts/todo-comments.lua')
+'''
+
+[[plugins]]
+repo = 'glidenote/memolist.vim'
+hook_post_source = '''
+let g:memolist_path='$MEMO_DIR'
+let g:memolist_memo_date = '%Y%m%d-%H%M'
+let g:memolist_vimfiler_option = '-split -winwidth=50 -simple'
+let g:memolist_memo_suffix = 'md'
+let g:memolist_filename_date = '%y%m%d_'
+let g:memolist_delimiter_yaml_start = '---'
+let g:memolist_delimiter_yaml_end  = '---'
+
+let g:memolist_memo_suffix = 'md'
+let g:memolist_template_dir_path = g:nvim_home_dir . '/template'
+'''
+hook_add = '''
+map <Leader><Leader>mn  <Cmd>MemoNew<CR>
+map <Leader><Leader>ml  <Cmd>MemoList<CR>
+map <Leader><Leader>mg  <Cmd>MemoGrep<CR>
+'''
+on_map = ['<Cmd>MemoNew', '<Cmd>MemoList', '<Cmd>MemoGrep']
+
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+hook_add = '''
+nmap <space>b <Plug>(openbrowser-smart-search)
+vmap <space>b <Plug>(openbrowser-smart-search)
+'''
+on_map = ['<Plug>(openbrowser-smart-search)', '<Plug>(openbrowser-smart-search)']
 
 # tex ===========================================
 [[plugins]]
@@ -272,11 +338,6 @@ let g:bullets_custom_mappings = [
   \ ]
 '''
 
-# spell checker =================================
-[[plugins]]
-repo = 'kamykn/spelunker.vim'
-on_ft = ['markdown', 'latex']
-
 # git ===========================================
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
@@ -338,30 +399,6 @@ command! SwapTransrateLang call s:swap_translate_language()
 command! CheckTransrateLang call s:check_translate_language()
 
 vnoremap <leader>x <Plug>(VTranslate)
-'''
-
-# tree sitter ===================================
-[[plugins]]
-repo = 'nvim-treesitter/nvim-treesitter'
-merged = '0'
-on_event = ['BufRead', 'CursorHold']
-hook_install = 'TSUpdate'
-hook_post_update = 'TSUpdate'
-hook_post_source = '''
-exe 'source' expand(g:nvim_home_dir . '/luascripts/treesitter.lua')
-'''
-[[plugins]]
-repo = 'nvim-treesitter/nvim-treesitter-context'
-on_source = ['nvim-treesitter']
-hook_post_source ='lua require"treesitter-context".setup()'
-
-# indentline ====================================
-[[plugins]]
-repo = 'lukas-reineke/indent-blankline.nvim'
-on_event = ['BufRead', 'CursorHold']
-depends = ['nvim-treesitter']
-hook_post_source = '''
-  exe 'source' expand(g:nvim_home_dir . '/luascripts/indent-blankline.lua')
 '''
 
 # text object ===================================
@@ -435,33 +472,3 @@ nmap  <silent>srr   <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a
 [[plugins]]
 repo = 'https://github.com/fuenor/jpmoveword.vim'
 on_event = ['BufRead', 'CursorHold']
-
-# others ========================================
-[[plugins]]
-repo = 'glidenote/memolist.vim'
-hook_post_source = '''
-let g:memolist_path='$MEMO_DIR'
-let g:memolist_memo_date = '%Y%m%d-%H%M'
-let g:memolist_vimfiler_option = '-split -winwidth=50 -simple'
-let g:memolist_memo_suffix = 'md'
-let g:memolist_filename_date = '%y%m%d_'
-let g:memolist_delimiter_yaml_start = '---'
-let g:memolist_delimiter_yaml_end  = '---'
-
-let g:memolist_memo_suffix = 'md'
-let g:memolist_template_dir_path = g:nvim_home_dir . '/template'
-'''
-hook_add = '''
-map <Leader><Leader>mn  <Cmd>MemoNew<CR>
-map <Leader><Leader>ml  <Cmd>MemoList<CR>
-map <Leader><Leader>mg  <Cmd>MemoGrep<CR>
-'''
-on_map = ['<Cmd>MemoNew', '<Cmd>MemoList', '<Cmd>MemoGrep']
-
-[[plugins]]
-repo = 'tyru/open-browser.vim'
-hook_add = '''
-nmap <space>b <Plug>(openbrowser-smart-search)
-vmap <space>b <Plug>(openbrowser-smart-search)
-'''
-on_map = ['<Plug>(openbrowser-smart-search)', '<Plug>(openbrowser-smart-search)']
