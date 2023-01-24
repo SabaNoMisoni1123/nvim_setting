@@ -51,7 +51,11 @@ set relativenumber
 set showtabline=2 laststatus=2
 
 " transparent popup window
-set winblend=8 pumblend=30
+set winblend=15
+set pumblend=15
+
+" color setting
+set termguicolors
 
 " tab settings
 set tabstop=2 shiftwidth=2

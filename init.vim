@@ -2,10 +2,8 @@
 let mapleader = "\<Space>"
 let maplocalleader = "\\"
 
-let g:OSTYPE=substitute(system("uname"), '\n', '', 'g')
-
+let g:OSTYPE = substitute(system("uname"), '\n', '', 'g')
 let g:python3_host_prog = substitute(system("which python"), '\n', '', 'g')
-
 let g:nvim_home_dir = expand($XDG_CONFIG_HOME . "/nvim")
 if $XDG_CONFIG_HOME == ""
   let g:nvim_home_dir = expand("~/.config/nvim")

@@ -7,14 +7,13 @@ repo = 'Shougo/dein.vim'
 repo = 'nvim-lualine/lualine.nvim'
 depends = ['nvim-web-devicons', 'gruvbox']
 hook_post_source = '''
-  exe 'source' expand(g:nvim_home_dir . '/luascripts/lualine.lua')
+exe 'source' expand(g:nvim_home_dir . '/luascripts/lualine.lua')
 '''
 
 [[plugins]]
 repo = 'morhetz/gruvbox'
 hook_add = '''
 colorscheme gruvbox
-set termguicolors
 '''
 
 # icon ==========================================

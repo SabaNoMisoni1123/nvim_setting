@@ -1,3 +1,7 @@
+# lua plugin ====================================
+[[plugins]]
+repo = 'nvim-lua/plenary.nvim'
+
 # language server ===============================
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
@@ -16,8 +20,6 @@ repo = 'tamago324/nlsp-settings.nvim'
 
 # fuzzy finder ==================================
 [[plugins]]
-repo = 'nvim-lua/plenary.nvim'
-[[plugins]]
 repo = 'nvim-telescope/telescope-fzf-native.nvim'
 build = 'make'
 
@@ -26,8 +28,11 @@ repo = 'nvim-telescope/telescope.nvim'
 rev = '0.1.x'
 depends = ['plenary.nvim', 'telescope-fzf-native.nvim']
 on_event = ['InsertEnter', 'CmdlineEnter', 'CursorHold']
+hook_add = '''
+nmap <C-t> :Telescope<Space>
+'''
 hook_post_source = '''
-  exe 'source' expand(g:nvim_home_dir . '/luascripts/telescope.lua')
+exe 'source' expand(g:nvim_home_dir . '/luascripts/telescope.lua')
 '''
 
 # auto complete =================================
@@ -116,12 +121,27 @@ repo = 'nvim-treesitter/nvim-treesitter-context'
 on_source = ['nvim-treesitter']
 hook_post_source ='lua require"treesitter-context".setup()'
 
+# comment =======================================
+[[plugins]]
+repo = 'scrooloose/nerdcommenter'
+hook_add = '''
+let g:NERDSpaceDelims=1
+let g:NERDDefaultAlign='left'
+let g:NERDCustomDelimiters = {'vim': {'left': '"','right':''}}
+let g:NERDCreateDefaultMappings=0
+map <Leader>c<space> <plug>NERDCommenterToggle
+'''
+on_map = '<plug>NERDCommenterToggle'
+
 [[plugins]]
 repo = 'folke/todo-comments.nvim'
 on_event = ['InsertEnter', 'CmdlineEnter', 'CursorHold']
-depends = ['plenary.nvim']
+depends = ['plenary.nvim', 'telescope.nvim']
+hook_add = '''
+nnoremap <leader>ft <Cmd>TodoTelescope<CR>
+'''
 hook_post_source = '''
-  exe 'source' expand(g:nvim_home_dir . '/luascripts/todo-comments.lua')
+exe 'source' expand(g:nvim_home_dir . '/luascripts/todo-comments.lua')
 '''
 
 # indentline ====================================
@@ -130,7 +150,7 @@ repo = 'lukas-reineke/indent-blankline.nvim'
 on_event = ['BufRead', 'CursorHold']
 depends = ['nvim-treesitter']
 hook_post_source = '''
-  exe 'source' expand(g:nvim_home_dir . '/luascripts/indent-blankline.lua')
+exe 'source' expand(g:nvim_home_dir . '/luascripts/indent-blankline.lua')
 '''
 
 # ctag ==========================================
@@ -186,6 +206,28 @@ on_map = ['<Cmd>TagbarToggle']
 repo = 'kamykn/spelunker.vim'
 on_ft = ['markdown', 'latex']
 
+# memo ==========================================
+[[plugins]]
+repo = 'glidenote/memolist.vim'
+hook_post_source = '''
+let g:memolist_path='$MEMO_DIR'
+let g:memolist_memo_date = '%Y%m%d-%H%M'
+let g:memolist_vimfiler_option = '-split -winwidth=50 -simple'
+let g:memolist_memo_suffix = 'md'
+let g:memolist_filename_date = '%y%m%d_'
+let g:memolist_delimiter_yaml_start = '---'
+let g:memolist_delimiter_yaml_end  = '---'
+
+let g:memolist_memo_suffix = 'md'
+let g:memolist_template_dir_path = g:nvim_home_dir . '/template'
+'''
+hook_add = '''
+map <Leader><Leader>mn  <Cmd>MemoNew<CR>
+map <Leader><Leader>ml  <Cmd>MemoList<CR>
+map <Leader><Leader>mg  <Cmd>MemoGrep<CR>
+'''
+on_map = ['<Cmd>MemoNew', '<Cmd>MemoList', '<Cmd>MemoGrep']
+
 # other tools ===================================
 [[plugins]]
 repo = 'junegunn/vim-easy-align'
@@ -198,17 +240,6 @@ on_map = '<Plug>(EasyAlign)'
 [[plugins]]
 repo = 'cohama/lexima.vim'
 on_event = 'InsertEnter'
-
-[[plugins]]
-repo = 'scrooloose/nerdcommenter'
-hook_add = '''
-let g:NERDSpaceDelims=1
-let g:NERDDefaultAlign='left'
-let g:NERDCustomDelimiters = {'vim': {'left': '"','right':''}}
-let g:NERDCreateDefaultMappings=0
-map <Leader>c<space> <plug>NERDCommenterToggle
-'''
-on_map = '<plug>NERDCommenterToggle'
 
 [[plugins]]
 repo='t9md/vim-quickhl.git'
@@ -230,27 +261,6 @@ on_map = '<Plug>(easymotion-prefix)'
 hook_post_source = '''
 exe 'source' expand(g:nvim_home_dir . '/luascripts/todo-comments.lua')
 '''
-
-[[plugins]]
-repo = 'glidenote/memolist.vim'
-hook_post_source = '''
-let g:memolist_path='$MEMO_DIR'
-let g:memolist_memo_date = '%Y%m%d-%H%M'
-let g:memolist_vimfiler_option = '-split -winwidth=50 -simple'
-let g:memolist_memo_suffix = 'md'
-let g:memolist_filename_date = '%y%m%d_'
-let g:memolist_delimiter_yaml_start = '---'
-let g:memolist_delimiter_yaml_end  = '---'
-
-let g:memolist_memo_suffix = 'md'
-let g:memolist_template_dir_path = g:nvim_home_dir . '/template'
-'''
-hook_add = '''
-map <Leader><Leader>mn  <Cmd>MemoNew<CR>
-map <Leader><Leader>ml  <Cmd>MemoList<CR>
-map <Leader><Leader>mg  <Cmd>MemoGrep<CR>
-'''
-on_map = ['<Cmd>MemoNew', '<Cmd>MemoList', '<Cmd>MemoGrep']
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'

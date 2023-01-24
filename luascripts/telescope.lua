@@ -10,6 +10,7 @@ require('telescope').setup {
         ["<esc>"] = require("telescope.actions").close,
       },
     },
+    winblend = 15,
   },
   extensions = {
     fzf = {
@@ -18,7 +19,7 @@ require('telescope').setup {
       override_file_sorter = true,
       case_mode = "smart_case",
     }
-  }
+  },
 }
 
 -- load extensions
@@ -31,4 +32,5 @@ vim.keymap.set('n', '<leader>fr', builtin.oldfiles, {})
 vim.keymap.set('n', '<leader>fc', builtin.command_history, {})
 vim.keymap.set('n', '<leader>fs', builtin.spell_suggest, {})
 vim.keymap.set('n', '<leader>fC', builtin.commands, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '/', builtin.current_buffer_fuzzy_find, {})
