@@ -6,7 +6,7 @@ repo = 'nvim-lua/plenary.nvim'
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
 on_ft = ['c', 'cpp', 'rust', 'python', 'vim', 'tex', 'javascript', 'typescript', 'css', 'vue']
-depends = ['lsp_signature.nvim', 'nvim-cmp', 'nlsp-settings.nvim']
+depends = ['lsp_signature.nvim', 'nvim-cmp', 'nlsp-settings.nvim', 'telescope.nvim']
 hook_post_source = '''
 exe 'source' expand(g:nvim_home_dir . '/luascripts/lsp.lua')
 LspStart
@@ -222,9 +222,9 @@ let g:memolist_memo_suffix = 'md'
 let g:memolist_template_dir_path = g:nvim_home_dir . '/template'
 '''
 hook_add = '''
-map <Leader><Leader>mn  <Cmd>MemoNew<CR>
-map <Leader><Leader>ml  <Cmd>MemoList<CR>
-map <Leader><Leader>mg  <Cmd>MemoGrep<CR>
+nmap <Leader><Leader>mn  <Cmd>MemoNew<CR>
+nmap <Leader><Leader>ml  <Cmd>MemoList<CR>
+nmap <Leader><Leader>mg  <Cmd>MemoGrep<CR>
 '''
 on_map = ['<Cmd>MemoNew', '<Cmd>MemoList', '<Cmd>MemoGrep']
 

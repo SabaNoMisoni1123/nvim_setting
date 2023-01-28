@@ -95,18 +95,6 @@ nnoremap <silent> <leader>fed <Cmd>tabnew ~/.config/nvim/init.vim<CR>
 nnoremap <silent> <leader>few <Cmd>tabnew ~/.config/nvim/mapping.vim<CR>
 nnoremap <silent> <leader>fes <Cmd>tabnew ~/.config/nvim/set.vim<CR>
 
-" quickfix jump
-nnoremap [q :cprevious<CR>   " 前へ
-nnoremap ]q :cnext<CR>       " 次へ
-nnoremap [Q :<C-u>cfirst<CR> " 最初へ
-nnoremap ]Q :<C-u>clast<CR>  " 最後へ
-
-"window-local quickfix jump
-nnoremap [w :lprevious<CR>   " 前へ
-nnoremap ]w :lnext<CR>       " 次へ
-nnoremap [W :<C-u>lfirst<CR> " 最初へ
-nnoremap ]W :<C-u>llast<CR>  " 最後へ
-
 " one push to add/remove tabs
 nnoremap > >>
 nnoremap < <<

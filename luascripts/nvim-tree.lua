@@ -22,8 +22,8 @@ require 'nvim-tree'.setup {
         { key = "q", action = "close" }
       }
     },
-    number = true,
-    relativenumber = true,
+    number = false,
+    relativenumber = false,
     signcolumn = "no"
   },
   git = {

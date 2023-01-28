@@ -18,6 +18,7 @@ lsp_commands['grammarly-languageserver'] = 'grammarly'
 lsp_commands['ltex-ls'] = 'ltex'
 lsp_commands['efm-langserver'] = 'efm'
 lsp_commands['vscode-json-language-server'] = 'jsonls'
+lsp_commands['lua-language-server'] = 'sumneko_lua'
 
 -- local lsp setting
 local nlspsettings = require("nlspsettings")
@@ -35,18 +36,28 @@ local lsp_flags = {
   debounce_text_changes = 150,
 }
 local on_attach = function(client, bufnr)
-  local bufopts = { noremap = true, silent = true, buffer = buffer }
+  local bufopts = { noremap = true, silent = true, buffer = bufnr }
   vim.keymap.set('n', '<leader>lc', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', '<leader>ld', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', '<leader>lh', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', '<leader>li', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', '<leader>lt', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<leader>lk', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<leader>ls', vim.lsp.buf.document_symbol, bufopts)
-  vim.keymap.set('n', '<leader>lw', vim.lsp.buf.workspace_symbol, bufopts)
   vim.keymap.set('n', '<leader>lf', function() vim.lsp.buf.format { async = true } end, bufopts)
+
   vim.keymap.set('n', '<leader>le', vim.diagnostic.open_float, bufopts)
+  vim.keymap.set('n', '[q', vim.diagnostic.goto_next, bufopts)
+  vim.keymap.set('n', ']q', vim.diagnostic.goto_prev, bufopts)
+
+  -- use telescope
+  -- vim.keymap.set('n', '<leader>lk', vim.lsp.buf.references, bufopts)
+  -- vim.keymap.set('n', '<leader>ls', vim.lsp.buf.document_symbol, bufopts)
+  -- vim.keymap.set('n', '<leader>lw', vim.lsp.buf.workspace_symbol, bufopts)
+
+  local builtin = require('telescope.builtin')
+  vim.keymap.set('n', '<leader>lk', builtin.lsp_references, bufopts)
+  vim.keymap.set('n', '<leader>ls', builtin.lsp_document_symbols, bufopts)
+  vim.keymap.set('n', '<leader>lw', builtin.lsp_dynamic_workspace_symbols, bufopts)
 end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -73,6 +84,32 @@ for key, val in pairs(lsp_commands) do
         settings = {
           rootMarkers = { ".git/" },
         }
+      }
+    elseif val == 'sumneko_lua' then
+      require('lspconfig')[val].setup{
+        on_attach = on_attach,
+        flags = lsp_flags,
+        capabilities = capabilities,
+        settings = {
+          Lua = {
+            runtime = {
+              -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+              version = 'LuaJIT',
+            },
+            diagnostics = {
+              -- Get the language server to recognize the `vim` global
+              globals = {'vim'},
+            },
+            workspace = {
+              -- Make the server aware of Neovim runtime files
+              library = vim.api.nvim_get_runtime_file("", true),
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+              enable = false,
+            },
+          },
+        },
       }
     else
       -- 基本設定
