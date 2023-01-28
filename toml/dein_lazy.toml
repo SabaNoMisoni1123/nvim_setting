@@ -130,6 +130,7 @@ let g:NERDDefaultAlign='left'
 let g:NERDCustomDelimiters = {'vim': {'left': '"','right':''}}
 let g:NERDCreateDefaultMappings=0
 nnoremap <Leader>c<space> <plug>NERDCommenterToggle
+vnoremap <Leader>c<space> <plug>NERDCommenterToggle
 '''
 on_map = '<plug>NERDCommenterToggle'
 
