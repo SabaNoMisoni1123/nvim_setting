@@ -132,8 +132,8 @@ setlocal conceallevel=0
 '''
 
 NvimTree = '''
-nmap <buffer> >  <Cmd>NvimTreeResize +10<CR>
-nmap <buffer> <  <Cmd>NvimTreeResize -10<CR>
+nnoremap <buffer> >  <Cmd>NvimTreeResize +10<CR>
+nnoremap <buffer> <  <Cmd>NvimTreeResize -10<CR>
 '''
 
 tagbar = '''
@@ -148,6 +148,6 @@ endfunction
 command! TagbarWidthPlus  call s:tagbar_width_plus()
 command! TagbarWidthMinus call s:tagbar_width_minus()
 
-nmap  <buffer> <  <Cmd>TagbarToggle<CR>:TagbarWidthPlus<CR>:TagbarToggle<CR>sl
-nmap  <buffer> >  <Cmd>TagbarToggle<CR>:TagbarWidthMinus<CR>:TagbarToggle<CR>sl
+nnoremap  <buffer> <  <Cmd>TagbarToggle<CR>:TagbarWidthPlus<CR>:TagbarToggle<CR>sl
+nnoremap  <buffer> >  <Cmd>TagbarToggle<CR>:TagbarWidthMinus<CR>:TagbarToggle<CR>sl
 '''

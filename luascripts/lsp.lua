@@ -46,8 +46,8 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<leader>lf', function() vim.lsp.buf.format { async = true } end, bufopts)
 
   vim.keymap.set('n', '<leader>le', vim.diagnostic.open_float, bufopts)
-  vim.keymap.set('n', '[q', vim.diagnostic.goto_next, bufopts)
-  vim.keymap.set('n', ']q', vim.diagnostic.goto_prev, bufopts)
+  vim.keymap.set('n', ']q', vim.diagnostic.goto_next, bufopts)
+  vim.keymap.set('n', '[q', vim.diagnostic.goto_prev, bufopts)
 
   -- use telescope
   -- vim.keymap.set('n', '<leader>lk', vim.lsp.buf.references, bufopts)

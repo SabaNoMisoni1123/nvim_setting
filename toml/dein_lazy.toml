@@ -29,7 +29,7 @@ rev = '0.1.x'
 depends = ['plenary.nvim', 'telescope-fzf-native.nvim']
 on_event = ['InsertEnter', 'CmdlineEnter', 'CursorHold']
 hook_add = '''
-nmap <C-t> :Telescope<Space>
+nnoremap <C-t> :Telescope<Space>
 '''
 hook_post_source = '''
 exe 'source' expand(g:nvim_home_dir . '/luascripts/telescope.lua')
@@ -69,14 +69,14 @@ exe 'source' expand(g:nvim_home_dir . '/luascripts/nvim-cmp.lua')
 [[plugins]]
 repo =  'kyazdani42/nvim-tree.lua'
 hook_add = '''
-nmap <silent> <leader>d   :<C-u>exe 'lcd' expand('%:p:h')<CR><Cmd>NvimTreeToggle<CR>
-nmap <silent> st          :<C-u>tab sp<CR><leader>d
-nmap <silent> <leader>n   <Cmd>NvimTreeFocus<CR>
+nnoremap  <leader>d   :<C-u>exe 'lcd' expand('%:p:h')<CR><Cmd>NvimTreeToggle<CR>
+nnoremap  st          :<C-u>tab sp<CR><leader>d
+nnoremap  <leader>n   <Cmd>NvimTreeFocus<CR>
 '''
 hook_post_source = '''
 exe 'source' expand(g:nvim_home_dir . '/luascripts/nvim-tree.lua')
 '''
-on_map = ['<Cmd>NvimTreeToggle', '<Cmd>NvimTreeFocus']
+on_event = ['InsertEnter', 'CmdlineEnter', 'CursorHold']
 
 # Snippet =======================================
 [[plugins]]
@@ -86,8 +86,8 @@ repo = 'honza/vim-snippets'
 repo = 'L3MON4D3/LuaSnip'
 hook_add = '''
 " For changing choices in choiceNodes (not strictly necessary for a basic setup).
-imap <silent><expr> <C-e> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-e>'
-smap <silent><expr> <C-e> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-e>'
+inoremap <silent><expr> <C-e> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-e>'
+snoremap <silent><expr> <C-e> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-e>'
 '''
 hook_post_source = '''
 exe 'source' expand(g:nvim_home_dir . '/luascripts/luasnip.lua')
@@ -99,8 +99,8 @@ depends = ['vim-snippets']
 repo = 'thinca/vim-quickrun'
 on_map = '<Plug>(quickrun)'
 hook_add = '''
-nmap <leader>x <Plug>(quickrun)
-nmap <leader><leader>x :QuickRun<Space>
+nnoremap <leader>x <Plug>(quickrun)
+nnoremap <leader><leader>x :QuickRun<Space>
 '''
 hook_post_source = '''
 exe 'source' expand(g:nvim_home_dir . '/vimscripts/quickrun_setting.vim')
@@ -129,7 +129,7 @@ let g:NERDSpaceDelims=1
 let g:NERDDefaultAlign='left'
 let g:NERDCustomDelimiters = {'vim': {'left': '"','right':''}}
 let g:NERDCreateDefaultMappings=0
-map <Leader>c<space> <plug>NERDCommenterToggle
+nnoremap <Leader>c<space> <plug>NERDCommenterToggle
 '''
 on_map = '<plug>NERDCommenterToggle'
 
@@ -197,7 +197,7 @@ let g:tagbar_map_togglepause="T"
 let g:tagbar_map_toggleautoclose="C"
 '''
 hook_add = '''
-nmap <leader>t <Cmd>TagbarToggle<CR>
+nnoremap <leader>t <Cmd>TagbarToggle<CR>
 '''
 on_map = ['<Cmd>TagbarToggle']
 
@@ -222,9 +222,9 @@ let g:memolist_memo_suffix = 'md'
 let g:memolist_template_dir_path = g:nvim_home_dir . '/template'
 '''
 hook_add = '''
-nmap <Leader><Leader>mn  <Cmd>MemoNew<CR>
-nmap <Leader><Leader>ml  <Cmd>MemoList<CR>
-nmap <Leader><Leader>mg  <Cmd>MemoGrep<CR>
+nnoremap <Leader><Leader>mn  <Cmd>MemoNew<CR>
+nnoremap <Leader><Leader>ml  <Cmd>MemoList<CR>
+nnoremap <Leader><Leader>mg  <Cmd>MemoGrep<CR>
 '''
 on_map = ['<Cmd>MemoNew', '<Cmd>MemoList', '<Cmd>MemoGrep']
 
@@ -232,8 +232,8 @@ on_map = ['<Cmd>MemoNew', '<Cmd>MemoList', '<Cmd>MemoGrep']
 [[plugins]]
 repo = 'junegunn/vim-easy-align'
 hook_add = '''
-xmap gga :Tabular
-xmap ga  <Plug>(EasyAlign)
+xnoremap gga :Tabular
+xnoremap ga  <Plug>(EasyAlign)
 '''
 on_map = '<Plug>(EasyAlign)'
 
@@ -244,17 +244,17 @@ on_event = 'InsertEnter'
 [[plugins]]
 repo='t9md/vim-quickhl.git'
 hook_add = '''
-nmap <leader>m <Plug>(quickhl-manual-this)
-xmap <leader>m <Plug>(quickhl-manual-this)
-nmap <leader>M <Plug>(quickhl-manual-reset)
-xmap <leader>M <Plug>(quickhl-manual-reset)
+nnoremap <leader>m <Plug>(quickhl-manual-this)
+xnoremap <leader>m <Plug>(quickhl-manual-this)
+nnoremap <leader>M <Plug>(quickhl-manual-reset)
+xnoremap <leader>M <Plug>(quickhl-manual-reset)
 '''
 on_map = '<Plug>(quickhl-manual-this)'
 
 [[plugins]]
 repo = 'easymotion/vim-easymotion'
 hook_add = '''
-map <leader>e <Plug>(easymotion-prefix)
+nnoremap <leader>e <Plug>(easymotion-prefix)
 '''
 on_map = '<Plug>(easymotion-prefix)'
 
@@ -265,8 +265,8 @@ exe 'source' expand(g:nvim_home_dir . '/luascripts/todo-comments.lua')
 [[plugins]]
 repo = 'tyru/open-browser.vim'
 hook_add = '''
-nmap <space>b <Plug>(openbrowser-smart-search)
-vmap <space>b <Plug>(openbrowser-smart-search)
+nnoremap <space>b <Plug>(openbrowser-smart-search)
+vnoremap <space>b <Plug>(openbrowser-smart-search)
 '''
 on_map = ['<Plug>(openbrowser-smart-search)', '<Plug>(openbrowser-smart-search)']
 
@@ -275,8 +275,8 @@ on_map = ['<Plug>(openbrowser-smart-search)', '<Plug>(openbrowser-smart-search)'
 repo = 'lervag/vimtex'
 on_ft = ['tex','cls']
 hook_add = '''
-nmap <localleader>ll  <plug>(vimtex-compile)
-nmap <localleader>lv  <plug>(vimtex-view)
+nnoremap <localleader>ll  <plug>(vimtex-compile)
+nnoremap <localleader>lv  <plug>(vimtex-view)
 '''
 
 hook_post_source= '''
@@ -297,15 +297,15 @@ on_ft=['js', 'html', 'jsx', 'json', 'css']
 hook_source = '''
 augroup Beautifytype
   "for javascript
-  autocmd FileType javascript noremap <buffer> <leader>aj :call JsBeautify()<cr>
+  autocmd FileType javascript nnoremap <buffer> <leader>aj :call JsBeautify()<cr>
   " for json
-  autocmd FileType json noremap <buffer> <leader>aj :call JsonBeautify()<cr>
+  autocmd FileType json nnoremap <buffer> <leader>aj :call JsonBeautify()<cr>
   " for jsx
-  autocmd FileType jsx noremap <buffer> <leader>aj :call JsxBeautify()<cr>
+  autocmd FileType jsx nnoremap <buffer> <leader>aj :call JsxBeautify()<cr>
   " for html
-  autocmd FileType html noremap <buffer> <leader>aj :call HtmlBeautify()<cr>
+  autocmd FileType html nnoremap <buffer> <leader>aj :call HtmlBeautify()<cr>
   " for css or scss
-  autocmd FileType css noremap <buffer> <leader>aj :call CSSBeautify()<cr>
+  autocmd FileType css nnoremap <buffer> <leader>aj :call CSSBeautify()<cr>
 augroup END
 '''
 
@@ -333,18 +333,18 @@ let g:bullets_enabled_file_types = [
 let g:bullets_enable_in_empty_buffers = 0
 let g:bullets_set_mappings = 0
 let g:bullets_custom_mappings = [
-  \ ['imap', '<cr>', '<Plug>(bullets-newline)'],
+  \ ['inoremap', '<cr>', '<Plug>(bullets-newline)'],
   \ ['inoremap', '<C-cr>', '<cr>'],
-  \ ['nmap', 'o', '<Plug>(bullets-newline)'],
-  \ ['vmap', '<leader>cn', '<Plug>(bullets-renumber)'],
-  \ ['nmap', '<leader>cn', '<Plug>(bullets-renumber)'],
-  \ ['nmap', '<leader>cc', '<Plug>(bullets-toggle-checkbox)'],
-  \ ['imap', '<C-t>', '<Plug>(bullets-demote)'],
-  \ ['nmap', '>', '<Plug>(bullets-demote)'],
-  \ ['vmap', '>', '<Plug>(bullets-demote)'],
-  \ ['imap', '<C-d>', '<Plug>(bullets-promote)'],
-  \ ['nmap', '<', '<Plug>(bullets-promote)'],
-  \ ['vmap', '<', '<Plug>(bullets-promote)'],
+  \ ['nnoremap', 'o', '<Plug>(bullets-newline)'],
+  \ ['vnoremap', '<leader>cn', '<Plug>(bullets-renumber)'],
+  \ ['nnoremap', '<leader>cn', '<Plug>(bullets-renumber)'],
+  \ ['nnoremap', '<leader>cc', '<Plug>(bullets-toggle-checkbox)'],
+  \ ['inoremap', '<C-t>', '<Plug>(bullets-demote)'],
+  \ ['nnoremap', '>', '<Plug>(bullets-demote)'],
+  \ ['vnoremap', '>', '<Plug>(bullets-demote)'],
+  \ ['inoremap', '<C-d>', '<Plug>(bullets-promote)'],
+  \ ['nnoremap', '<', '<Plug>(bullets-promote)'],
+  \ ['vnoremap', '<', '<Plug>(bullets-promote)'],
   \ ]
 '''
 
@@ -360,15 +360,15 @@ hook_add = '''
 let g:gitgutter_preview_win_floating = 0
 let g:gitgutter_map_keys = 0
 
-nmap <Leader>hs <Plug>(GitGutterStageHunk)
-nmap <Leader>hu <Plug>(GitGutterUndoHunk)
-nmap <Leader>hp <Plug>(GitGutterPreviewHunk)
-nmap ]h         <Plug>(GitGutterNextHunk)
-nmap [h         <Plug>(GitGutterPrevHunk)
-omap ih         <Plug>(GitGutterTextObjectInnerPending)
-omap ah         <Plug>(GitGutterTextObjectOuterPending)
-xmap ih         <Plug>(GitGutterTextObjectInnerVisual)
-xmap ah         <Plug>(GitGutterTextObjectOuterVisual)
+nnoremap <Leader>hs <Plug>(GitGutterStageHunk)
+nnoremap <Leader>hu <Plug>(GitGutterUndoHunk)
+nnoremap <Leader>hp <Plug>(GitGutterPreviewHunk)
+nnoremap ]h         <Plug>(GitGutterNextHunk)
+nnoremap [h         <Plug>(GitGutterPrevHunk)
+onoremap ih         <Plug>(GitGutterTextObjectInnerPending)
+onoremap ah         <Plug>(GitGutterTextObjectOuterPending)
+xnoremap ih         <Plug>(GitGutterTextObjectInnerVisual)
+xnoremap ah         <Plug>(GitGutterTextObjectOuterVisual)
 
 " vim-fugitive
 nnoremap <leader>gs <CMD>Git<CR>
@@ -423,10 +423,10 @@ repo = 'kana/vim-textobj-syntax'
 depends = ['vim-textobj-user']
 on_map = '<Plug>(textobj-syntax'
 hook_add = '''
-omap  ay  <Plug>(textobj-syntax-a)
-omap  iy  <Plug>(textobj-syntax-i)
-vmap  ay  <Plug>(textobj-syntax-a)
-vmap  iy  <Plug>(textobj-syntax-i)
+onoremap  ay  <Plug>(textobj-syntax-a)
+onoremap  iy  <Plug>(textobj-syntax-i)
+vnoremap  ay  <Plug>(textobj-syntax-a)
+vnoremap  iy  <Plug>(textobj-syntax-i)
 '''
 
 [[plugins]]
@@ -435,10 +435,10 @@ depends = ['vim-textobj-user']
 on_map = '<Plug>(textobj-between'
 hook_add = '''
 let g:textobj_between_no_default_key_mappings = 1
-omap  af  <Plug>(textobj-between-a)
-omap  if  <Plug>(textobj-between-i)
-vmap  af  <Plug>(textobj-between-a)
-vmap  if  <Plug>(textobj-between-i)
+onoremap  af  <Plug>(textobj-between-a)
+onoremap  if  <Plug>(textobj-between-i)
+vnoremap  af  <Plug>(textobj-between-a)
+vnoremap  if  <Plug>(textobj-between-i)
 '''
 
 [[plugins]]
@@ -446,10 +446,10 @@ repo = 'osyo-manga/vim-textobj-multiblock'
 on_map = '<Plug>(textobj-multiblock'
 depends = ['vim-textobj-user']
 hook_add = '''
-omap  ab  <Plug>(textobj-multiblock-a)
-omap  ib  <Plug>(textobj-multiblock-i)
-vmap  ab  <Plug>(textobj-multiblock-a)
-vmap  ib  <Plug>(textobj-multiblock-i)
+onoremap  ab  <Plug>(textobj-multiblock-a)
+onoremap  ib  <Plug>(textobj-multiblock-i)
+vnoremap  ab  <Plug>(textobj-multiblock-a)
+vnoremap  ib  <Plug>(textobj-multiblock-i)
 '''
 
 [[plugins]]
@@ -458,10 +458,10 @@ on_map = '<Plug>(textobj-entire'
 depends = ['vim-textobj-user']
 hook_add = '''
 let g:textobj_entire_no_default_key_mappings = 1
-omap  av  <Plug>(textobj-entire-a)
-omap  iv  <Plug>(textobj-entire-i)
-xmap  av  <Plug>(textobj-entire-a)
-xmap  iv  <Plug>(textobj-entire-i)
+onoremap  av  <Plug>(textobj-entire-a)
+onoremap  iv  <Plug>(textobj-entire-i)
+xnoremap  av  <Plug>(textobj-entire-a)
+xnoremap  iv  <Plug>(textobj-entire-i)
 '''
 
 [[plugins]]
@@ -470,13 +470,13 @@ depends = ['vim-operator-user', 'vim-textobj-multiblock']
 on_map = '<Plug>(operator-surround'
 hook_add = '''
 " operator mappings
-vmap  <silent>sa  <Plug>(operator-surround-append)
-vmap  <silent>sd  <Plug>(operator-surround-delete)
-vmap  <silent>sr  <Plug>(operator-surround-replace)
+vnoremap  <silent>sa  <Plug>(operator-surround-append)
+vnoremap  <silent>sd  <Plug>(operator-surround-delete)
+vnoremap  <silent>sr  <Plug>(operator-surround-replace)
 
 " if you use vim-textobj-multiblock
-nmap  <silent>sdd   <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
-nmap  <silent>srr   <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
+nnoremap  <silent>sdd   <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
+nnoremap  <silent>srr   <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
 '''
 
 [[plugins]]

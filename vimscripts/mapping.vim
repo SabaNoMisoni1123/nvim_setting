@@ -76,8 +76,8 @@ setlocal scrolloff=5
 " increase and decrease by plus/minus
 nnoremap +  <C-a>
 nnoremap -  <C-x>
-vmap     g+ g<C-a>
-vmap     g- g<C-x>
+vnoremap g+ g<C-a>
+vnoremap g- g<C-x>
 
 " save with <C-g> in insert mode
 inoremap <C-g> <ESC>:update<CR>a
@@ -119,4 +119,4 @@ snoremap l      <C-g>cl
 snoremap <tab>  <C-g>c<tab>
 
 " 行末空白の削除
-nmap ds :%s/\s\+$//e<CR><C-o>
+nnoremap ds :%s/\s\+$//e<CR><C-o>
