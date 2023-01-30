@@ -92,8 +92,6 @@ nnoremap <silent> <leader>r :<C-u>so ~/.config/nvim/init.vim<CR>
 
 "open init.vim in new tab
 nnoremap <silent> <leader>fed <Cmd>tabnew ~/.config/nvim/init.vim<CR>
-nnoremap <silent> <leader>few <Cmd>tabnew ~/.config/nvim/mapping.vim<CR>
-nnoremap <silent> <leader>fes <Cmd>tabnew ~/.config/nvim/set.vim<CR>
 
 " one push to add/remove tabs
 nnoremap > >>

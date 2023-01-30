@@ -1,3 +1,6 @@
+-- keymap
+vim.keymap.set('n', '<C-t>', ':Telescope ', {noremap=true})
+
 -- default setting
 require('telescope').setup {
   defaults = {
