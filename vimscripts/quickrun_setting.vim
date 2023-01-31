@@ -1,7 +1,7 @@
-autocmd FileType quickrun call s:quickrun_py_settings()
-function! s:quickrun_py_settings() abort
-  nnoremap <buffer><silent> q   <Cmd>quit!<CR>
-endfunction
+" autocmd FileType quickrun call s:quickrun_py_settings()
+" function! s:quickrun_py_settings() abort
+"   nnoremap <buffer><silent> q   <Cmd>quit!<CR>
+" endfunction
 
 let g:quickrun_config = {}
 

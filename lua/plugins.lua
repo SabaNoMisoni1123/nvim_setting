@@ -1,9 +1,5 @@
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
-
--- Only required if you have packer configured as `opt`
--- vim.cmd [[packadd packer.nvim]]
-
 vim.cmd('packadd packer.nvim')
+-- vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
   -- package manager
@@ -33,12 +29,13 @@ return require('packer').startup(function(use)
     opt = true,
     event = { 'BufRead', 'InsertEnter', 'CmdlineEnter' },
     config = function() require("lsp") end,
-    wants = { 'lsp_signature.nvim', 'nlsp-settings.nvim', 'telescope.nvim', 'nvim-cmp' },
+    wants = { 'lsp_signature.nvim', 'nlsp-settings.nvim', 'telescope.nvim', 'nvim-cmp', 'cmp-nvim-lsp' },
     requires = {
       { 'ray-x/lsp_signature.nvim', opt = true },
       { 'tamago324/nlsp-settings.nvim', opt = true },
       { 'nvim-telescope/telescope.nvim', opt = true },
       { 'hrsh7th/nvim-cmp', opt = true },
+      { 'hrsh7th/cmp-nvim-lsp', opt = true },
     },
   }
 
@@ -131,13 +128,130 @@ return require('packer').startup(function(use)
   use {
     'thinca/vim-quickrun',
     opt = true,
-    keys = { '<space>x', '<space><space>x' },
+    keys = { ' x', '  x' },
     config = function()
       local bufopts = { noremap = false }
-      vim.keymaps.set('n', '<leader>x', ':Quickrun', bufopts)
-      vim.keymaps.set('n', '<leader><leader>x', ':Quickrun ', bufopts)
-      vim.cmd('source ' .. os.getenv("XDG_CONFIG_HOME") .. '/nvim/vimscript/quickrun_setting.vim')
+      vim.keymap.set('n', '<leader>x', '<Cmd>QuickRun<CR>', bufopts)
+      vim.keymap.set('n', '<leader><leader>x', ':QuickRun ', bufopts)
+      vim.cmd('source ' .. os.getenv("XDG_CONFIG_HOME") .. '/nvim/vimscripts/quickrun_setting.vim')
     end,
   }
+
+  -- comment
+  use {
+    'scrooloose/nerdcommenter',
+    opt = true,
+    -- event = { 'BufRead' },
+    keys = { { 'n', '<leader>c<leader>' }, { 'v', '<leader>c<leader>' } },
+    config = function()
+      local bufopts = { noremap = true }
+      vim.g.NERDSpaceDelims = 1
+      vim.g.NERDDefaultAlign = 'left'
+      vim.g.NERDCreateDefaultMappings = 0
+      vim.keymap.set('n', '<leader>c<leader>', '<Plug>NERDCommenterToggle', bufopts)
+      vim.keymap.set('v', '<leader>c<leader>', '<Plug>NERDCommenterToggle', bufopts)
+    end,
+  }
+  use {
+    'folke/todo-comments.nvim',
+    opt = true,
+    requires = { 'nvim-telescope/telescope.nvim', opt = true },
+    event = { 'BufRead' },
+    config = function()
+      local bufopts = { noremap = true }
+      vim.keymap.set('n', '<leader>ft', '<Cmd>TodoTelescope<CR>', bufopts)
+
+      require("todo-comments").setup {
+        signs = true,
+        sign_priority = 8,
+        keywords = {
+          FIX = {
+            icon = "",
+            color = "error",
+            alt = { "FIXME", "BUG", "FIXIT", "ISSUE" },
+          },
+          TODO = { icon = "", color = "info" },
+          HACK = { icon = "", color = "warning" },
+          WARN = { icon = "", color = "warning", alt = { "WARNING", "XXX" } },
+          PERF = { icon = "", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+          NOTE = { icon = "", color = "hint", alt = { "INFO", "MEMO", "HINT" } },
+          TEST = { icon = "", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+        },
+      }
+    end,
+  }
+
+  -- indent line
+  use {
+    'lukas-reineke/indent-blankline.nvim',
+    opt = true,
+    event = { 'BufRead' },
+    requires = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      vim.opt.list = true
+      require("indent_blankline").setup {
+        char = '|',
+        use_treesitter = true,
+        show_current_context = true,
+        show_current_context_start = true,
+        context_char = '|',
+      }
+    end,
+  }
+
+  -- ctag
+  use {
+    'preservim/tagbar',
+    opt = true,
+    keys = { { 'n', '<Leader>t' } },
+    requires = { 'soramugi/auto-ctags.vim' },
+    config = function()
+      local bufopts = { noremap = true }
+      vim.keymap.set('n', '<leader>t', '<Cmd>TagbarToggle<CR>', bufopts)
+      vim.g.tagbar_map_togglesort = "S"
+      vim.g.tagbar_map_togglepause = "T"
+      vim.g.tagbar_map_toggleautoclose = "C"
+      vim.g.auto_ctags_set_tags_option = 1
+      vim.g.tagbar_width = 30
+      vim.cmd [[
+        let g:tagbar_type_go = {
+          \ 'ctagstype' : 'go',
+          \ 'kinds'     : [
+          \   'p:package',
+          \   'i:imports:1',
+          \   'c:constants',
+          \   'v:variables',
+          \   't:types',
+          \   'n:interfaces',
+          \   'w:fields',
+          \   'e:embedded',
+          \   'm:methods',
+          \   'r:constructor',
+          \   'f:functions'
+          \ ],
+          \ 'sro' : '.',
+          \ 'kind2scope' : {
+          \   't' : 'ctype',
+          \   'n' : 'ntype'
+          \ },
+          \ 'scope2kind' : {
+          \   'ctype' : 't',
+          \   'ntype' : 'n'
+          \ },
+          \ 'ctagsbin'  : 'gotags',
+          \ 'ctagsargs' : '-sort -silent'
+          \ }
+      ]]
+    end,
+  }
+
+  -- spell checker
+  -- use {
+  --   'kamykn/spelunker.vim',
+  --   opt = true,
+  --   ft = { 'markdown', 'latex', 'tex' }
+  -- }
+
+
 
 end)
