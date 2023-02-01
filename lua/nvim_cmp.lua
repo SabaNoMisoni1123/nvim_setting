@@ -197,4 +197,3 @@ require("luasnip.loaders.from_snipmate").lazy_load({
   default_priority = 10,
   override_priority = 10,
 })
-

@@ -12,3 +12,6 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = { "plugins.lua" },
   command = "PackerCompile",
 })
+
+vim.cmd("filetype plugin indent on")
+vim.cmd("syntax enable")

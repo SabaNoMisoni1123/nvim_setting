@@ -16,6 +16,10 @@ for k, v in pairs({
   ['g-'] = 'g<C-x>',
   ['>'] = '>gv',
   ['<'] = '<gv',
+  ['<leader>h'] = '^',
+  ['<leader>l'] = '$',
+  ['<leader>k'] = 'gg',
+  ['<leader>j'] = 'G',
 }) do
   vim.keymap.set('v', k, v, bufopts)
 end

@@ -259,9 +259,6 @@ nnoremap <leader>e <Plug>(easymotion-prefix)
 '''
 on_map = '<Plug>(easymotion-prefix)'
 
-hook_post_source = '''
-exe 'source' expand(g:nvim_home_dir . '/luascripts/todo-comments.lua')
-'''
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'
