@@ -185,11 +185,13 @@ return require('packer').startup(function(use)
   use {
     'thinca/vim-quickrun',
     opt = true,
-    keys = { ' x', '  x' },
-    config = function()
+    cmd = { "QuickRun" },
+    setup = function()
       local bufopts = { noremap = false }
       vim.keymap.set('n', '<Leader>x', '<Cmd>QuickRun<CR>', bufopts)
       vim.keymap.set('n', '<Leader><Leader>x', ':QuickRun ', bufopts)
+    end,
+    config = function()
       vim.cmd('source ' .. os.getenv("XDG_CONFIG_HOME") .. '/nvim/vimscripts/quickrun_setting.vim')
     end,
   }
@@ -260,9 +262,9 @@ return require('packer').startup(function(use)
   use {
     'preservim/tagbar',
     opt = true,
-    keys = { { 'n', '<Leader>t' } },
+    cmd = { 'TagbarToggle' },
     requires = { 'soramugi/auto-ctags.vim' },
-    config = function()
+    setup = function()
       local bufopts = { noremap = true }
       vim.keymap.set('n', '<Leader>t', '<Cmd>TagbarToggle<CR>', bufopts)
       vim.g.tagbar_map_togglesort = "S"
@@ -270,6 +272,8 @@ return require('packer').startup(function(use)
       vim.g.tagbar_map_toggleautoclose = "C"
       vim.g.auto_ctags_set_tags_option = 1
       vim.g.tagbar_width = 30
+    end,
+    config = function()
       vim.cmd [[
         let g:tagbar_type_go = {
           \ 'ctagstype' : 'go',
@@ -384,12 +388,14 @@ return require('packer').startup(function(use)
   -- memo
   use { 'glidenote/memolist.vim',
     opt = true,
-    keys = { { 'n', '<Leader><Leader>mn' }, { 'n', '<Leader><Leader>ml' }, { 'n', '<Leader><Leader>mg' } },
-    config = function()
+    cmd = {'MemoNew', 'MemoList', 'MemoGrep'},
+    setup = function()
       local bufopts = { noremap = true }
       vim.keymap.set('n', '<Leader><Leader>mn', '<Cmd>MemoNew<CR>', bufopts)
       vim.keymap.set('n', '<Leader><Leader>ml', '<Cmd>MemoList<CR>', bufopts)
       vim.keymap.set('n', '<Leader><Leader>mg', '<Cmd>MemoGrep<CR>', bufopts)
+    end,
+    config = function()
       vim.g.memolist_path                 = '$MEMO_DIR'
       vim.g.memolist_memo_date            = '%Y%m%d-%H%M'
       vim.g.memolist_vimfiler_option      = '-split -winwidth=50 -simple'
