@@ -455,5 +455,187 @@ return require('packer').startup(function(use)
     end,
   }
 
+  -- filetype
+
+  -- tex
+  use {
+    'lervag/vimtex',
+    opt = true,
+    ft = { 'tex', 'cls' },
+    config = function()
+      local bufopts = { noremap = true }
+      vim.keymap.set('n', '<leader>ll', '<Plug>(vimtex-compile)', bufopts)
+      vim.keymap.set('n', '<leader>lv', '<Plug>(vimtex-view)', bufopts)
+
+      vim.cmd('source ' .. os.getenv("XDG_CONFIG_HOME") .. '/nvim/vimscripts/vimtex.vim')
+    end,
+  }
+
+  -- html / css / js
+  use {
+    'mattn/emmet-vim',
+    opt = true,
+    ft = { 'html', 'htm', 'md', 'markdown', 'vue' },
+    config = function()
+      vim.g.user_emmet_leader_key = ',,'
+    end,
+  }
+
+  use {
+    'maksimr/vim-jsbeautify',
+    opt = true,
+    ft = { 'js', 'html', 'jsx', 'json', 'css' },
+    config = function()
+      vim.cmd [[
+        augroup Beautifytype
+          "for javascript
+          autocmd FileType javascript nnoremap <buffer> <leader>aj :call JsBeautify()<cr>
+          " for json
+          autocmd FileType json nnoremap <buffer> <leader>aj :call JsonBeautify()<cr>
+          " for jsx
+          autocmd FileType jsx nnoremap <buffer> <leader>aj :call JsxBeautify()<cr>
+          " for html
+          autocmd FileType html nnoremap <buffer> <leader>aj :call HtmlBeautify()<cr>
+          " for css or scss
+          autocmd FileType css nnoremap <buffer> <leader>aj :call CSSBeautify()<cr>
+        augroup END
+      ]]
+    end,
+  }
+
+  -- markdown
+  use {
+    'plasticboy/vim-markdown',
+    opt = true,
+    ft = { 'markdown' },
+    config = function()
+      vim.g.vim_markdown_no_default_key_mappings = 1
+      vim.g.vim_markdown_conceal = 0
+      vim.g.vim_markdown_conceal_code_blocks = 0
+      vim.g.vim_markdown_math = 1
+      vim.g.vim_markdown_new_list_item_indent = 0
+    end,
+  }
+
+  use {
+    'dkarter/bullets.vim',
+    opt = true,
+    ft = { 'markdown', 'text', 'gitcommit' },
+    config = function()
+      vim.g.bullets_enable_in_empty_buffers = 0
+      vim.g.bullets_set_mappings = 0
+      vim.cmd [[
+        let g:bullets_enabled_file_types = [
+          \ 'markdown',
+          \ 'text',
+          \ 'gitcommit',
+          \]
+
+        let g:bullets_custom_mappings = [
+          \ ['inoremap', '<cr>', '<Plug>(bullets-newline)'],
+          \ ['inoremap', '<C-cr>', '<cr>'],
+          \ ['nnoremap', 'o', '<Plug>(bullets-newline)'],
+          \ ['vnoremap', '<leader>cn', '<Plug>(bullets-renumber)'],
+          \ ['nnoremap', '<leader>cn', '<Plug>(bullets-renumber)'],
+          \ ['nnoremap', '<leader>cc', '<Plug>(bullets-toggle-checkbox)'],
+          \ ['inoremap', '<C-t>', '<Plug>(bullets-demote)'],
+          \ ['nnoremap', '>', '<Plug>(bullets-demote)'],
+          \ ['vnoremap', '>', '<Plug>(bullets-demote)'],
+          \ ['inoremap', '<C-d>', '<Plug>(bullets-promote)'],
+          \ ['nnoremap', '<', '<Plug>(bullets-promote)'],
+          \ ['vnoremap', '<', '<Plug>(bullets-promote)'],
+          \ ]
+      ]]
+    end,
+  }
+
+  -- text object
+  use { 'kana/vim-textobj-user', opt = true }
+  use { 'kana/vim-operator-user', opt = true }
+
+  use {
+    'kana/vim-textobj-syntax',
+    opt = true,
+    requires = { 'kana/vim-textobj-user' },
+    keys = { { 'o', 'ay' }, { 'o', 'iy' }, { 'v', 'ay' }, { 'v', 'iy' } },
+    config = function()
+      local bufopts = { noremap = true }
+      vim.keymap.set('o', 'ay', '<Plug>(textobj-syntax-a)', bufopts)
+      vim.keymap.set('o', 'iy', '<Plug>(textobj-syntax-i)', bufopts)
+      vim.keymap.set('v', 'ay', '<Plug>(textobj-syntax-a)', bufopts)
+      vim.keymap.set('v', 'iy', '<Plug>(textobj-syntax-i)', bufopts)
+    end,
+  }
+
+  use {
+    'thinca/vim-textobj-between',
+    opt = true,
+    requires = { 'kana/vim-textobj-user' },
+    keys = { { 'o', 'af' }, { 'o', 'if' }, { 'v', 'af' }, { 'v', 'if' } },
+    config = function()
+      vim.g.textobj_between_no_default_key_mappings = 1
+
+      local bufopts = { noremap = true }
+      vim.keymap.set('o', 'ay', '<Plug>(textobj-between-a)', bufopts)
+      vim.keymap.set('o', 'iy', '<Plug>(textobj-between-i)', bufopts)
+      vim.keymap.set('v', 'ay', '<Plug>(textobj-between-a)', bufopts)
+      vim.keymap.set('v', 'iy', '<Plug>(textobj-between-i)', bufopts)
+    end,
+  }
+
+  use {
+    'osyo-manga/vim-textobj-multiblock',
+    opt = true,
+    requires = { 'kana/vim-textobj-user' },
+    keys = { { 'o', 'ab' }, { 'o', 'ib' }, { 'v', 'ab' }, { 'v', 'ib' } },
+    config = function()
+      local bufopts = { noremap = true }
+      vim.keymap.set('o', 'ab', '<Plug>(textobj-multiblock-a)', bufopts)
+      vim.keymap.set('o', 'ib', '<Plug>(textobj-multiblock-i)', bufopts)
+      vim.keymap.set('v', 'ab', '<Plug>(textobj-multiblock-a)', bufopts)
+      vim.keymap.set('v', 'ib', '<Plug>(textobj-multiblock-i)', bufopts)
+    end,
+  }
+
+  use {
+    'kana/vim-textobj-entire',
+    opt = true,
+    requires = { 'kana/vim-textobj-user' },
+    keys = { { 'o', 'av' }, { 'o', 'iv' }, { 'v', 'av' }, { 'v', 'iv' } },
+    config = function()
+      vim.g.textobj_entire_no_default_key_mappings = 1
+
+      local bufopts = { noremap = true }
+      vim.keymap.set('o', 'av', '<Plug>(textobj-entire-a)', bufopts)
+      vim.keymap.set('o', 'iv', '<Plug>(textobj-entire-i)', bufopts)
+      vim.keymap.set('v', 'av', '<Plug>(textobj-entire-a)', bufopts)
+      vim.keymap.set('v', 'iv', '<Plug>(textobj-entire-i)', bufopts)
+    end,
+  }
+
+  use {
+    'rhysd/vim-operator-surround',
+    opt = true,
+    requires = { 'kana/vim-operator-user', 'osyo-manga/vim-textobj-multiblock' },
+    keys = { { 'v', 'sa' }, { 'v', 'sd' }, { 'v', 'sr' }, { 'v', 'sdd' }, { 'v', 'srr' } },
+    config = function()
+      vim.g.textobj_entire_no_default_key_mappings = 1
+
+      local bufopts = { noremap = true }
+      vim.keymap.set('v', 'sa', '<Plug>(operator-surround-append)', bufopts)
+      vim.keymap.set('v', 'sd', '<Plug>(operator-surround-delete)', bufopts)
+      vim.keymap.set('v', 'sr', '<Plug>(operator-surround-replace)', bufopts)
+
+      vim.keymap.set('n', 'sdd', '<Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)', bufopts)
+      vim.keymap.set('n', 'srr', '<Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)', bufopts)
+    end,
+  }
+
+  use {
+    'fuenor/jpmoveword.vim',
+    opt = true,
+    event = { 'BufRead' },
+  }
+
 
 end)
