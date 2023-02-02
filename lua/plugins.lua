@@ -98,17 +98,17 @@ return require('packer').startup(function(use)
         end
       end
 
-      vim.keymap.set('n', '<leader>ff', builtin "find_files" {}, bufopts)
-      vim.keymap.set('n', '<leader>fr', builtin "oldfiles" {}, bufopts)
-      vim.keymap.set('n', '<leader>fc', builtin "command_history" {}, bufopts)
-      vim.keymap.set('n', '<leader>fs', builtin "spell_suggest" {}, bufopts)
-      vim.keymap.set('n', '<leader>fC', builtin "commands" {}, bufopts)
-      vim.keymap.set('n', '<leader>fg', builtin "live_grep" {}, bufopts)
-      vim.keymap.set('n', '<leader>fT', builtin "treesitter" {}, bufopts)
-      vim.keymap.set('n', '<leader>fq', builtin "quickfix" {}, bufopts)
-      vim.keymap.set('n', '<leader>fh', builtin "help_tags" {}, bufopts)
-      vim.keymap.set('n', '<leader>fm', builtin "man_pages" {}, bufopts)
-      vim.keymap.set('n', '<leader>fd', function() builtin "diagnostics" ({ bufnr = 0 }) end, bufopts)
+      vim.keymap.set('n', '<Leader>ff', builtin "find_files" {}, bufopts)
+      vim.keymap.set('n', '<Leader>fr', builtin "oldfiles" {}, bufopts)
+      vim.keymap.set('n', '<Leader>fc', builtin "command_history" {}, bufopts)
+      vim.keymap.set('n', '<Leader>fs', builtin "spell_suggest" {}, bufopts)
+      vim.keymap.set('n', '<Leader>fC', builtin "commands" {}, bufopts)
+      vim.keymap.set('n', '<Leader>fg', builtin "live_grep" {}, bufopts)
+      vim.keymap.set('n', '<Leader>fT', builtin "treesitter" {}, bufopts)
+      vim.keymap.set('n', '<Leader>fq', builtin "quickfix" {}, bufopts)
+      vim.keymap.set('n', '<Leader>fh', builtin "help_tags" {}, bufopts)
+      vim.keymap.set('n', '<Leader>fm', builtin "man_pages" {}, bufopts)
+      vim.keymap.set('n', '<Leader>fd', function() builtin "diagnostics" ({ bufnr = 0 }) end, bufopts)
       vim.keymap.set('n', '/', builtin "current_buffer_fuzzy_find" {}, bufopts)
 
       vim.keymap.set('n', '<C-t>', ':Telescope ', { noremap = true })
@@ -188,8 +188,8 @@ return require('packer').startup(function(use)
     keys = { ' x', '  x' },
     config = function()
       local bufopts = { noremap = false }
-      vim.keymap.set('n', '<leader>x', '<Cmd>QuickRun<CR>', bufopts)
-      vim.keymap.set('n', '<leader><leader>x', ':QuickRun ', bufopts)
+      vim.keymap.set('n', '<Leader>x', '<Cmd>QuickRun<CR>', bufopts)
+      vim.keymap.set('n', '<Leader><Leader>x', ':QuickRun ', bufopts)
       vim.cmd('source ' .. os.getenv("XDG_CONFIG_HOME") .. '/nvim/vimscripts/quickrun_setting.vim')
     end,
   }
@@ -199,14 +199,14 @@ return require('packer').startup(function(use)
     'scrooloose/nerdcommenter',
     opt = true,
     -- event = { 'BufRead' },
-    keys = { { 'n', '<leader>c<leader>' }, { 'v', '<leader>c<leader>' } },
+    keys = { { 'n', '<Leader>c<Leader>' }, { 'v', '<Leader>c<Leader>' } },
     config = function()
       local bufopts = { noremap = true }
       vim.g.NERDSpaceDelims = 1
       vim.g.NERDDefaultAlign = 'left'
       vim.g.NERDCreateDefaultMappings = 0
-      vim.keymap.set('n', '<leader>c<leader>', '<Plug>NERDCommenterToggle', bufopts)
-      vim.keymap.set('v', '<leader>c<leader>', '<Plug>NERDCommenterToggle', bufopts)
+      vim.keymap.set('n', '<Leader>c<Leader>', '<Plug>NERDCommenterToggle', bufopts)
+      vim.keymap.set('v', '<Leader>c<Leader>', '<Plug>NERDCommenterToggle', bufopts)
     end,
   }
   use {
@@ -216,7 +216,7 @@ return require('packer').startup(function(use)
     event = { 'BufRead' },
     config = function()
       local bufopts = { noremap = true }
-      vim.keymap.set('n', '<leader>ft', '<Cmd>TodoTelescope<CR>', bufopts)
+      vim.keymap.set('n', '<Leader>ft', '<Cmd>TodoTelescope<CR>', bufopts)
 
       require("todo-comments").setup {
         signs = true,
@@ -264,7 +264,7 @@ return require('packer').startup(function(use)
     requires = { 'soramugi/auto-ctags.vim' },
     config = function()
       local bufopts = { noremap = true }
-      vim.keymap.set('n', '<leader>t', '<Cmd>TagbarToggle<CR>', bufopts)
+      vim.keymap.set('n', '<Leader>t', '<Cmd>TagbarToggle<CR>', bufopts)
       vim.g.tagbar_map_togglesort = "S"
       vim.g.tagbar_map_togglepause = "T"
       vim.g.tagbar_map_toggleautoclose = "C"
@@ -312,9 +312,9 @@ return require('packer').startup(function(use)
       vim.g.gitgutter_map_keys = 0
 
       local bufopts = { noremap = true }
-      vim.keymap.set('n', '<leader>hs', '<Plug>(GitGutterStageHunk)', bufopts)
-      vim.keymap.set('n', '<leader>hu', '<Plug>(GitGutterUndoHunk)', bufopts)
-      vim.keymap.set('n', '<leader>hp', '<Plug>(GitGutterPreviewHunk)', bufopts)
+      vim.keymap.set('n', '<Leader>hs', '<Plug>(GitGutterStageHunk)', bufopts)
+      vim.keymap.set('n', '<Leader>hu', '<Plug>(GitGutterUndoHunk)', bufopts)
+      vim.keymap.set('n', '<Leader>hp', '<Plug>(GitGutterPreviewHunk)', bufopts)
       vim.keymap.set('n', ']h', '<Plug>(GitGutterNextHunk)', bufopts)
       vim.keymap.set('n', '[h', '<Plug>(GitGutterPrevHunk)', bufopts)
 
@@ -331,17 +331,17 @@ return require('packer').startup(function(use)
     event = { 'InsertEnter', 'CmdlineEnter', 'CursorHold' },
     config = function()
       local bufopts = { noremap = true }
-      vim.keymap.set('n', '<leader>gs', '<CMD>Git<CR>', bufopts)
-      vim.keymap.set('n', '<leader>ga', '<CMD>Gwrite<CR>', bufopts)
-      vim.keymap.set('n', '<leader>gc', '<CMD>Git commit<CR>', bufopts)
-      vim.keymap.set('n', '<leader>gb', '<CMD>Git blame<CR>', bufopts)
-      vim.keymap.set('n', '<leader>gl', '<CMD>Gclog<CR>', bufopts)
-      vim.keymap.set('n', '<leader>gp', '<CMD>Gpush<CR>', bufopts)
-      vim.keymap.set('n', '<leader>gf', '<CMD>Gfetch<CR>', bufopts)
-      vim.keymap.set('n', '<leader>gd', '<CMD>Gvdiffsplit<CR>', bufopts)
-      vim.keymap.set('n', '<leader>gr', '<CMD>Git rebase<CR>', bufopts)
-      vim.keymap.set('n', '<leader>gg', '<CMD>Glgrep ""<Left>', bufopts)
-      vim.keymap.set('n', '<leader>gm', '<CMD>Git merge', bufopts)
+      vim.keymap.set('n', '<Leader>gs', '<CMD>Git<CR>', bufopts)
+      vim.keymap.set('n', '<Leader>ga', '<CMD>Gwrite<CR>', bufopts)
+      vim.keymap.set('n', '<Leader>gc', '<CMD>Git commit<CR>', bufopts)
+      vim.keymap.set('n', '<Leader>gb', '<CMD>Git blame<CR>', bufopts)
+      vim.keymap.set('n', '<Leader>gl', '<CMD>Gclog<CR>', bufopts)
+      vim.keymap.set('n', '<Leader>gp', '<CMD>Gpush<CR>', bufopts)
+      vim.keymap.set('n', '<Leader>gf', '<CMD>Gfetch<CR>', bufopts)
+      vim.keymap.set('n', '<Leader>gd', '<CMD>Gvdiffsplit<CR>', bufopts)
+      vim.keymap.set('n', '<Leader>gr', '<CMD>Git rebase<CR>', bufopts)
+      vim.keymap.set('n', '<Leader>gg', '<CMD>Glgrep ""<Left>', bufopts)
+      vim.keymap.set('n', '<Leader>gm', '<CMD>Git merge', bufopts)
     end,
   }
 
@@ -357,7 +357,7 @@ return require('packer').startup(function(use)
       vim.g.translate_winsize = 10
 
       local bufopts = { noremap = true }
-      vim.keymap.set('v', '<leader>x', '<Plug>(VTranslate)', bufopts)
+      vim.keymap.set('v', '<Leader>x', '<Plug>(VTranslate)', bufopts)
 
       vim.api.nvim_create_user_command(
         'SwapTransrateLang',
@@ -384,12 +384,12 @@ return require('packer').startup(function(use)
   -- memo
   use { 'glidenote/memolist.vim',
     opt = true,
-    keys = { { 'n', '<leader><leader>mn' }, { 'n', '<leader><leader>ml' }, { 'n', '<leader><leader>mg' } },
+    keys = { { 'n', '<Leader><Leader>mn' }, { 'n', '<Leader><Leader>ml' }, { 'n', '<Leader><Leader>mg' } },
     config = function()
       local bufopts = { noremap = true }
-      vim.keymap.set('n', '<leader><leader>mn', '<Cmd>MemoNew<CR>', bufopts)
-      vim.keymap.set('n', '<leader><leader>ml', '<Cmd>MemoList<CR>', bufopts)
-      vim.keymap.set('n', '<leader><leader>mg', '<Cmd>MemoGrep<CR>', bufopts)
+      vim.keymap.set('n', '<Leader><Leader>mn', '<Cmd>MemoNew<CR>', bufopts)
+      vim.keymap.set('n', '<Leader><Leader>ml', '<Cmd>MemoList<CR>', bufopts)
+      vim.keymap.set('n', '<Leader><Leader>mg', '<Cmd>MemoGrep<CR>', bufopts)
       vim.g.memolist_path                 = '$MEMO_DIR'
       vim.g.memolist_memo_date            = '%Y%m%d-%H%M'
       vim.g.memolist_vimfiler_option      = '-split -winwidth=50 -simple'
@@ -423,23 +423,23 @@ return require('packer').startup(function(use)
   use {
     't9md/vim-quickhl',
     opt = true,
-    keys = { { 'n', '<leader>m' }, { 'x', '<leader>m' } },
+    keys = { { 'n', '<Leader>m' }, { 'x', '<Leader>m' } },
     config = function()
       local bufopts = { noremap = true }
-      vim.keymap.set('n', '<leader>m', '<Plug>(quickhl-manual-this)', bufopts)
-      vim.keymap.set('x', '<leader>m', '<Plug>(quickhl-manual-this)', bufopts)
-      vim.keymap.set('n', '<leader>M', '<Plug>(quickhl-manual-reset)', bufopts)
-      vim.keymap.set('x', '<leader>M', '<Plug>(quickhl-manual-reset)', bufopts)
+      vim.keymap.set('n', '<Leader>m', '<Plug>(quickhl-manual-this)', bufopts)
+      vim.keymap.set('x', '<Leader>m', '<Plug>(quickhl-manual-this)', bufopts)
+      vim.keymap.set('n', '<Leader>M', '<Plug>(quickhl-manual-reset)', bufopts)
+      vim.keymap.set('x', '<Leader>M', '<Plug>(quickhl-manual-reset)', bufopts)
     end,
   }
 
   use {
     'easymotion/vim-easymotion',
     opt = true,
-    keys = { { 'n', '<leader>e' } },
+    keys = { { 'n', '<Leader>e' } },
     config = function()
       local bufopts = { noremap = true }
-      vim.keymap.set('n', '<leader>e', '<Plug>(easymotion-prefix)', bufopts)
+      vim.keymap.set('n', '<Leader>e', '<Plug>(easymotion-prefix)', bufopts)
     end,
   }
 
@@ -447,11 +447,11 @@ return require('packer').startup(function(use)
   use {
     'tyru/open-browser.vim',
     opt = true,
-    keys = { { 'n', '<leader>b' }, { 'x', '<leader>b' } },
+    keys = { { 'n', '<Leader>b' }, { 'x', '<Leader>b' } },
     config = function()
       local bufopts = { noremap = true }
-      vim.keymap.set('n', '<leader>b', '<Plug>(openbrowser-smart-search)', bufopts)
-      vim.keymap.set('x', '<leader>b', '<Plug>(openbrowser-smart-search)', bufopts)
+      vim.keymap.set('n', '<Leader>b', '<Plug>(openbrowser-smart-search)', bufopts)
+      vim.keymap.set('x', '<Leader>b', '<Plug>(openbrowser-smart-search)', bufopts)
     end,
   }
 
@@ -464,8 +464,8 @@ return require('packer').startup(function(use)
     ft = { 'tex', 'cls' },
     config = function()
       local bufopts = { noremap = true }
-      vim.keymap.set('n', '<leader>ll', '<Plug>(vimtex-compile)', bufopts)
-      vim.keymap.set('n', '<leader>lv', '<Plug>(vimtex-view)', bufopts)
+      vim.keymap.set('n', '<localLeader>ll', '<Plug>(vimtex-compile)', bufopts)
+      vim.keymap.set('n', '<localLeader>lv', '<Plug>(vimtex-view)', bufopts)
 
       vim.cmd('source ' .. os.getenv("XDG_CONFIG_HOME") .. '/nvim/vimscripts/vimtex.vim')
     end,
@@ -477,7 +477,7 @@ return require('packer').startup(function(use)
     opt = true,
     ft = { 'html', 'htm', 'md', 'markdown', 'vue' },
     config = function()
-      vim.g.user_emmet_leader_key = ',,'
+      vim.g.user_emmet_Leader_key = ',,'
     end,
   }
 
@@ -489,15 +489,15 @@ return require('packer').startup(function(use)
       vim.cmd [[
         augroup Beautifytype
           "for javascript
-          autocmd FileType javascript nnoremap <buffer> <leader>aj :call JsBeautify()<cr>
+          autocmd FileType javascript nnoremap <buffer> <Leader>aj :call JsBeautify()<cr>
           " for json
-          autocmd FileType json nnoremap <buffer> <leader>aj :call JsonBeautify()<cr>
+          autocmd FileType json nnoremap <buffer> <Leader>aj :call JsonBeautify()<cr>
           " for jsx
-          autocmd FileType jsx nnoremap <buffer> <leader>aj :call JsxBeautify()<cr>
+          autocmd FileType jsx nnoremap <buffer> <Leader>aj :call JsxBeautify()<cr>
           " for html
-          autocmd FileType html nnoremap <buffer> <leader>aj :call HtmlBeautify()<cr>
+          autocmd FileType html nnoremap <buffer> <Leader>aj :call HtmlBeautify()<cr>
           " for css or scss
-          autocmd FileType css nnoremap <buffer> <leader>aj :call CSSBeautify()<cr>
+          autocmd FileType css nnoremap <buffer> <Leader>aj :call CSSBeautify()<cr>
         augroup END
       ]]
     end,
@@ -535,9 +535,9 @@ return require('packer').startup(function(use)
           \ ['inoremap', '<cr>', '<Plug>(bullets-newline)'],
           \ ['inoremap', '<C-cr>', '<cr>'],
           \ ['nnoremap', 'o', '<Plug>(bullets-newline)'],
-          \ ['vnoremap', '<leader>cn', '<Plug>(bullets-renumber)'],
-          \ ['nnoremap', '<leader>cn', '<Plug>(bullets-renumber)'],
-          \ ['nnoremap', '<leader>cc', '<Plug>(bullets-toggle-checkbox)'],
+          \ ['vnoremap', '<Leader>cn', '<Plug>(bullets-renumber)'],
+          \ ['nnoremap', '<Leader>cn', '<Plug>(bullets-renumber)'],
+          \ ['nnoremap', '<Leader>cc', '<Plug>(bullets-toggle-checkbox)'],
           \ ['inoremap', '<C-t>', '<Plug>(bullets-demote)'],
           \ ['nnoremap', '>', '<Plug>(bullets-demote)'],
           \ ['vnoremap', '>', '<Plug>(bullets-demote)'],
@@ -550,13 +550,11 @@ return require('packer').startup(function(use)
   }
 
   -- text object
-  use { 'kana/vim-textobj-user', opt = true }
-  use { 'kana/vim-operator-user', opt = true }
-
   use {
     'kana/vim-textobj-syntax',
     opt = true,
-    requires = { 'kana/vim-textobj-user' },
+    requires = { { 'kana/vim-textobj-user', opt = true } },
+    wants = { 'vim-textobj-user' },
     keys = { { 'o', 'ay' }, { 'o', 'iy' }, { 'v', 'ay' }, { 'v', 'iy' } },
     config = function()
       local bufopts = { noremap = true }
@@ -570,23 +568,26 @@ return require('packer').startup(function(use)
   use {
     'thinca/vim-textobj-between',
     opt = true,
-    requires = { 'kana/vim-textobj-user' },
+    requires = { { 'kana/vim-textobj-user', opt = true } },
+    wants = { 'vim-textobj-user' },
     keys = { { 'o', 'af' }, { 'o', 'if' }, { 'v', 'af' }, { 'v', 'if' } },
     config = function()
       vim.g.textobj_between_no_default_key_mappings = 1
 
       local bufopts = { noremap = true }
-      vim.keymap.set('o', 'ay', '<Plug>(textobj-between-a)', bufopts)
-      vim.keymap.set('o', 'iy', '<Plug>(textobj-between-i)', bufopts)
-      vim.keymap.set('v', 'ay', '<Plug>(textobj-between-a)', bufopts)
-      vim.keymap.set('v', 'iy', '<Plug>(textobj-between-i)', bufopts)
+      vim.keymap.set('o', 'af', '<Plug>(textobj-between-a)', bufopts)
+      vim.keymap.set('o', 'if', '<Plug>(textobj-between-i)', bufopts)
+      vim.keymap.set('v', 'af', '<Plug>(textobj-between-a)', bufopts)
+      vim.keymap.set('v', 'if', '<Plug>(textobj-between-i)', bufopts)
     end,
   }
 
   use {
     'osyo-manga/vim-textobj-multiblock',
     opt = true,
-    requires = { 'kana/vim-textobj-user' },
+    after = { 'vim-operator-surround' },
+    requires = { { 'kana/vim-textobj-user', opt = true } },
+    wants = { 'vim-textobj-user' },
     keys = { { 'o', 'ab' }, { 'o', 'ib' }, { 'v', 'ab' }, { 'v', 'ib' } },
     config = function()
       local bufopts = { noremap = true }
@@ -600,7 +601,8 @@ return require('packer').startup(function(use)
   use {
     'kana/vim-textobj-entire',
     opt = true,
-    requires = { 'kana/vim-textobj-user' },
+    requires = { { 'kana/vim-textobj-user', opt = true } },
+    wants = { 'vim-textobj-user' },
     keys = { { 'o', 'av' }, { 'o', 'iv' }, { 'v', 'av' }, { 'v', 'iv' } },
     config = function()
       vim.g.textobj_entire_no_default_key_mappings = 1
@@ -616,7 +618,8 @@ return require('packer').startup(function(use)
   use {
     'rhysd/vim-operator-surround',
     opt = true,
-    requires = { 'kana/vim-operator-user', 'osyo-manga/vim-textobj-multiblock' },
+    requires = { { 'kana/vim-operator-user', opt = true }, { 'osyo-manga/vim-textobj-multiblock', opt = true } },
+    wants = { 'vim-operator-user', 'vim-textobj-multiblock' },
     keys = { { 'v', 'sa' }, { 'v', 'sd' }, { 'v', 'sr' }, { 'v', 'sdd' }, { 'v', 'srr' } },
     config = function()
       vim.g.textobj_entire_no_default_key_mappings = 1
@@ -636,6 +639,5 @@ return require('packer').startup(function(use)
     opt = true,
     event = { 'BufRead' },
   }
-
 
 end)
