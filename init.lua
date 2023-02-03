@@ -7,6 +7,7 @@ require("mapping")
 require("set")
 require("autocmd")
 require("plugins")
+-- require("ftype")
 
 vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = { "plugins.lua" },
