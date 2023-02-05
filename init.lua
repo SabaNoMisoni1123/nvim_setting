@@ -7,9 +7,9 @@ require("mapping")
 require("set")
 require("autocmd")
 require("plugins")
--- require("ftype")
+require("ftmapping")
 
-vim.api.nvim_create_autocmd("BufWritePost", {
+vim.api.nvim_create_autocmd("CursorHold", {
   pattern = { "plugins.lua" },
   command = "PackerCompile",
 })

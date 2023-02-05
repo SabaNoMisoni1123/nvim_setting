@@ -255,7 +255,7 @@ return require('packer').startup(function(use)
   use {
     'preservim/tagbar',
     opt = true,
-    cmd = { 'TagbarToggle' },
+    keys = { { 'n', '<Space>t' } },
     requires = { 'soramugi/auto-ctags.vim' },
     setup = function()
       local bufopts = { noremap = true, buffer = 0 }
@@ -487,15 +487,10 @@ return require('packer').startup(function(use)
     config = function()
       vim.cmd [[
         augroup Beautifytype
-          "for javascript
           autocmd FileType javascript nnoremap <buffer> <Leader>aj :call JsBeautify()<cr>
-          " for json
           autocmd FileType json nnoremap <buffer> <Leader>aj :call JsonBeautify()<cr>
-          " for jsx
           autocmd FileType jsx nnoremap <buffer> <Leader>aj :call JsxBeautify()<cr>
-          " for html
           autocmd FileType html nnoremap <buffer> <Leader>aj :call HtmlBeautify()<cr>
-          " for css or scss
           autocmd FileType css nnoremap <buffer> <Leader>aj :call CSSBeautify()<cr>
         augroup END
       ]]

@@ -1,19 +1,11 @@
 local autocmd_filetype = vim.api.nvim_create_augroup('filetypes', { clear = true })
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = "*",
-  group = autocmd_filetype,
-  callback = function()
-    return 0
-  end,
-})
+local bufopts = { noremap = true, buffer = 0 }
 
 -- help
 vim.api.nvim_create_autocmd('FileType', {
   pattern = "help",
   group = autocmd_filetype,
   callback = function()
-    local bufopts = { noremap = true }
     vim.keymap.set('n', 'q', '<Cmd>q<CR>', bufopts)
   end,
 })
@@ -23,7 +15,6 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = "NvimTree",
   group = autocmd_filetype,
   callback = function()
-    local bufopts = { noremap = true }
     vim.keymap.set('n', '>', '<Cmd>NvimTreeResize +10<CR>', bufopts)
     vim.keymap.set('n', '<', '<Cmd>NvimTreeResize -10<CR>', bufopts)
   end,
@@ -48,31 +39,36 @@ vim.api.nvim_create_autocmd('FileType', {
       end,
       { nargs = 0 }
     )
-
-    local bufopts = { noremap = true }
     vim.keymap.set('n', '<', '<Cmd>TagbarClose<CR>:TagbarWidthPlus<CR>:Tagbar f<CR>', bufopts)
     vim.keymap.set('n', '>', '<Cmd>TagbarClose<CR>:TagbarWidthMinus<CR>:Tagbar f<CR>', bufopts)
   end,
 })
 
--- c
+-- c / cpp
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = "c",
+  pattern = { "c", "cpp" },
   group = autocmd_filetype,
   callback = function()
-    local bufopts = { noremap = true }
     vim.keymap.set('n', ',x', '<Cmd>QuickRun make/src<CR>', bufopts)
     vim.keymap.set('n', ',,x', '<Cmd>QuickRun cmake/src<CR>', bufopts)
   end,
 })
 
--- cpp
+-- markdonw
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = "cpp",
+  pattern = "markdown",
   group = autocmd_filetype,
   callback = function()
-    local bufopts = { noremap = true }
-    vim.keymap.set('n', ',x', '<Cmd>QuickRun make/src<CR>', bufopts)
-    vim.keymap.set('n', ',,x', '<Cmd>QuickRun cmake/src<CR>', bufopts)
+    vim.keymap.set('n', ',x', '<Cmd>QuickRun markdown/marp<CR>', bufopts)
+    vim.keymap.set('n', ',,x', '<Cmd>QuickRun markdown/marp-pdf<CR>', bufopts)
+  end,
+})
+
+-- csv
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = "markdown",
+  group = autocmd_filetype,
+  callback = function()
+    vim.keymap.set('i', ',', ',', bufopts)
   end,
 })
