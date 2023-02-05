@@ -178,7 +178,7 @@ return require('packer').startup(function(use)
   use {
     'thinca/vim-quickrun',
     opt = true,
-    cmd = { "QuickRun" },
+    keys = { { 'n', '<Leader>x' }, { 'n', '<Leader><Leader>x' } },
     setup = function()
       local bufopts = { noremap = true, buffer = 0 }
       vim.keymap.set('n', '<Leader>x', '<Cmd>QuickRun<CR>', bufopts)
@@ -381,7 +381,7 @@ return require('packer').startup(function(use)
   -- memo
   use { 'glidenote/memolist.vim',
     opt = true,
-    cmd = { 'MemoNew', 'MemoList', 'MemoGrep' },
+    keys = { {'n', '<Leader><Leader>mn'}, {'n', '<Leader><Leader>ml'}, {'n', '<Leader><Leader>mg'} },
     setup = function()
       local bufopts = { noremap = true, buffer = 0 }
       vim.keymap.set('n', '<Leader><Leader>mn', '<Cmd>MemoNew<CR>', bufopts)
