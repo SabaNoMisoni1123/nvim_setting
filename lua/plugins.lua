@@ -179,12 +179,10 @@ return require('packer').startup(function(use)
     'thinca/vim-quickrun',
     opt = true,
     keys = { { 'n', '<Leader>x' }, { 'n', '<Leader><Leader>x' } },
-    setup = function()
+    config = function()
       local bufopts = { noremap = true, buffer = 0 }
       vim.keymap.set('n', '<Leader>x', '<Cmd>QuickRun<CR>', bufopts)
       vim.keymap.set('n', '<Leader><Leader>x', ':QuickRun ', bufopts)
-    end,
-    config = function()
       vim.cmd('source ' .. os.getenv("XDG_CONFIG_HOME") .. '/nvim/vimscripts/quickrun_setting.vim')
     end,
   }
