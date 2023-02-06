@@ -255,7 +255,7 @@ return require('packer').startup(function(use)
     opt = true,
     keys = { { 'n', '<Space>t' } },
     requires = { 'soramugi/auto-ctags.vim' },
-    setup = function()
+    config = function()
       local bufopts = { noremap = true, buffer = 0 }
       vim.keymap.set('n', '<Leader>t', '<Cmd>TagbarToggle<CR>', bufopts)
       vim.g.tagbar_map_togglesort = "S"
@@ -263,8 +263,6 @@ return require('packer').startup(function(use)
       vim.g.tagbar_map_toggleautoclose = "C"
       vim.g.auto_ctags_set_tags_option = 1
       vim.g.tagbar_width = 30
-    end,
-    config = function()
       vim.cmd [[
         let g:tagbar_type_go = {
           \ 'ctagstype' : 'go',
