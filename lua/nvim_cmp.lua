@@ -185,11 +185,12 @@ local rep = extras.rep
 local postfix = require("luasnip.extras.postfix").postfix
 
 -- load vim-snippets
--- require("luasnip.loaders.from_snipmate").lazy_load({
---   path = vim.g.plugins_github_dir .. '/honza/vim-snippets/snippets/',
---   default_priority = 1,
---   override_priority = 1,
--- })
+require("luasnip.loaders.from_snipmate").lazy_load({
+  path = '~/.local/share/nvim/site/pack/packer/opt/vim-snippets/snippets',
+  default_priority = 1,
+  override_priority = 1,
+})
+
 
 -- load my snippets
 require("luasnip.loaders.from_snipmate").lazy_load({

@@ -46,10 +46,11 @@ return require('packer').startup(function(use)
   -- auto complete
   use {
     'hrsh7th/nvim-cmp',
-    wants = { "LuaSnip", 'lspkind.nvim' },
+    wants = { "LuaSnip", "vim-snippets", 'lspkind.nvim' },
     requires = {
       { 'onsails/lspkind.nvim', opt = true },
       { 'L3MON4D3/LuaSnip', opt = true },
+      { 'honza/vim-snippets', opt = true },
     },
     opt = true,
     event = { 'InsertEnter', 'CmdlineEnter' },
