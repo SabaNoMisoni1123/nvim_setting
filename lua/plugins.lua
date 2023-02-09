@@ -298,44 +298,52 @@ return require('packer').startup(function(use)
 
   -- git
   use {
-    'airblade/vim-gitgutter',
+    'TimUntersberger/neogit',
+    requires = { 'nvim-lua/plenary.nvim', opt = true },
     opt = true,
-    event = { 'InsertEnter', 'CmdlineEnter', 'CursorHold' },
+    event = { 'BufRead', 'InsertEnter', 'CmdlineEnter', 'CursorHold' },
     config = function()
-      vim.g.gitgutter_preview_win_floating = 0
-      vim.g.gitgutter_map_keys = 0
-
-      local bufopts = { noremap = true, buffer = 0 }
-      vim.keymap.set('n', '<Leader>hs', '<Plug>(GitGutterStageHunk)', bufopts)
-      vim.keymap.set('n', '<Leader>hu', '<Plug>(GitGutterUndoHunk)', bufopts)
-      vim.keymap.set('n', '<Leader>hp', '<Plug>(GitGutterPreviewHunk)', bufopts)
-      vim.keymap.set('n', ']h', '<Plug>(GitGutterNextHunk)', bufopts)
-      vim.keymap.set('n', '[h', '<Plug>(GitGutterPrevHunk)', bufopts)
-
-      vim.keymap.set('o', 'ih', '<Plug>(GitGutterTextObjectInnerPending)', bufopts)
-      vim.keymap.set('o', 'ah', '<Plug>(GitGutterTextObjectOuterPending)', bufopts)
-
-      vim.keymap.set('x', 'ih', '<Plug>(GitGutterTextObjectInnerVisual)', bufopts)
-      vim.keymap.set('x', 'ah', '<Plug>(GitGutterTextObjectOuterVisual)', bufopts)
+      local neogit = require('neogit')
+      neogit.setup {}
+      local bufopts = { noremap = true }
+      vim.keymap.set('n', '<Leader>gs', function() neogit.open() end, bufopts)
     end,
   }
   use {
-    'tpope/vim-fugitive',
+    'lewis6991/gitsigns.nvim',
     opt = true,
-    event = { 'InsertEnter', 'CmdlineEnter', 'CursorHold' },
+    event = { 'BufRead', 'InsertEnter', 'CmdlineEnter', 'CursorHold' },
     config = function()
-      local bufopts = { noremap = true, buffer = 0 }
-      vim.keymap.set('n', '<Leader>gs', '<CMD>Git<CR>', bufopts)
-      vim.keymap.set('n', '<Leader>ga', '<CMD>Gwrite<CR>', bufopts)
-      vim.keymap.set('n', '<Leader>gc', '<CMD>Git commit<CR>', bufopts)
-      vim.keymap.set('n', '<Leader>gb', '<CMD>Git blame<CR>', bufopts)
-      vim.keymap.set('n', '<Leader>gl', '<CMD>Gclog<CR>', bufopts)
-      vim.keymap.set('n', '<Leader>gp', '<CMD>Gpush<CR>', bufopts)
-      vim.keymap.set('n', '<Leader>gf', '<CMD>Gfetch<CR>', bufopts)
-      vim.keymap.set('n', '<Leader>gd', '<CMD>Gvdiffsplit<CR>', bufopts)
-      vim.keymap.set('n', '<Leader>gr', '<CMD>Git rebase<CR>', bufopts)
-      vim.keymap.set('n', '<Leader>gg', '<CMD>Glgrep ""<Left>', bufopts)
-      vim.keymap.set('n', '<Leader>gm', '<CMD>Git merge', bufopts)
+      require('gitsigns').setup {
+        signs = {
+          add          = { text = '│' },
+          change       = { text = '│' },
+          delete       = { text = '_' },
+          topdelete    = { text = '‾' },
+          changedelete = { text = '~' },
+          untracked    = { text = '┆' },
+        },
+      }
+    end,
+  }
+  use {
+    'akinsho/git-conflict.nvim',
+    tag = "*",
+    opt = true,
+    event = { 'BufRead', 'InsertEnter', 'CmdlineEnter', 'CursorHold' },
+    config = function()
+      require('git-conflict').setup {}
+    end
+  }
+  use {
+    'sindrets/diffview.nvim',
+    requires = { 'nvim-lua/plenary.nvim', opt = true },
+    opt = true,
+    keys = { { 'n', '<Leader>gd' } },
+    config = function()
+      local bufopts = { noremap = true }
+      vim.keymap.set('n', '<Leader>gd', '<CMD>DiffviewOpen<CR>', bufopts)
+      vim.keymap.set('n', '<Leader>gq', '<CMD>DiffviewClose<CR>', bufopts)
     end,
   }
 
@@ -378,7 +386,7 @@ return require('packer').startup(function(use)
   -- memo
   use { 'glidenote/memolist.vim',
     opt = true,
-    keys = { {'n', '<Leader><Leader>mn'}, {'n', '<Leader><Leader>ml'}, {'n', '<Leader><Leader>mg'} },
+    keys = { { 'n', '<Leader><Leader>mn' }, { 'n', '<Leader><Leader>ml' }, { 'n', '<Leader><Leader>mg' } },
     setup = function()
       local bufopts = { noremap = true, buffer = 0 }
       vim.keymap.set('n', '<Leader><Leader>mn', '<Cmd>MemoNew<CR>', bufopts)
