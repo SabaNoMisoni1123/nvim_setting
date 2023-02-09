@@ -313,6 +313,8 @@ return require('packer').startup(function(use)
     'lewis6991/gitsigns.nvim',
     opt = true,
     event = { 'BufRead', 'InsertEnter', 'CmdlineEnter', 'CursorHold' },
+    requires = { { 'petertriho/nvim-scrollbar', opt = true } },
+    wants = { 'nvim-scrollbar' },
     config = function()
       require('gitsigns').setup {
         signs = {
@@ -324,6 +326,7 @@ return require('packer').startup(function(use)
           untracked    = { text = '┆' },
         },
       }
+      require("scrollbar.handlers.gitsigns").setup()
     end,
   }
   use {
@@ -344,6 +347,21 @@ return require('packer').startup(function(use)
       local bufopts = { noremap = true }
       vim.keymap.set('n', '<Leader>gd', '<CMD>DiffviewOpen<CR>', bufopts)
       vim.keymap.set('n', '<Leader>gq', '<CMD>DiffviewClose<CR>', bufopts)
+    end,
+  }
+
+  -- scrollbar
+  use {
+    'petertriho/nvim-scrollbar',
+    opt = true,
+    event = { 'BufRead' },
+    requires = { { 'lewis6991/gitsigns.nvim', opt = true }, { 'kevinhwang91/nvim-hlslens', opt = true } },
+    config = function()
+      require('scrollbar').setup {
+        show = false,
+      }
+      local bufopts = { noremap = true }
+      vim.keymap.set('n', '<C-s>', '<CMD>ScrollbarToggle<CR>', bufopts)
     end,
   }
 
