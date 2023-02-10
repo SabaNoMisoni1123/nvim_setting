@@ -304,9 +304,14 @@ return require('packer').startup(function(use)
     event = { 'BufRead', 'InsertEnter', 'CmdlineEnter', 'CursorHold' },
     config = function()
       local neogit = require('neogit')
-      neogit.setup {}
+      neogit.setup {
+        disable_insert_on_commit = true
+      }
       local bufopts = { noremap = true }
-      vim.keymap.set('n', '<Leader>gs', function() neogit.open() end, bufopts)
+      vim.keymap.set('n', '<Leader>gs', function()
+        neogit.open()
+        vim.cmd('stopinsert')
+      end, bufopts)
     end,
   }
   use {
@@ -355,7 +360,7 @@ return require('packer').startup(function(use)
     'petertriho/nvim-scrollbar',
     opt = true,
     event = { 'BufRead' },
-    requires = { { 'lewis6991/gitsigns.nvim', opt = true }, { 'kevinhwang91/nvim-hlslens', opt = true } },
+    requires = { { 'lewis6991/gitsigns.nvim', opt = true } },
     config = function()
       require('scrollbar').setup {
         show = false,
