@@ -538,7 +538,6 @@ return require('packer').startup(function(use)
       vim.g.vim_markdown_new_list_item_indent = 0
     end,
   }
-
   use {
     'dkarter/bullets.vim',
     opt = true,
@@ -569,6 +568,15 @@ return require('packer').startup(function(use)
           \ ]
       ]]
     end,
+  }
+  use {
+    'iamcco/markdown-preview.nvim',
+    run = function()
+      vim.fn['mkdp#util#install']()
+    end,
+    setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
+    opt = true,
+    ft = { 'markdown' },
   }
 
   -- text object
