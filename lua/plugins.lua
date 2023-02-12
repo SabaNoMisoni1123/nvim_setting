@@ -470,7 +470,6 @@ return require('packer').startup(function(use)
     end,
   }
 
-  -- other tool
   use {
     'tyru/open-browser.vim',
     opt = true,
@@ -482,8 +481,13 @@ return require('packer').startup(function(use)
     end,
   }
 
-  -- filetype
+  use {
+    'gpanders/editorconfig.nvim',
+    opt = true,
+    event = { 'BufRead' },
+  }
 
+  -- filetype =================================================================
   -- tex
   use {
     'lervag/vimtex',
@@ -505,23 +509,6 @@ return require('packer').startup(function(use)
     ft = { 'html', 'htm', 'md', 'markdown', 'vue' },
     config = function()
       vim.g.user_emmet_Leader_key = ',,'
-    end,
-  }
-
-  use {
-    'maksimr/vim-jsbeautify',
-    opt = true,
-    ft = { 'js', 'html', 'jsx', 'json', 'css' },
-    config = function()
-      vim.cmd [[
-        augroup Beautifytype
-          autocmd FileType javascript nnoremap <buffer> <Leader>aj :call JsBeautify()<cr>
-          autocmd FileType json nnoremap <buffer> <Leader>aj :call JsonBeautify()<cr>
-          autocmd FileType jsx nnoremap <buffer> <Leader>aj :call JsxBeautify()<cr>
-          autocmd FileType html nnoremap <buffer> <Leader>aj :call HtmlBeautify()<cr>
-          autocmd FileType css nnoremap <buffer> <Leader>aj :call CSSBeautify()<cr>
-        augroup END
-      ]]
     end,
   }
 
