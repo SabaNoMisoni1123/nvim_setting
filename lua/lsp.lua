@@ -68,14 +68,14 @@ for key, val in pairs(lsp_commands) do
     -- LSPの起動
     -- LSPごとにif文
     if val == 'grammarly' then
-      require('lspconfig')[val].setup{
+      require('lspconfig')[val].setup {
         on_attach = on_attach,
         flags = lsp_flags,
         capabilities = capabilities,
         filetypes = { "markdown", "text", "tex" },
       }
     elseif val == 'efm' then
-      require('lspconfig')[val].setup{
+      require('lspconfig')[val].setup {
         on_attach = on_attach,
         flags = lsp_flags,
         capabilities = capabilities,
@@ -86,7 +86,7 @@ for key, val in pairs(lsp_commands) do
         }
       }
     elseif val == 'sumneko_lua' then
-      require('lspconfig')[val].setup{
+      require('lspconfig')[val].setup {
         on_attach = on_attach,
         flags = lsp_flags,
         capabilities = capabilities,
@@ -98,7 +98,7 @@ for key, val in pairs(lsp_commands) do
             },
             diagnostics = {
               -- Get the language server to recognize the `vim` global
-              globals = {'vim'},
+              globals = { 'vim' },
             },
             workspace = {
               -- Make the server aware of Neovim runtime files
@@ -113,7 +113,7 @@ for key, val in pairs(lsp_commands) do
       }
     else
       -- 基本設定
-      require('lspconfig')[val].setup{
+      require('lspconfig')[val].setup {
         on_attach = on_attach,
         flags = lsp_flags,
         capabilities = capabilities,
@@ -122,7 +122,7 @@ for key, val in pairs(lsp_commands) do
   end
 end
 
-require('lsp_signature').setup{
+require('lsp_signature').setup {
   floating_window = true,
   floating_window_above_cur_line = true,
   bind = true,
@@ -136,10 +136,10 @@ require('lsp_signature').setup{
 -- エラー表示の設定
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = true,
-    signs = true,
-    underline = true,
-  }
+  virtual_text = true,
+  signs = true,
+  underline = true,
+}
 )
 
 -- アイコンなどの見た目設定
@@ -148,3 +148,5 @@ for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
+
+vim.cmd('LspStart')

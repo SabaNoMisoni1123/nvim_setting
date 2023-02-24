@@ -1,3 +1,16 @@
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.opt.termguicolors = true
+
+-- mapping
+local bufopts = { noremap = true, silent = true }
+for k, v in pairs({
+  ['<leader>d'] = '<Cmd>NvimTreeToggle expand(\'%:p:h\')<CR>',
+  ['<leader>n'] = '<Cmd>NvimTreeFocus<CR>',
+}) do
+  vim.keymap.set('n', k, v, bufopts)
+end
+
 require 'nvim-tree'.setup {
   respect_buf_cwd = true,
   remove_keymaps = true,

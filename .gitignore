@@ -1,7 +1,9 @@
 dein/
 haven/
+plugin/
 .DS_Store
 tmp/
+*.tmp
 nlsp-settings/
 LC.log
 toml/dein_colorscheme_local.toml
