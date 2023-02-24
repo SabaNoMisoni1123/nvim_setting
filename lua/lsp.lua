@@ -18,7 +18,7 @@ lsp_commands['grammarly-languageserver'] = 'grammarly'
 lsp_commands['ltex-ls'] = 'ltex'
 lsp_commands['efm-langserver'] = 'efm'
 lsp_commands['vscode-json-language-server'] = 'jsonls'
-lsp_commands['lua-language-server'] = 'sumneko_lua'
+lsp_commands['lua-language-server'] = 'lua_ls'
 
 -- local lsp setting
 local nlspsettings = require("nlspsettings")
@@ -85,7 +85,7 @@ for key, val in pairs(lsp_commands) do
           rootMarkers = { ".git/" },
         }
       }
-    elseif val == 'sumneko_lua' then
+    elseif val == 'lua_ls' then
       require('lspconfig')[val].setup {
         on_attach = on_attach,
         flags = lsp_flags,
