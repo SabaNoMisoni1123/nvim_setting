@@ -48,7 +48,7 @@ snippet \int
 snippet inval
   $${1}\\, \\mathrm{${2}}$${0}
 
-snippet pack1
+snippet pack
   \\usepackage{graphicx}
   \\usepackage{amsmath}
   \\usepackage{amssymb}
@@ -57,14 +57,30 @@ snippet pack1
   \\usepackage{url}
   \\usepackage{bm}
   \\usepackage{booktabs}
+  \\usepackage{subfigure}
+  \\usepackage{xcolor}
+  ${0}
+
+snippet pack_algo
   \\usepackage{algorithm}
   \\usepackage{algpseudocode}
-  \\usepackage{subfigure}
+  ${0}
+
+
+snippet pack_tikz
   \\usepackage{tikz}
   \\usetikzlibrary{calc}
   \\usetikzlibrary{intersections}
   \\usetikzlibrary{shapes}
   ${0}
+
+snippet pack_tikz
+  \\usepackage{tikz}
+  \\usetikzlibrary{calc}
+  \\usetikzlibrary{intersections}
+  \\usetikzlibrary{shapes}
+  ${0}
+
 
 snippet toc
   \\usepackage[dvipdfmx]{hyperref}
