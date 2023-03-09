@@ -508,7 +508,7 @@ return require('packer').startup(function(use)
     opt = true,
     ft = { 'html', 'htm', 'md', 'markdown', 'vue' },
     config = function()
-      vim.g.user_emmet_Leader_key = ',,'
+      vim.g.user_emmet_leader_key = ',,'
     end,
   }
 
