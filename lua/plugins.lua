@@ -576,7 +576,7 @@ return require('packer').startup(function(use)
     wants = { 'vim-textobj-user' },
     keys = { { 'o', 'ay' }, { 'o', 'iy' }, { 'v', 'ay' }, { 'v', 'iy' } },
     config = function()
-      local bufopts = { noremap = true, buffer = 0 }
+      local bufopts = { noremap = true }
       vim.keymap.set('o', 'ay', '<Plug>(textobj-syntax-a)', bufopts)
       vim.keymap.set('o', 'iy', '<Plug>(textobj-syntax-i)', bufopts)
       vim.keymap.set('v', 'ay', '<Plug>(textobj-syntax-a)', bufopts)
@@ -593,7 +593,7 @@ return require('packer').startup(function(use)
     config = function()
       vim.g.textobj_between_no_default_key_mappings = 1
 
-      local bufopts = { noremap = true, buffer = 0 }
+      local bufopts = { noremap = true }
       vim.keymap.set('o', 'af', '<Plug>(textobj-between-a)', bufopts)
       vim.keymap.set('o', 'if', '<Plug>(textobj-between-i)', bufopts)
       vim.keymap.set('v', 'af', '<Plug>(textobj-between-a)', bufopts)
@@ -609,7 +609,7 @@ return require('packer').startup(function(use)
     wants = { 'vim-textobj-user' },
     keys = { { 'o', 'ab' }, { 'o', 'ib' }, { 'v', 'ab' }, { 'v', 'ib' } },
     config = function()
-      local bufopts = { noremap = true, buffer = 0 }
+      local bufopts = { noremap = true }
       vim.keymap.set('o', 'ab', '<Plug>(textobj-multiblock-a)', bufopts)
       vim.keymap.set('o', 'ib', '<Plug>(textobj-multiblock-i)', bufopts)
       vim.keymap.set('v', 'ab', '<Plug>(textobj-multiblock-a)', bufopts)
@@ -626,7 +626,7 @@ return require('packer').startup(function(use)
     config = function()
       vim.g.textobj_entire_no_default_key_mappings = 1
 
-      local bufopts = { noremap = true, buffer = 0 }
+      local bufopts = { noremap = true }
       vim.keymap.set('o', 'av', '<Plug>(textobj-entire-a)', bufopts)
       vim.keymap.set('o', 'iv', '<Plug>(textobj-entire-i)', bufopts)
       vim.keymap.set('v', 'av', '<Plug>(textobj-entire-a)', bufopts)
@@ -643,7 +643,7 @@ return require('packer').startup(function(use)
     config = function()
       vim.g.textobj_entire_no_default_key_mappings = 1
 
-      local bufopts = { noremap = true, buffer = 0 }
+      local bufopts = { noremap = true }
       vim.keymap.set('v', 'sa', '<Plug>(operator-surround-append)', bufopts)
       vim.keymap.set('v', 'sd', '<Plug>(operator-surround-delete)', bufopts)
       vim.keymap.set('v', 'sr', '<Plug>(operator-surround-replace)', bufopts)
