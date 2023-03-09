@@ -35,11 +35,11 @@ return require('packer').startup(function(use)
     config = function() require("lsp") end,
     wants = { 'lsp_signature.nvim', 'nlsp-settings.nvim', 'telescope.nvim', 'nvim-cmp', 'cmp-nvim-lsp' },
     requires = {
-      { 'ray-x/lsp_signature.nvim', opt = true },
-      { 'tamago324/nlsp-settings.nvim', opt = true },
+      { 'ray-x/lsp_signature.nvim',      opt = true },
+      { 'tamago324/nlsp-settings.nvim',  opt = true },
       { 'nvim-telescope/telescope.nvim', opt = true },
-      { 'hrsh7th/nvim-cmp', opt = true },
-      { 'hrsh7th/cmp-nvim-lsp', opt = true },
+      { 'hrsh7th/nvim-cmp',              opt = true },
+      { 'hrsh7th/cmp-nvim-lsp',          opt = true },
     },
   }
 
@@ -49,8 +49,8 @@ return require('packer').startup(function(use)
     wants = { "LuaSnip", "vim-snippets", 'lspkind.nvim' },
     requires = {
       { 'onsails/lspkind.nvim', opt = true },
-      { 'L3MON4D3/LuaSnip', opt = true },
-      { 'honza/vim-snippets', opt = true },
+      { 'L3MON4D3/LuaSnip',     opt = true },
+      { 'honza/vim-snippets',   opt = true },
     },
     opt = true,
     event = { 'InsertEnter', 'CmdlineEnter' },
@@ -73,7 +73,7 @@ return require('packer').startup(function(use)
       require("cmp_dictionary").setup({
         dic = {
           -- If you always use the English dictionary, The following settings are suitable:
-          ["*"] = "/usr/share/dict/words",
+              ["*"] = "/usr/share/dict/words",
         },
         max_items = 50,
       })
@@ -113,11 +113,11 @@ return require('packer').startup(function(use)
         defaults = {
           mappings = {
             n = {
-              ["q"] = require("telescope.actions").close,
-              ["<esc>"] = require("telescope.actions").close,
+                  ["q"] = require("telescope.actions").close,
+                  ["<esc>"] = require("telescope.actions").close,
             },
             i = {
-              ["<esc>"] = require("telescope.actions").close,
+                  ["<esc>"] = require("telescope.actions").close,
             },
           },
           winblend = 15,
@@ -181,9 +181,10 @@ return require('packer').startup(function(use)
     opt = true,
     keys = { { 'n', '<Leader>x' }, { 'n', '<Leader><Leader>x' } },
     config = function()
-      local bufopts = { noremap = true, buffer = 0 }
+      local bufopts = { noremap = true }
       vim.keymap.set('n', '<Leader>x', '<Cmd>QuickRun<CR>', bufopts)
       vim.keymap.set('n', '<Leader><Leader>x', ':QuickRun ', bufopts)
+
       vim.cmd('source ' .. os.getenv("XDG_CONFIG_HOME") .. '/nvim/vimscripts/quickrun_setting.vim')
     end,
   }
@@ -410,13 +411,12 @@ return require('packer').startup(function(use)
   use { 'glidenote/memolist.vim',
     opt = true,
     keys = { { 'n', '<Leader><Leader>mn' }, { 'n', '<Leader><Leader>ml' }, { 'n', '<Leader><Leader>mg' } },
-    setup = function()
-      local bufopts = { noremap = true, buffer = 0 }
+    config = function()
+      local bufopts = { noremap = true }
       vim.keymap.set('n', '<Leader><Leader>mn', '<Cmd>MemoNew<CR>', bufopts)
       vim.keymap.set('n', '<Leader><Leader>ml', '<Cmd>MemoList<CR>', bufopts)
       vim.keymap.set('n', '<Leader><Leader>mg', '<Cmd>MemoGrep<CR>', bufopts)
-    end,
-    config = function()
+
       vim.g.memolist_path                 = '$MEMO_DIR'
       vim.g.memolist_memo_date            = '%Y%m%d-%H%M'
       vim.g.memolist_vimfiler_option      = '-split -winwidth=50 -simple'
@@ -425,8 +425,8 @@ return require('packer').startup(function(use)
       vim.g.memolist_delimiter_yaml_start = '---'
       vim.g.memolist_delimiter_yaml_end   = '---'
 
-      vim.g.memolist_memo_suffix = 'md'
-      vim.g.memolist_template_dir_path = os.getenv("XDG_CONFIG_HOME") .. '/nvim/template'
+      vim.g.memolist_memo_suffix          = 'md'
+      vim.g.memolist_template_dir_path    = os.getenv("XDG_CONFIG_HOME") .. '/nvim/templates'
     end,
   }
 
@@ -529,9 +529,11 @@ return require('packer').startup(function(use)
     'dkarter/bullets.vim',
     opt = true,
     ft = { 'markdown', 'text', 'gitcommit' },
+    setup = function()
+      vim.g.bullets_set_mappings = 0
+    end,
     config = function()
       vim.g.bullets_enable_in_empty_buffers = 0
-      vim.g.bullets_set_mappings = 0
       vim.cmd [[
         let g:bullets_enabled_file_types = [
           \ 'markdown',
@@ -656,5 +658,4 @@ return require('packer').startup(function(use)
     opt = true,
     event = { 'BufRead' },
   }
-
 end)

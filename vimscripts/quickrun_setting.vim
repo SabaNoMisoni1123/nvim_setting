@@ -151,9 +151,10 @@ let g:quickrun_config['markdown/mysetting'] = {
   \   '%c %s %o %a -o %s:r.html',
   \   'cat %s:r.html',
   \ ],
-  \ 'cmdopt' : '-f markdown -t html5 -s --self-contained --css=$XDG_CONFIG_HOME/nvim/template/memo-template.css',
+  \ 'cmdopt' : '-f markdown -t html5 -s --self-contained --css=$XDG_CONFIG_HOME/nvim/templates/memo-style.css',
   \ 'hook/cd/directory' : '%S:h',
   \ }
+
 
 let g:quickrun_config['markdown/marp'] = {
   \ 'command': 'marp',
