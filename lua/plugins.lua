@@ -507,7 +507,7 @@ return require('packer').startup(function(use)
     'mattn/emmet-vim',
     opt = true,
     ft = { 'html', 'htm', 'md', 'markdown', 'vue' },
-    config = function()
+    setup = function()
       vim.g.user_emmet_leader_key = ',,'
     end,
   }
