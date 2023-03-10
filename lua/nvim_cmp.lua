@@ -3,7 +3,7 @@ local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 local lspkind = require 'lspkind'
 
-cmp.setup({
+cmp.setup {
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
@@ -15,39 +15,39 @@ cmp.setup({
     -- documentation = cmp.config.window.bordered(),
   },
   mapping = cmp.mapping.preset.insert({
-    ["<Tab>"] = cmp.mapping(function(fallback)
+        ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
       else
         fallback()
       end
     end),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
+        ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       else
         fallback()
       end
     end),
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = function(fallback)
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = function(fallback)
       if cmp.visible() then
         cmp.mapping.abort()
       else
         fallback()
       end
     end,
-    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    ['<C-k>'] = function(fallback)
+        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ['<C-k>'] = function(fallback)
       if luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
       else
         fallback()
       end
     end,
-    ['<C-j>'] = function(fallback)
+        ['<C-j>'] = function(fallback)
       if luasnip.jumpable(-1) then
         luasnip.jump(-1)
       else
@@ -55,12 +55,12 @@ cmp.setup({
       end
     end,
   }),
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp', group_index = 1, priority = 300 },
-    { name = 'luasnip', group_index = 1, priority = 200 },
-    { name = 'nvim_lsp_signature_help', group_index = 2, priority = 150 },
-    { name = 'buffer', group_index = 2, priority = 100 },
-    { name = 'path', group_index = 2, priority = 70 },
+  sources = {
+    { name = 'nvim_lsp',                group_index = 1, priority = 300 },
+    { name = 'luasnip',                 group_index = 1, priority = 200 },
+    { name = 'nvim_lsp_signature_help', group_index = 1, priority = 150 },
+    { name = 'buffer',                  group_index = 1, priority = 100 },
+    { name = 'path',                    group_index = 2, priority = 70 },
     {
       name = 'look',
       keyword_length = 2,
@@ -68,16 +68,18 @@ cmp.setup({
         convert_case = true,
         loud = true,
       },
-      group_index = 3,
-      priority = 30,
+      group_index = 2,
+      priority = 1,
+      max_item_count = 15,
     },
     {
       name = 'dictionary',
       keyword_length = 2,
-      group_index = 3,
-      priority = 10,
+      group_index = 2,
+      priority = 1,
+      max_item_count = 15,
     },
-  }),
+  },
   formatting = {
     format = function(entry, vim_item)
       if vim.tbl_contains({ 'path' }, entry.source.name) then
@@ -89,22 +91,22 @@ cmp.setup({
         end
       end
       return lspkind.cmp_format({
-        with_text = true,
-        mode = "symbol_text",
-        menu = ({
-          buffer = "[Buffer]",
-          nvim_lsp = "[LSP]",
-          luasnip = "[LuaSnip]",
-          nvim_lsp_signature_help = "[Help]",
-          omni = "[Omni]",
-          path = "[Path]",
-          look = "[Look]",
-          dictionary = "[dict]"
-        }),
-      })(entry, vim_item)
+            with_text = true,
+            mode = "symbol_text",
+            menu = ({
+              buffer = "[Buffer]",
+              nvim_lsp = "[LSP]",
+              luasnip = "[LuaSnip]",
+              nvim_lsp_signature_help = "[Help]",
+              omni = "[Omni]",
+              path = "[Path]",
+              look = "[Look]",
+              dictionary = "[dict]"
+            }),
+          })(entry, vim_item)
     end
   },
-})
+}
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {
@@ -118,9 +120,9 @@ cmp.setup.filetype('gitcommit', {
 cmp.setup.filetype('tex', {
   sources = cmp.config.sources({
     { name = 'luasnip', group_index = 1, priority = 200 },
-    { name = 'buffer', group_index = 2, priority = 100 },
-    { name = 'omni', group_index = 2, priority = 70 },
-    { name = 'path', group_index = 2, priority = 70 },
+    { name = 'buffer',  group_index = 2, priority = 100 },
+    { name = 'omni',    group_index = 2, priority = 70 },
+    { name = 'path',    group_index = 2, priority = 70 },
     {
       name = 'look',
       keyword_length = 2,
