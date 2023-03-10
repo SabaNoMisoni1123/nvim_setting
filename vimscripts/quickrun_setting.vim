@@ -151,7 +151,7 @@ let g:quickrun_config['markdown/mysetting'] = {
   \   '%c %s %o %a -o %s:r.html',
   \   'cat %s:r.html',
   \ ],
-  \ 'cmdopt' : '-f markdown -t html5 -s --self-contained --css=$XDG_CONFIG_HOME/nvim/templates/memo-style.css',
+  \ 'cmdopt' : '-f markdown -t html5 -s --self-contained',
   \ 'hook/cd/directory' : '%S:h',
   \ }
 
