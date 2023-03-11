@@ -196,7 +196,7 @@ return require('packer').startup(function(use)
     -- event = { 'BufRead' },
     keys = { { 'n', '<Leader>c<Leader>' }, { 'v', '<Leader>c<Leader>' } },
     config = function()
-      local bufopts = { noremap = true, buffer = 0 }
+      local bufopts = { noremap = true }
       vim.g.NERDSpaceDelims = 1
       vim.g.NERDDefaultAlign = 'left'
       vim.g.NERDCreateDefaultMappings = 0
@@ -210,7 +210,7 @@ return require('packer').startup(function(use)
     requires = { 'nvim-telescope/telescope.nvim', opt = true },
     event = { 'BufRead' },
     config = function()
-      local bufopts = { noremap = true, buffer = 0 }
+      local bufopts = { noremap = true }
       vim.keymap.set('n', '<Leader>ft', '<Cmd>TodoTelescope<CR>', bufopts)
 
       require("todo-comments").setup {
@@ -258,7 +258,7 @@ return require('packer').startup(function(use)
     keys = { { 'n', '<Space>t' } },
     requires = { 'soramugi/auto-ctags.vim' },
     config = function()
-      local bufopts = { noremap = true, buffer = 0 }
+      local bufopts = { noremap = true }
       vim.keymap.set('n', '<Leader>t', '<Cmd>TagbarToggle<CR>', bufopts)
       vim.g.tagbar_map_togglesort = "S"
       vim.g.tagbar_map_togglepause = "T"
@@ -436,7 +436,7 @@ return require('packer').startup(function(use)
     opt = true,
     keys = { { 'x', 'ga' } },
     config = function()
-      local bufopts = { noremap = true, buffer = 0 }
+      local bufopts = { noremap = true }
       vim.keymap.set('x', 'ga', '<Plug>(EasyAlign)', bufopts)
     end,
   }
@@ -452,7 +452,7 @@ return require('packer').startup(function(use)
     opt = true,
     keys = { { 'n', '<Leader>m' }, { 'x', '<Leader>m' } },
     config = function()
-      local bufopts = { noremap = true, buffer = 0 }
+      local bufopts = { noremap = true }
       vim.keymap.set('n', '<Leader>m', '<Plug>(quickhl-manual-this)', bufopts)
       vim.keymap.set('x', '<Leader>m', '<Plug>(quickhl-manual-this)', bufopts)
       vim.keymap.set('n', '<Leader>M', '<Plug>(quickhl-manual-reset)', bufopts)
@@ -465,7 +465,7 @@ return require('packer').startup(function(use)
     opt = true,
     keys = { { 'n', '<Leader>e' } },
     config = function()
-      local bufopts = { noremap = true, buffer = 0 }
+      local bufopts = { noremap = true }
       vim.keymap.set('n', '<Leader>e', '<Plug>(easymotion-prefix)', bufopts)
     end,
   }
@@ -475,7 +475,7 @@ return require('packer').startup(function(use)
     opt = true,
     keys = { { 'n', '<Leader>b' }, { 'x', '<Leader>b' } },
     config = function()
-      local bufopts = { noremap = true, buffer = 0 }
+      local bufopts = { noremap = true }
       vim.keymap.set('n', '<Leader>b', '<Plug>(openbrowser-smart-search)', bufopts)
       vim.keymap.set('x', '<Leader>b', '<Plug>(openbrowser-smart-search)', bufopts)
     end,
@@ -491,13 +491,12 @@ return require('packer').startup(function(use)
   -- tex
   use {
     'lervag/vimtex',
-    opt = true,
-    ft = { 'tex', 'cls' },
     config = function()
-      local bufopts = { noremap = true, buffer = 0 }
+      local bufopts = { noremap = true }
       vim.keymap.set('n', '<localLeader>ll', '<Plug>(vimtex-compile)', bufopts)
       vim.keymap.set('n', '<localLeader>lv', '<Plug>(vimtex-view)', bufopts)
 
+      vim.g.OSTYPE = os.execute("uname")
       vim.cmd('source ' .. os.getenv("XDG_CONFIG_HOME") .. '/nvim/vimscripts/vimtex.vim')
     end,
   }

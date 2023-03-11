@@ -19,11 +19,13 @@ let g:vimtex_quickfix_ignore_filters = [
       \ 'Underfull',
       \]
 
-if g:OSTYPE == "Darwin"
+
+let s:OSTYPE = substitute(system("uname"), '\n', '', 'g')
+if s:OSTYPE == "Darwin"
   let g:vimtex_view_method = 'skim'
   let g:vimtex_view_skim_sync = 1
   let g:vimtex_view_skim_activate = 1
-elseif g:OSTYPE == "Linux"
+elseif s:OSTYPE == "Linux"
   if executable('zathura')
     let g:vimtex_view_method = 'zathura'
   else

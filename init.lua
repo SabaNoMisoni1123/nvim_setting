@@ -1,7 +1,9 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = '\\'
 
--- local ostype = os.execute("uname")
+vim.cmd [[
+  let g:OSTYPE=substitute(system("uname"), '\n', '', 'g')
+]]
 
 require("mapping")
 require("set")
