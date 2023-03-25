@@ -72,3 +72,12 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('i', ',', ',', bufopts)
   end,
 })
+
+-- quickrun
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = "quickrun",
+  group = autocmd_filetype,
+  callback = function()
+    vim.keymap.set('n', 'q', '<Cmd>q<CR>', bufopts)
+  end,
+})

@@ -73,7 +73,7 @@ return require('packer').startup(function(use)
       require("cmp_dictionary").setup({
         dic = {
           -- If you always use the English dictionary, The following settings are suitable:
-              ["*"] = "/usr/share/dict/words",
+          ["*"] = "/usr/share/dict/words",
         },
         max_items = 50,
       })
@@ -113,11 +113,11 @@ return require('packer').startup(function(use)
         defaults = {
           mappings = {
             n = {
-                  ["q"] = require("telescope.actions").close,
-                  ["<esc>"] = require("telescope.actions").close,
+              ["q"] = require("telescope.actions").close,
+              ["<esc>"] = require("telescope.actions").close,
             },
             i = {
-                  ["<esc>"] = require("telescope.actions").close,
+              ["<esc>"] = require("telescope.actions").close,
             },
           },
           winblend = 15,
@@ -195,6 +195,9 @@ return require('packer').startup(function(use)
     opt = true,
     -- event = { 'BufRead' },
     keys = { { 'n', '<Leader>c<Leader>' }, { 'v', '<Leader>c<Leader>' } },
+    setup = function()
+      vim.g.NERDCreateDefaultMappings = 0
+    end,
     config = function()
       local bufopts = { noremap = true }
       vim.g.NERDSpaceDelims = 1
@@ -530,31 +533,30 @@ return require('packer').startup(function(use)
     ft = { 'markdown', 'text', 'gitcommit' },
     setup = function()
       vim.g.bullets_set_mappings = 0
-    end,
-    config = function()
-      vim.g.bullets_enable_in_empty_buffers = 0
       vim.cmd [[
         let g:bullets_enabled_file_types = [
           \ 'markdown',
           \ 'text',
           \ 'gitcommit',
           \]
-
-        let g:bullets_custom_mappings = [
-          \ ['inoremap', '<cr>', '<Plug>(bullets-newline)'],
-          \ ['inoremap', '<C-cr>', '<cr>'],
-          \ ['nnoremap', 'o', '<Plug>(bullets-newline)'],
-          \ ['vnoremap', '<Leader>cn', '<Plug>(bullets-renumber)'],
-          \ ['nnoremap', '<Leader>cn', '<Plug>(bullets-renumber)'],
-          \ ['nnoremap', '<Leader>cc', '<Plug>(bullets-toggle-checkbox)'],
-          \ ['inoremap', '<C-t>', '<Plug>(bullets-demote)'],
-          \ ['nnoremap', '>', '<Plug>(bullets-demote)'],
-          \ ['vnoremap', '>', '<Plug>(bullets-demote)'],
-          \ ['inoremap', '<C-d>', '<Plug>(bullets-promote)'],
-          \ ['nnoremap', '<', '<Plug>(bullets-promote)'],
-          \ ['vnoremap', '<', '<Plug>(bullets-promote)'],
-          \ ]
       ]]
+    end,
+    config = function()
+      local bufopts = { noremap = true }
+      vim.keymap.set('n', 'o', '<Plug>(bullets-newline)', bufopts)
+      vim.keymap.set('n', '<leader>cn', '<Plug>(bullets-renumber)', bufopts)
+      vim.keymap.set('n', '<leader>cc', '<Plug>(bullets-toggle-checkbox)', bufopts)
+      vim.keymap.set('n', '>', '<Plug>(bullets-demote)', bufopts)
+      vim.keymap.set('n', '<', '<Plug>(bullets-promote)', bufopts)
+
+      vim.keymap.set('v', '<leader>cn', '<Plug>(bullets-renumber)', bufopts)
+      vim.keymap.set('v', '>', '<Plug>(bullets-demote)', bufopts)
+      vim.keymap.set('v', '<', '<Plug>(bullets-promote)', bufopts)
+
+      -- vim.keymap.set('i', '<C-cr>', '<cr>', bufopts)
+      vim.keymap.set('i', '<cr>', '<Plug>(bullets-newline)', bufopts)
+      vim.keymap.set('i', '<C-t>', '<Plug>(bullets-demote)', bufopts)
+      vim.keymap.set('i', '<C-d>', '<Plug>(bullets-promote)', bufopts)
     end,
   }
   use {
