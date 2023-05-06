@@ -85,6 +85,17 @@ for key, val in pairs(lsp_commands) do
           rootMarkers = { ".git/" },
         }
       }
+    elseif val == 'volar' then
+      require('lspconfig')[val].setup {
+        on_attach = on_attach,
+        flags = lsp_flags,
+        capabilities = capabilities,
+        init_options = {
+          typescript = {
+            tsdk = string.sub(vim.fn.system('npm -g root'), 1, -2).."/typescript/lib"
+          }
+        },
+      }
     elseif val == 'lua_ls' then
       require('lspconfig')[val].setup {
         on_attach = on_attach,
