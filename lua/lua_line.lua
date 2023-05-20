@@ -1,31 +1,31 @@
 local mode_map  = {}
-mode_map['n']   = ''
-mode_map['no']  = '羽'
-mode_map['nov'] = '羽'
-mode_map['noV'] = '羽'
-mode_map['no'] = '羽'
-mode_map['niI'] = ''
-mode_map['niR'] = ''
-mode_map['niV'] = ''
-mode_map['nt']  = ''
-mode_map['v']   = ''
-mode_map['vs']  = ''
-mode_map['V']   = ''
-mode_map['Vs']  = ''
-mode_map['']   = ''
-mode_map['s']  = ''
-mode_map['s']   = '濾'
-mode_map['S']   = '濾'
-mode_map['']   = '濾'
-mode_map['i']   = ''
-mode_map['ic']  = ''
-mode_map['ix']  = ''
-mode_map['R']   = ''
-mode_map['Rc']  = ''
-mode_map['Rx']  = ''
-mode_map['Rv']  = ''
-mode_map['rvc'] = ''
-mode_map['Rvx'] = ''
+mode_map['n']   = ''
+mode_map['no']  = ''
+mode_map['nov'] = ''
+mode_map['noV'] = ''
+mode_map['no'] = ''
+mode_map['niI'] = ''
+mode_map['niR'] = ''
+mode_map['niV'] = ''
+mode_map['nt']  = ''
+mode_map['v']   = ''
+mode_map['vs']  = ''
+mode_map['V']   = ''
+mode_map['Vs']  = ''
+mode_map['']   = ''
+mode_map['s']  = ''
+mode_map['s']   = ''
+mode_map['S']   = ''
+mode_map['']   = ''
+mode_map['i']   = ''
+mode_map['ic']  = ''
+mode_map['ix']  = ''
+mode_map['R']   = ''
+mode_map['Rc']  = ''
+mode_map['Rx']  = ''
+mode_map['Rv']  = ''
+mode_map['rvc'] = ''
+mode_map['Rvx'] = ''
 mode_map['c']   = ''
 mode_map['cv']  = ''
 mode_map['ce']  = ''
@@ -38,7 +38,7 @@ require('lualine').setup {
   options = {
     icons_enabled = true,
     theme = 'auto',
-    component_separators = { left = '⎮', right = '⎮' },
+    component_separators = { left = '│', right = '│' },
     section_separators = { left = '', right = '' },
     disabled_filetypes = {
       statusline = {},
@@ -55,7 +55,14 @@ require('lualine').setup {
   },
   sections = {
     lualine_a = { function() return mode_map[vim.api.nvim_get_mode()["mode"]] or '' end },
-    lualine_b = { 'branch', 'diff', 'diagnostics' },
+    lualine_b = {
+      'branch',
+      'diff',
+      {
+        'diagnostics',
+        symbols = {error = '', warn = '', info = '', hint = ''},
+      }
+    },
     lualine_c = { 'filename' },
     lualine_x = {
       {

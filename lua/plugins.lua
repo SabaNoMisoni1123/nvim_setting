@@ -6,7 +6,27 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
   -- icon
-  use 'kyazdani42/nvim-web-devicons'
+  use {
+    'kyazdani42/nvim-web-devicons',
+    config = function()
+      require'nvim-web-devicons'.setup {
+       override = {
+        txt = {
+          icon = "",
+          color = "#89e051",
+          cterm_color = "113",
+          name = "Txt",
+        },
+        tex = {
+          icon = "",
+          color = "#3D6117",
+          cterm_color = "22",
+          name = "Tex",
+        }
+      }
+    };
+    end,
+  }
 
   -- lua support
   use 'nvim-lua/plenary.nvim'
@@ -73,7 +93,7 @@ return require('packer').startup(function(use)
       require("cmp_dictionary").setup({
         dic = {
           -- If you always use the English dictionary, The following settings are suitable:
-          ["*"] = "/usr/share/dict/words",
+              ["*"] = "/usr/share/dict/words",
         },
         max_items = 50,
       })
@@ -113,11 +133,11 @@ return require('packer').startup(function(use)
         defaults = {
           mappings = {
             n = {
-              ["q"] = require("telescope.actions").close,
-              ["<esc>"] = require("telescope.actions").close,
+                  ["q"] = require("telescope.actions").close,
+                  ["<esc>"] = require("telescope.actions").close,
             },
             i = {
-              ["<esc>"] = require("telescope.actions").close,
+                  ["<esc>"] = require("telescope.actions").close,
             },
           },
           winblend = 15,
@@ -225,12 +245,12 @@ return require('packer').startup(function(use)
             color = "error",
             alt = { "FIXME", "BUG", "FIXIT", "ISSUE" },
           },
-          TODO = { icon = "", color = "info" },
+          TODO = { icon = "", color = "info" },
           HACK = { icon = "", color = "warning" },
-          WARN = { icon = "", color = "warning", alt = { "WARNING", "XXX" } },
-          PERF = { icon = "", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-          NOTE = { icon = "", color = "hint", alt = { "INFO", "MEMO", "HINT" } },
-          TEST = { icon = "", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+          WARN = { icon = "", color = "warning", alt = { "WARNING", "XXX" } },
+          PERF = { icon = "", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+          NOTE = { icon = "", color = "hint", alt = { "INFO", "MEMO", "HINT" } },
+          TEST = { icon = "", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
         },
       }
     end,
