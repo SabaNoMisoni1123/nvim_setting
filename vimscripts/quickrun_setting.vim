@@ -151,10 +151,10 @@ let g:quickrun_config['markdown/mysetting'] = {
   \   '%c %s %o %a -o %s:r.html',
   \   'cat %s:r.html',
   \ ],
-  \ 'cmdopt' : '-f markdown -t html5 -s --self-contained',
+  \ 'cmdopt' : '-f markdown+yaml_metadata_block+east_asian_line_breaks -t html5 -s --self-contained --webtex',
   \ 'hook/cd/directory' : '%S:h',
   \ }
-
+ " -c https://github.com/sindresorhus/github-markdown-css/blob/main/github-markdown-light.css
 
 let g:quickrun_config['markdown/marp'] = {
   \ 'command': 'marp',

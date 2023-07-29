@@ -13,7 +13,7 @@ snippet pdimport
 	import pandas as pd
 	$0
 
-snippet     rcparms
+snippet rcparms
 	plt.rcParams['font.family'] = 'serif'
 	plt.rcParams['font.serif'] = ['Times New Roman'] + plt.rcParams['font.serif']
 	plt.rcParams["xtick.direction"] = "in"
@@ -31,7 +31,7 @@ snippet     rcparms
 	$0
 
 
-snippet     jprcparms
+snippet jprcparms
 	plt.rcParams['font.family'] = "TakaoGothic"
 	plt.rcParams["xtick.direction"] = "in"
 	plt.rcParams["ytick.direction"] = "in"
@@ -40,3 +40,28 @@ snippet     jprcparms
 	plt.rcParams["legend.framealpha"] = 1
 	plt.rcParams["legend.fancybox"] = False
 	$0
+
+snippet mricolor
+	mri_color = {
+			"red1": "#DC003C",
+			"red2": "#EC7394",
+			"red3": "#FAD9E2",
+			"blue1": "#3C82F5",
+			"blue2": "#80AEF8",
+			"blue3": "#E2ECFD",
+			"gray1": "#595757",
+			"gray2": "#939292",
+			"gray3": "#E6E6E6",
+			"green1": "#329B73",
+			"green2": "#7ABEA4",
+			"green3": "#E0F0EA",
+			"yellow1": "#DCA000",
+			"yellow2": "#E8C159",
+			"yellow3": "#E8FCCC",
+	}
+	${0}
+
+snippet create_cmap
+	import matplotlib.color as mpc
+
+	mpc.LinearSegmentedColormap.from_list("${1}", [${2}])${0}

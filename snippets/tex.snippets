@@ -186,7 +186,51 @@ snippet coordinate
 	\\coordinate (${1}) at (${2});
 	${0}
 
-snippet todo
-	% TODO: ${1}
+snippet mricolor
+	\\definecolor{mri-blue}{HTML}{003B83}
+	\\definecolor{mri-blue0}{HTML}{001942}
+	\\definecolor{mri-blue1}{HTML}{3C82F5}
+	\\definecolor{mri-blue2}{HTML}{80AEF8}
+	\\definecolor{mri-blue3}{HTML}{E2ECFD}
+	\\definecolor{mri-red0}{HTML}{420011}
+	\\definecolor{mri-red1}{HTML}{DC003C}
+	\\definecolor{mri-red2}{HTML}{EC7394}
+	\\definecolor{mri-red3}{HTML}{FAD9E2}
+	\\definecolor{mri-gray1}{HTML}{595757}
+	\\definecolor{mri-gray2}{HTML}{939292}
+	\\definecolor{mri-gray3}{HTML}{E6E6E6}
+	\\definecolor{mri-green0}{HTML}{004229}
+	\\definecolor{mri-green1}{HTML}{329B73}
+	\\definecolor{mri-green2}{HTML}{7ABEA4}
+	\\definecolor{mri-green3}{HTML}{E0F0EA}
+	\\definecolor{mri-yellow0}{HTML}{423100}
+	\\definecolor{mri-yellow1}{HTML}{DCA000}
+	\\definecolor{mri-yellow2}{HTML}{E8C159}
+	\\definecolor{mri-yellow3}{HTML}{E8FCCC}
 	${0}
 
+snippet doc_beamer
+	\\documentclass[dvipdfmx, 8pt, aspectratio=169]{beamer}
+	\\usepackage{graphicx}
+	\\usepackage{amsmath}
+	\\usepackage{amssymb}
+	\\usepackage{ascmac}
+	\\usepackage{url}
+	\\usepackage{bm}
+	\\usepackage{booktabs}
+	\\usepackage[caption=false, font=footnotesize]{subfig}
+	\\usepackage{xcolor}
+
+	\\usepackage{tikz}
+	\\usetikzlibrary{calc}
+	\\usetikzlibrary{intersections}
+	\\usetikzlibrary{shapes}
+	${1}
+
+	\\usetheme{Copenhagen}
+	\\usefonttheme{professionalfonts}
+	\\setbeamertemplate{navigation symbols}{} 
+	% \\setbeamercolor{structure}{fg=mri-blue}
+	% \\setbeamercolor{alerted text}{fg=mri-red1}
+	% \\setbeamercolor{example text}{fg=mri-green1}
+	${0}
