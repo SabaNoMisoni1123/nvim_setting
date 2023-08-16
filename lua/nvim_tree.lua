@@ -41,7 +41,6 @@ end
 require 'nvim-tree'.setup {
   on_attach = my_on_attach,
   respect_buf_cwd = true,
-  remove_keymaps = true,
   view = {
     number = false,
     relativenumber = false,
