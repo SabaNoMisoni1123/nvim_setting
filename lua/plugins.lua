@@ -9,22 +9,22 @@ return require('packer').startup(function(use)
   use {
     'kyazdani42/nvim-web-devicons',
     config = function()
-      require'nvim-web-devicons'.setup {
-       override = {
-        txt = {
-          icon = "",
-          color = "#89e051",
-          cterm_color = "113",
-          name = "Txt",
-        },
-        tex = {
-          icon = "",
-          color = "#3D6117",
-          cterm_color = "22",
-          name = "Tex",
+      require 'nvim-web-devicons'.setup {
+        override = {
+          txt = {
+            icon = "",
+            color = "#89e051",
+            cterm_color = "113",
+            name = "Txt",
+          },
+          tex = {
+            icon = "",
+            color = "#3D6117",
+            cterm_color = "22",
+            name = "Tex",
+          }
         }
-      }
-    };
+      };
     end,
   }
 
@@ -93,7 +93,7 @@ return require('packer').startup(function(use)
       require("cmp_dictionary").setup({
         dic = {
           -- If you always use the English dictionary, The following settings are suitable:
-              ["*"] = "/usr/share/dict/words",
+          ["*"] = "/usr/share/dict/words",
         },
         max_items = 50,
       })
@@ -133,11 +133,11 @@ return require('packer').startup(function(use)
         defaults = {
           mappings = {
             n = {
-                  ["q"] = require("telescope.actions").close,
-                  ["<esc>"] = require("telescope.actions").close,
+              ["q"] = require("telescope.actions").close,
+              ["<esc>"] = require("telescope.actions").close,
             },
             i = {
-                  ["<esc>"] = require("telescope.actions").close,
+              ["<esc>"] = require("telescope.actions").close,
             },
           },
           winblend = 15,

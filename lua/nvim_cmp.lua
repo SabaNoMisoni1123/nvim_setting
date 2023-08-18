@@ -15,39 +15,39 @@ cmp.setup {
     -- documentation = cmp.config.window.bordered(),
   },
   mapping = cmp.mapping.preset.insert({
-        ["<Tab>"] = cmp.mapping(function(fallback)
+    ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
       else
         fallback()
       end
     end),
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       else
         fallback()
       end
     end),
-        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = function(fallback)
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = function(fallback)
       if cmp.visible() then
         cmp.mapping.abort()
       else
         fallback()
       end
     end,
-        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        ['<C-k>'] = function(fallback)
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),     -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<C-k>'] = function(fallback)
       if luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
       else
         fallback()
       end
     end,
-        ['<C-j>'] = function(fallback)
+    ['<C-j>'] = function(fallback)
       if luasnip.jumpable(-1) then
         luasnip.jump(-1)
       else
@@ -91,19 +91,19 @@ cmp.setup {
         end
       end
       return lspkind.cmp_format({
-            with_text = true,
-            mode = "symbol_text",
-            menu = ({
-              buffer = "[Buffer]",
-              nvim_lsp = "[LSP]",
-              luasnip = "[LuaSnip]",
-              nvim_lsp_signature_help = "[Help]",
-              omni = "[Omni]",
-              path = "[Path]",
-              look = "[Look]",
-              dictionary = "[dict]"
-            }),
-          })(entry, vim_item)
+        with_text = true,
+        mode = "symbol_text",
+        menu = ({
+          buffer = "[Buffer]",
+          nvim_lsp = "[LSP]",
+          luasnip = "[LuaSnip]",
+          nvim_lsp_signature_help = "[Help]",
+          omni = "[Omni]",
+          path = "[Path]",
+          look = "[Look]",
+          dictionary = "[dict]"
+        }),
+      })(entry, vim_item)
     end
   },
 }

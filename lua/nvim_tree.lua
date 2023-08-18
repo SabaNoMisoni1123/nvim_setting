@@ -5,9 +5,9 @@ vim.opt.termguicolors = true
 -- mapping
 local bufopts = { noremap = true, silent = true }
 for k, v in pairs({
-      ['<leader>d'] = '<Cmd>NvimTreeToggle expand(\'%:p:h\')<CR>',
-      ['<leader>n'] = '<Cmd>NvimTreeFocus<CR>',
-      ['st'] = ':tabnew<CR>:NvimTreeOpen<CR>',
+  ['<leader>d'] = '<Cmd>NvimTreeToggle expand(\'%:p:h\')<CR>',
+  ['<leader>n'] = '<Cmd>NvimTreeFocus<CR>',
+  ['st'] = ':tabnew<CR>:NvimTreeOpen<CR>',
 }) do
   vim.keymap.set('n', k, v, bufopts)
 end

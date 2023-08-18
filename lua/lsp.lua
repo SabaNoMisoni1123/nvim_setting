@@ -92,7 +92,7 @@ for key, val in pairs(lsp_commands) do
         capabilities = capabilities,
         init_options = {
           typescript = {
-            tsdk = string.sub(vim.fn.system('npm -g root'), 1, -2).."/typescript/lib"
+            tsdk = string.sub(vim.fn.system('npm -g root'), 1, -2) .. "/typescript/lib"
           }
         },
       }
@@ -147,10 +147,10 @@ require('lsp_signature').setup {
 -- エラー表示の設定
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
-  virtual_text = true,
-  signs = true,
-  underline = true,
-}
+    virtual_text = true,
+    signs = true,
+    underline = true,
+  }
 )
 
 -- アイコンなどの見た目設定
