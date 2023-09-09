@@ -39,7 +39,7 @@ cmp.setup {
         fallback()
       end
     end,
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),     -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     ['<C-k>'] = function(fallback)
       if luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
@@ -138,6 +138,31 @@ cmp.setup.filetype('tex', {
       keyword_length = 2,
       group_index = 3,
       priority = 10,
+    },
+  })
+})
+
+cmp.setup.filetype({ 'text', 'markdown' }, {
+  sources = cmp.config.sources({
+    { name = 'luasnip', group_index = 2, priority = 10 },
+    { name = 'buffer',  group_index = 1, priority = 300 },
+    { name = 'omni',    group_index = 1, priority = 70 },
+    { name = 'path',    group_index = 2, priority = 70 },
+    {
+      name = 'look',
+      keyword_length = 1,
+      option = {
+        convert_case = true,
+        loud = true,
+      },
+      group_index = 3,
+      priority = 200,
+    },
+    {
+      name = 'dictionary',
+      keyword_length = 1,
+      group_index = 3,
+      priority = 100,
     },
   })
 })

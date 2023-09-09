@@ -66,7 +66,7 @@ vim.api.nvim_create_autocmd('FileType', {
 
 -- csv
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = "markdown",
+  pattern = "csv",
   group = autocmd_filetype,
   callback = function()
     vim.keymap.set('i', ',', ',', bufopts)

@@ -514,6 +514,7 @@ return require('packer').startup(function(use)
   -- tex
   use {
     'lervag/vimtex',
+    ft = { 'tex' },
     config = function()
       local bufopts = { noremap = true }
       vim.keymap.set('n', '<localLeader>ll', '<Plug>(vimtex-compile)', bufopts)
@@ -679,4 +680,5 @@ return require('packer').startup(function(use)
     opt = true,
     event = { 'BufRead' },
   }
+
 end)
