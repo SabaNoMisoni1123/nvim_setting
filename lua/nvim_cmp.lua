@@ -101,7 +101,8 @@ cmp.setup {
           omni = "[Omni]",
           path = "[Path]",
           look = "[Look]",
-          dictionary = "[dict]"
+          dictionary = "[dict]",
+          mocword = "[mocword]",
         }),
       })(entry, vim_item)
     end
@@ -119,6 +120,7 @@ cmp.setup.filetype('gitcommit', {
 
 cmp.setup.filetype('tex', {
   sources = cmp.config.sources({
+    { name = 'mocword', group_index = 1, priority = 300 },
     { name = 'luasnip', group_index = 1, priority = 200 },
     { name = 'buffer',  group_index = 2, priority = 100 },
     { name = 'omni',    group_index = 2, priority = 70 },
@@ -145,8 +147,8 @@ cmp.setup.filetype('tex', {
 cmp.setup.filetype({ 'text', 'markdown' }, {
   sources = cmp.config.sources({
     { name = 'luasnip', group_index = 2, priority = 10 },
-    { name = 'buffer',  group_index = 1, priority = 300 },
-    { name = 'omni',    group_index = 1, priority = 70 },
+    { name = 'buffer',  group_index = 1, priority = 250 },
+    { name = 'mocword', group_index = 1, priority = 300 },
     { name = 'path',    group_index = 2, priority = 70 },
     {
       name = 'look',

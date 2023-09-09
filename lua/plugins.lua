@@ -99,6 +99,7 @@ return require('packer').startup(function(use)
       })
     end,
   }
+  use { 'yutkat/cmp-mocword', opt = true, after = 'nvim-cmp' }
 
   -- fuzzy finder
   use {
