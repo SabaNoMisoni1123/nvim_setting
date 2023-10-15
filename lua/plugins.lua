@@ -93,7 +93,7 @@ return require('packer').startup(function(use)
       require("cmp_dictionary").setup({
         dic = {
           -- If you always use the English dictionary, The following settings are suitable:
-              ["*"] = "/usr/share/dict/words",
+          ["*"] = "/usr/share/dict/words",
         },
         max_items = 50,
       })
@@ -141,11 +141,11 @@ return require('packer').startup(function(use)
         defaults = {
           mappings = {
             n = {
-                  ["q"] = require("telescope.actions").close,
-                  ["<esc>"] = require("telescope.actions").close,
+              ["q"] = require("telescope.actions").close,
+              ["<esc>"] = require("telescope.actions").close,
             },
             i = {
-                  ["<esc>"] = require("telescope.actions").close,
+              ["<esc>"] = require("telescope.actions").close,
             },
           },
           winblend = 15,
@@ -271,13 +271,8 @@ return require('packer').startup(function(use)
     event = { 'BufRead' },
     requires = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
-      vim.opt.list = true
-      require("indent_blankline").setup {
-        char = '|',
-        use_treesitter = true,
-        show_current_context = true,
-        show_current_context_start = true,
-        context_char = '|',
+      require("ibl").setup {
+        indent = { char = "|" },
       }
     end,
   }
