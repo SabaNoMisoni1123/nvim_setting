@@ -57,7 +57,6 @@ cmp.setup {
   }),
   sources = {
     { name = 'nvim_lsp',                group_index = 1, priority = 300 },
-    { name = 'copilot',                 group_index = 1, priority = 250 },
     { name = 'luasnip',                 group_index = 1, priority = 200 },
     { name = 'nvim_lsp_signature_help', group_index = 1, priority = 150 },
     { name = 'buffer',                  group_index = 1, priority = 100 },
@@ -80,6 +79,7 @@ cmp.setup {
       priority = 1,
       max_item_count = 15,
     },
+    -- { name = 'copilot',                 group_index = 1, priority = 250 },
   },
   formatting = {
     format = function(entry, vim_item)
@@ -104,7 +104,7 @@ cmp.setup {
           look = "[Look]",
           dictionary = "[dict]",
           mocword = "[mocword]",
-          copilot = "[copilot]",
+          -- copilot = "[copilot]",
         }),
       })(entry, vim_item)
     end

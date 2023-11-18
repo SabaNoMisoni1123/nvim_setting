@@ -100,13 +100,13 @@ return require('packer').startup(function(use)
     end,
   }
   use { 'yutkat/cmp-mocword', opt = true, after = 'nvim-cmp' }
-  use {
-    'zbirenbaum/copilot-cmp',
-    after = 'nvim-cmp',
-    config = function()
-      require("copilot_cmp").setup()
-    end,
-  }
+  -- use {
+  --   'zbirenbaum/copilot-cmp',
+  --   after = 'nvim-cmp',
+  --   config = function()
+  --     require("copilot_cmp").setup()
+  --   end,
+  -- }
 
   -- fuzzy finder
   use {
@@ -514,58 +514,58 @@ return require('packer').startup(function(use)
   }
 
   -- copilot
-  use {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = function()
-      require('copilot').setup({
-        panel = {
-          enabled = true,
-          auto_refresh = true,
-          keymap = {
-            jump_prev = "[[",
-            jump_next = "]]",
-            accept = "<CR>",
-            refresh = "gr",
-            open = "<M-CR>"
-          },
-          layout = {
-            position = "bottom", -- | top | left | right
-            ratio = 0.3
-          },
-        },
-        suggestion = {
-          enabled = false,
-          auto_trigger = false,
-          debounce = 75,
-          keymap = {
-            accept = "<M-l>",
-            accept_word = false,
-            accept_line = false,
-            next = "<M-]>",
-            prev = "<M-[>",
-            dismiss = "<C-]>",
-          },
-        },
-        filetypes = {
-          ["*"] = false,
-          c = true,
-          cpp = true,
-          python = true,
-          rust = true,
-          javascript = true,
-          typescript = true,
-          vue = true,
-          html = true,
-          css = true,
-        },
-        copilot_node_command = 'node', -- Node.js version must be > 16.x
-        server_opts_overrides = {},
-      })
-      vim.keymap.set('n', '<C-c>', ':Copilot ', { noremap = true })
-    end,
-  }
+  -- use {
+  --   "zbirenbaum/copilot.lua",
+  --   cmd = "Copilot",
+  --   event = "InsertEnter",
+  --   config = function()
+  --     require('copilot').setup({
+  --       panel = {
+  --         enabled = true,
+  --         auto_refresh = true,
+  --         keymap = {
+  --           jump_prev = "[[",
+  --           jump_next = "]]",
+  --           accept = "<CR>",
+  --           refresh = "gr",
+  --           open = "<M-CR>"
+  --         },
+  --         layout = {
+  --           position = "bottom", -- | top | left | right
+  --           ratio = 0.3
+  --         },
+  --       },
+  --       suggestion = {
+  --         enabled = false,
+  --         auto_trigger = false,
+  --         debounce = 75,
+  --         keymap = {
+  --           accept = "<M-l>",
+  --           accept_word = false,
+  --           accept_line = false,
+  --           next = "<M-]>",
+  --           prev = "<M-[>",
+  --           dismiss = "<C-]>",
+  --         },
+  --       },
+  --       filetypes = {
+  --         ["*"] = false,
+  --         c = true,
+  --         cpp = true,
+  --         python = true,
+  --         rust = true,
+  --         javascript = true,
+  --         typescript = true,
+  --         vue = true,
+  --         html = true,
+  --         css = true,
+  --       },
+  --       copilot_node_command = 'node', -- Node.js version must be > 16.x
+  --       server_opts_overrides = {},
+  --     })
+  --     vim.keymap.set('n', '<C-c>', ':Copilot ', { noremap = true })
+  --   end,
+  -- }
 
   -- filetype =================================================================
   -- tex
