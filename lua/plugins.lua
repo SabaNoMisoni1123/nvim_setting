@@ -95,7 +95,7 @@ return require('packer').startup(function(use)
           -- If you always use the English dictionary, The following settings are suitable:
           ["*"] = "/usr/share/dict/words",
         },
-        max_items = 50,
+        max_number_items = 50,
       })
     end,
   }
