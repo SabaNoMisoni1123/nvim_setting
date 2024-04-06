@@ -189,3 +189,9 @@ let g:quickrun_config['javascript/deno'] = {
   \ 'exec': ['%c run -q %s'],
   \ 'hook/cd/directory' : '%S:h',
   \ }
+
+let g:quickrun_config['typescript/tsc'] = {
+  \ 'command': 'tsc',
+  \ 'exec': ['%c --target es5 --module commonjs %o %s', 'node %s:r.js'],
+  \ 'hook/sweep/files': ['%S:p:r.js'],
+  \ }
