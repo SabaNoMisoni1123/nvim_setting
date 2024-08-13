@@ -74,6 +74,23 @@ for key, val in pairs(lsp_commands) do
         capabilities = capabilities,
         filetypes = { "markdown", "text", "tex" },
       }
+    elseif val == 'tsserver' then
+      require('lspconfig')[val].setup {
+        init_options = {
+          plugins = {
+            {
+              name = "@vue/typescript-plugin",
+              location = vim.fn.system('npm -g root') .. "/@vue/typescript-plugin",
+              languages = { "javascript", "typescript", "vue" },
+            },
+          },
+        },
+        filetypes = {
+          "javascript",
+          "typescript",
+          "vue",
+        },
+      }
     elseif val == 'efm' then
       require('lspconfig')[val].setup {
         on_attach = on_attach,
