@@ -53,10 +53,9 @@ return require('packer').startup(function(use)
     opt = true,
     event = { 'BufRead', 'InsertEnter', 'CmdlineEnter' },
     config = function() require("lsp") end,
-    wants = { 'lsp_signature.nvim', 'nlsp-settings.nvim', 'telescope.nvim', 'nvim-cmp', 'cmp-nvim-lsp' },
+    wants = { 'lsp_signature.nvim', 'telescope.nvim', 'nvim-cmp', 'cmp-nvim-lsp' },
     requires = {
       { 'ray-x/lsp_signature.nvim',      opt = true },
-      { 'tamago324/nlsp-settings.nvim',  opt = true },
       { 'nvim-telescope/telescope.nvim', opt = true },
       { 'hrsh7th/nvim-cmp',              opt = true },
       { 'hrsh7th/cmp-nvim-lsp',          opt = true },
