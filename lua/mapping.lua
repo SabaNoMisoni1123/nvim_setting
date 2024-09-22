@@ -28,7 +28,7 @@ end
 for k, v in pairs({
   [','] = ',<Space>',
   ['<C-g>'] = '<ESC>:update<CR>a',
-  ['<C-l>'] = '<Cmd>update<CR>',
+  ['<C-l>'] = '<ESC>:update<CR>',
   ['jj'] = '<ESC>',
 }) do
   vim.keymap.set('i', k, v, bufopts)
@@ -72,7 +72,7 @@ for k, v in pairs({
   ['sH'] = '<C-w>H',
   ['sL'] = '<C-w>L',
   ['sx'] = '<Cmd>tab sp<CR><Cmd>terminal<CR>',
-  ['sz'] = '<Cmd>10sp<CR><Cmd>terminal<CR>',
+  ['sz'] = '<Cmd>10sp | set winfixheight<CR><Cmd>terminal<CR>',
   ['sn'] = '<Cmd>tabn<CR>',
   ['sp'] = '<Cmd>tabp<CR>',
   ['s='] = '<C-w>=',

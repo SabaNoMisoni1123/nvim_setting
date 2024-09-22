@@ -9,3 +9,5 @@ LC.log
 toml/dein_colorscheme_local.toml
 local_settings.vim
 test*
+local*
+.luarc.json

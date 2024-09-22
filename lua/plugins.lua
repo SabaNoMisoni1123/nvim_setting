@@ -30,14 +30,26 @@ return require('packer').startup(function(use)
 
   -- lua support
   use 'nvim-lua/plenary.nvim'
+  local colorscheme_cfg_path = vim.fn.stdpath('config') .. "/local_colorscheme.lua"
 
-  -- colorscheme
-  use {
-    'morhetz/gruvbox',
-    config = function()
-      vim.cmd 'colorscheme gruvbox'
-    end,
-  }
+  if vim.fn.filereadable(colorscheme_cfg_path) == 1 then
+    local cfg = dofile(colorscheme_cfg_path)
+
+    use {
+      cfg.repo,
+      config = function()
+        local ccmd = dofile(vim.fn.stdpath('config') .. "/local_colorscheme.lua").cmd
+        vim.cmd(ccmd)
+      end
+    }
+  else
+    use {
+      'morhetz/gruvbox',
+      config = function()
+        vim.cmd 'colorscheme gruvbox'
+      end,
+    }
+  end
 
   -- line
   use {
@@ -389,7 +401,20 @@ return require('packer').startup(function(use)
     requires = { { 'lewis6991/gitsigns.nvim', opt = true } },
     config = function()
       require('scrollbar').setup {
-        show = false,
+        show_in_active_only = false,
+        set_highlights = true,
+        folds = 1000,                -- handle folds, set to number to disable folds if no. of lines in buffer exceeds this
+        max_lines = false,           -- disables if no. of lines in buffer exceeds this
+        hide_if_all_visible = false, -- Hides everything if all lines are visible
+        throttle_ms = 100,
+        handle = {
+          text = " ",
+          blend = 30,                 -- Integer between 0 and 100. 0 for fully opaque and 100 to full transparent. Defaults to 30.
+          color = nil,
+          color_nr = nil,             -- cterm
+          highlight = "CursorColumn",
+          hide_if_all_visible = true, -- Hides handle if all lines are visible
+        },
       }
       local bufopts = { noremap = true }
       vim.keymap.set('n', '<C-s>', '<CMD>ScrollbarToggle<CR>', bufopts)
@@ -512,59 +537,6 @@ return require('packer').startup(function(use)
     event = { 'BufRead' },
   }
 
-  -- copilot
-  -- use {
-  --   "zbirenbaum/copilot.lua",
-  --   cmd = "Copilot",
-  --   event = "InsertEnter",
-  --   config = function()
-  --     require('copilot').setup({
-  --       panel = {
-  --         enabled = true,
-  --         auto_refresh = true,
-  --         keymap = {
-  --           jump_prev = "[[",
-  --           jump_next = "]]",
-  --           accept = "<CR>",
-  --           refresh = "gr",
-  --           open = "<M-CR>"
-  --         },
-  --         layout = {
-  --           position = "bottom", -- | top | left | right
-  --           ratio = 0.3
-  --         },
-  --       },
-  --       suggestion = {
-  --         enabled = false,
-  --         auto_trigger = false,
-  --         debounce = 75,
-  --         keymap = {
-  --           accept = "<M-l>",
-  --           accept_word = false,
-  --           accept_line = false,
-  --           next = "<M-]>",
-  --           prev = "<M-[>",
-  --           dismiss = "<C-]>",
-  --         },
-  --       },
-  --       filetypes = {
-  --         ["*"] = false,
-  --         c = true,
-  --         cpp = true,
-  --         python = true,
-  --         rust = true,
-  --         javascript = true,
-  --         typescript = true,
-  --         vue = true,
-  --         html = true,
-  --         css = true,
-  --       },
-  --       copilot_node_command = 'node', -- Node.js version must be > 16.x
-  --       server_opts_overrides = {},
-  --     })
-  --     vim.keymap.set('n', '<C-c>', ':Copilot ', { noremap = true })
-  --   end,
-  -- }
 
   -- filetype =================================================================
   -- tex

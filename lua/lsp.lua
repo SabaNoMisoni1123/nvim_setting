@@ -8,7 +8,7 @@ else
   lsp_commands['pylsp'] = 'pylsp'
 end
 
-lsp_commands['typescript-language-server'] = 'tsserver'
+lsp_commands['typescript-language-server'] = 'ts_ls'
 lsp_commands['vue-language-server'] = 'volar'
 lsp_commands['vim-language-server'] = 'vimls'
 lsp_commands['texlab'] = 'texlab'
@@ -70,7 +70,7 @@ for key, val in pairs(lsp_commands) do
           plugins = {
             {
               name = "@vue/typescript-plugin",
-              location = vim.fn.system('npm -g root') .. "/@vue/typescript-plugin",
+              location = string.sub(vim.fn.system('npm -g root'), 1, -2) .. "/@vue/typescript-plugin",
               languages = { "javascript", "typescript", "vue" },
             },
           },
@@ -91,17 +91,6 @@ for key, val in pairs(lsp_commands) do
         settings = {
           rootMarkers = { ".git/" },
         }
-      }
-    elseif val == 'volar' then
-      require('lspconfig')[val].setup {
-        on_attach = on_attach,
-        flags = lsp_flags,
-        capabilities = capabilities,
-        init_options = {
-          typescript = {
-            tsdk = string.sub(vim.fn.system('npm -g root'), 1, -2) .. "/typescript/lib"
-          }
-        },
       }
     elseif val == 'lua_ls' then
       require('lspconfig')[val].setup {
