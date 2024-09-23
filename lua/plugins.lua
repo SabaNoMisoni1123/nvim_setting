@@ -518,6 +518,7 @@ return require('packer').startup(function(use)
     config = function()
       local bufopts = { noremap = true }
       vim.keymap.set('n', '<Leader>e', '<Plug>(easymotion-prefix)', bufopts)
+      vim.keymap.set('n', '<Leader>ed', '<Plug>(easymotion-bd-w)', bufopts)
     end,
   }
 
