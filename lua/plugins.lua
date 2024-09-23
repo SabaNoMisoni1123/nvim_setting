@@ -401,6 +401,7 @@ return require('packer').startup(function(use)
     requires = { { 'lewis6991/gitsigns.nvim', opt = true } },
     config = function()
       require('scrollbar').setup {
+        show = false,
         show_in_active_only = false,
         set_highlights = true,
         folds = 1000,                -- handle folds, set to number to disable folds if no. of lines in buffer exceeds this
