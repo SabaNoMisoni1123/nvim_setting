@@ -64,7 +64,7 @@ for key, val in pairs(lsp_commands) do
         capabilities = capabilities,
         filetypes = { "markdown", "text", "tex" },
       }
-    elseif val == 'tsserver' then
+    elseif val == 'ts_ls' then
       require('lspconfig')[val].setup {
         init_options = {
           plugins = {
