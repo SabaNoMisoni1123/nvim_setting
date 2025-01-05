@@ -66,6 +66,9 @@ for key, val in pairs(lsp_commands) do
       }
     elseif val == 'ts_ls' then
       require('lspconfig')[val].setup {
+        on_attach = on_attach,
+        flags = lsp_flags,
+        capabilities = capabilities,
         init_options = {
           plugins = {
             {
