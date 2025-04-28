@@ -32,9 +32,9 @@ return require('packer').startup(function(use)
   use 'nvim-lua/plenary.nvim'
   local colorscheme_cfg_path = vim.fn.stdpath('config') .. "/local_colorscheme.lua"
 
+  -- colorscheme
   if vim.fn.filereadable(colorscheme_cfg_path) == 1 then
     local cfg = dofile(colorscheme_cfg_path)
-
     use {
       cfg.repo,
       config = function()
@@ -111,20 +111,16 @@ return require('packer').startup(function(use)
     end,
   }
   use { 'yutkat/cmp-mocword', opt = true, after = 'nvim-cmp' }
-  -- use {
-  --   'zbirenbaum/copilot-cmp',
-  --   after = 'nvim-cmp',
-  --   config = function()
-  --     require("copilot_cmp").setup()
-  --   end,
-  -- }
 
   -- fuzzy finder
   use {
     'nvim-telescope/telescope.nvim',
-    branch = '0.1.x',
+    tag = '0.1.8',
     wants = { "telescope-fzf-native.nvim" },
-    requires = { 'nvim-telescope/telescope-fzf-native.nvim', opt = true, run = 'make' },
+    requires = {
+      { 'nvim-telescope/telescope-fzf-native.nvim', opt = true, run = 'make' },
+      { 'nvim-lua/plenary.nvim' },
+    },
     opt = true,
     event = { 'CursorHold', 'BufRead' },
     config = function()
@@ -192,9 +188,28 @@ return require('packer').startup(function(use)
     event = { "BufRead" },
     config = function()
       require 'nvim-treesitter.configs'.setup {
+        modules = {},
+
+        -- A list of parser names, or "all" (the listed parsers MUST always be installed)
+        ensure_installed = { "c", "cpp", "python", "markdown" },
+
+        -- Install parsers synchronously (only applied to `ensure_installed`)
+        sync_install = false,
+
+        -- Automatically install missing parsers when entering buffer
+        -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+        auto_install = true,
+
+        -- List of parsers to ignore installing (or "all")
+        ignore_install = { "tex", "latex" },
+
+        ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
+        -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
+
         highlight = {
           enable = true,
           disable = { "tex", "latex" },
+          additional_vim_regex_highlighting = false,
         },
         incremental_selection = {
           enable = true,
@@ -208,8 +223,6 @@ return require('packer').startup(function(use)
         indent = {
           enable = false
         },
-        auto_install = true,
-        ignore_install = { "tex", "latex" },
       }
     end,
   }
