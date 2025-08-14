@@ -89,7 +89,7 @@ for key, val in pairs(lsp_commands) do
         on_attach = on_attach,
         flags = lsp_flags,
         capabilities = capabilities,
-        filetypes = { "markdown", "text", "tex" },
+        filetypes = { "markdown", "tex", "asciidoc", "rst", "org" },
         init_options = { documentFormatting = true },
         settings = {
           rootMarkers = { ".git/" },
