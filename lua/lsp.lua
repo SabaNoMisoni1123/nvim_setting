@@ -1,162 +1,160 @@
--- 言語の追加
--- key: command, val: setting strings
-local lsp_commands = {}
+-- ===============================
+-- LSP 全体設定（Neovim 0.11+ 対応版）
+-- ===============================
 
-if vim.fn.executable('pyright') == 1 then
-  lsp_commands['pyright'] = 'pyright'
-else
-  lsp_commands['pylsp'] = 'pylsp'
+
+local servers = {}
+
+do
+  if vim.fn.executable('pyright') == 1 then
+    servers['pyright'] = { _cmd_check = 'pyright' }
+  else
+    servers['pylsp'] = { _cmd_check = 'pylsp' }
+  end
+
+  servers['ts_ls'] = { _cmd_check = 'typescript-language-server' }
+  servers['vue_ls'] = { _cmd_check = 'vue-language-server' }
+  servers['vimls'] = { _cmd_check = 'vim-language-server' }
+  servers['texlab'] = { _cmd_check = 'texlab' }
+  servers['clangd'] = { _cmd_check = 'clangd' }
+  servers['rust_analyzer'] = { _cmd_check = 'rust-analyzer' }
+  servers['grammarly'] = { _cmd_check = 'grammarly-languageserver' }
+  servers['ltex'] = { _cmd_check = 'ltex-ls' }
+  servers['efm'] = { _cmd_check = 'efm-langserver' }
+  servers['jsonls'] = { _cmd_check = 'vscode-json-language-server' }
+  servers['lua_ls'] = { _cmd_check = 'lua-language-server' }
 end
 
-lsp_commands['typescript-language-server'] = 'ts_ls'
-lsp_commands['vue-language-server'] = 'volar'
-lsp_commands['vim-language-server'] = 'vimls'
-lsp_commands['texlab'] = 'texlab'
-lsp_commands['clangd'] = 'clangd'
-lsp_commands['rust-analyzer'] = 'rust_analyzer'
-lsp_commands['grammarly-languageserver'] = 'grammarly'
-lsp_commands['ltex-ls'] = 'ltex'
-lsp_commands['efm-langserver'] = 'efm'
-lsp_commands['vscode-json-language-server'] = 'jsonls'
-lsp_commands['lua-language-server'] = 'lua_ls'
+-- ===============================
+-- 共通オプション
+-- ===============================
+local lsp_flags = { debounce_text_changes = 150 }
 
--- 諸設定
-local opts = { noremap = true, silent = true }
-local lsp_flags = {
-  debounce_text_changes = 150,
-}
+local capabilities = require('cmp_nvim_lsp').default_capabilities(
+  vim.lsp.protocol.make_client_capabilities()
+)
+
+-- バッファにアタッチ時の共通キー割り当て
 local on_attach = function(client, bufnr)
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
+
   vim.keymap.set('n', '<leader>lc', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', '<leader>ld', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', '<leader>lh', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', '<leader>li', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', '<leader>lt', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<leader>lf', function() vim.lsp.buf.format { async = true } end, bufopts)
+  vim.keymap.set('n', '<leader>lf', function() vim.lsp.buf.format({ async = true }) end, bufopts)
 
   vim.keymap.set('n', '<leader>le', vim.diagnostic.open_float, bufopts)
   vim.keymap.set('n', ']q', vim.diagnostic.goto_next, bufopts)
   vim.keymap.set('n', '[q', vim.diagnostic.goto_prev, bufopts)
 
-  -- use telescope
-  -- vim.keymap.set('n', '<leader>lk', vim.lsp.buf.references, bufopts)
-  -- vim.keymap.set('n', '<leader>ls', vim.lsp.buf.document_symbol, bufopts)
-  -- vim.keymap.set('n', '<leader>lw', vim.lsp.buf.workspace_symbol, bufopts)
-
+  -- Telescope 連携
   local builtin = require('telescope.builtin')
   vim.keymap.set('n', '<leader>lk', builtin.lsp_references, bufopts)
   vim.keymap.set('n', '<leader>ls', builtin.lsp_document_symbols, bufopts)
   vim.keymap.set('n', '<leader>lw', builtin.lsp_dynamic_workspace_symbols, bufopts)
 end
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-for key, val in pairs(lsp_commands) do
-  -- コマンドの存在を確認
-  if vim.fn.executable(key) == 1 then
-    -- LSPの起動
-    -- LSPごとにif文
-    if val == 'grammarly' then
-      require('lspconfig')[val].setup {
-        on_attach = on_attach,
-        flags = lsp_flags,
-        capabilities = capabilities,
-        filetypes = { "markdown", "text", "tex" },
-      }
-    elseif val == 'ts_ls' then
-      require('lspconfig')[val].setup {
-        on_attach = on_attach,
-        flags = lsp_flags,
-        capabilities = capabilities,
-        init_options = {
-          plugins = {
-            {
-              name = "@vue/typescript-plugin",
-              location = string.sub(vim.fn.system('npm -g root'), 1, -2) .. "/@vue/typescript-plugin",
-              languages = { "javascript", "typescript", "vue" },
-            },
+-- ===============================
+-- サーバ個別設定
+-- ===============================
+local function server_config(name)
+  if name == 'grammarly' then
+    return {
+      filetypes = { 'markdown', 'text', 'tex' },
+    }
+  elseif name == 'ts_ls' then
+    -- TypeScript (tsserver 後継) + Vue 連携
+    return {
+      init_options = {
+        plugins = {
+          {
+            name = '@vue/typescript-plugin',
+            -- グローバル npm の @vue/typescript-plugin 位置を解決
+            location = (string.gsub(vim.fn.system('npm -g root'), '%s+$', '')) .. '/@vue/typescript-plugin',
+            languages = { 'javascript', 'typescript', 'vue' },
           },
         },
-        filetypes = {
-          "javascript",
-          "typescript",
-          "vue",
+      },
+      filetypes = { 'javascript', 'typescript', 'vue' },
+    }
+  elseif name == 'efm' then
+    return {
+      filetypes = { 'markdown', 'tex', 'asciidoc', 'rst', 'org' },
+      init_options = { documentFormatting = true },
+      settings = { rootMarkers = { '.git/' } },
+    }
+  elseif name == 'lua_ls' then
+    return {
+      settings = {
+        Lua = {
+          runtime = { version = 'LuaJIT' },
+          diagnostics = { globals = { 'vim' } },
+          workspace = { library = vim.api.nvim_get_runtime_file('', true) },
+          telemetry = { enable = false },
         },
-      }
-    elseif val == 'efm' then
-      require('lspconfig')[val].setup {
-        on_attach = on_attach,
-        flags = lsp_flags,
-        capabilities = capabilities,
-        filetypes = { "markdown", "tex", "asciidoc", "rst", "org" },
-        init_options = { documentFormatting = true },
-        settings = {
-          rootMarkers = { ".git/" },
-        }
-      }
-    elseif val == 'lua_ls' then
-      require('lspconfig')[val].setup {
-        on_attach = on_attach,
-        flags = lsp_flags,
-        capabilities = capabilities,
-        settings = {
-          Lua = {
-            runtime = {
-              -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-              version = 'LuaJIT',
-            },
-            diagnostics = {
-              -- Get the language server to recognize the `vim` global
-              globals = { 'vim' },
-            },
-            workspace = {
-              -- Make the server aware of Neovim runtime files
-              library = vim.api.nvim_get_runtime_file("", true),
-            },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {
-              enable = false,
-            },
-          },
-        },
-      }
-    else
-      -- 基本設定
-      require('lspconfig')[val].setup {
-        on_attach = on_attach,
-        flags = lsp_flags,
-        capabilities = capabilities,
-      }
-    end
+      },
+    }
+  else
+    -- それ以外はデフォルト
+    return {}
   end
 end
 
-require('lsp_signature').setup {
+-- ===============================
+-- 登録（config）と有効化（enable）
+-- ===============================
+for name, meta in pairs(servers) do
+  if not meta._cmd_check or vim.fn.executable(meta._cmd_check) == 1 then
+    local cfg = server_config(name)
+
+    cfg.on_attach = on_attach
+    cfg.flags = lsp_flags
+    cfg.capabilities = capabilities
+
+    vim.lsp.config(name, cfg)
+
+    vim.lsp.enable(name)
+  end
+end
+
+-- ===============================
+-- 署名ポップアップ（lsp_signature）
+-- ===============================
+require('lsp_signature').setup({
   floating_window = true,
   floating_window_above_cur_line = true,
   bind = true,
-  handler_opts = {
-    border = "single"
-  },
+  handler_opts = { border = 'single' },
   zindex = 10,
   doc_lines = 0,
-}
+})
 
--- エラー表示の設定
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = true,
-    signs = true,
-    underline = true,
-  }
-)
+-- ===============================
+-- 診断表示（新 API に統一）
+-- ===============================
+vim.diagnostic.config({
+  virtual_text = {
+    spacing = 1,
+  },
+  signs = {
+    test = {
+      [vim.diagnostic.severity.ERROR] = "",
+      [vim.diagnostic.severity.WARN]  = "",
+      [vim.diagnostic.severity.INFO]  = "",
+      [vim.diagnostic.severity.HINT]  = "",
+    },
+    numhl = {
+      [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+      [vim.diagnostic.severity.WARN]  = "DiagnosticSignWarn",
+      [vim.diagnostic.severity.INFO]  = "DiagnosticSignInfo",
+      [vim.diagnostic.severity.HINT]  = "DiagnosticSignHint",
+    }
+  },
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+})
 
--- アイコンなどの見た目設定
-local signs = { Error = "", Warn = "", Hint = "", Info = "" }
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
-
-vim.cmd('LspStart')

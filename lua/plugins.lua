@@ -7,7 +7,7 @@ return require('packer').startup(function(use)
 
   -- icon
   use {
-    'kyazdani42/nvim-web-devicons',
+    'nvim-tree/nvim-web-devicons',
     config = function()
       require 'nvim-web-devicons'.setup {
         override = {
@@ -62,16 +62,15 @@ return require('packer').startup(function(use)
   -- lsp
   use {
     'neovim/nvim-lspconfig',
-    opt = true,
-    event = { 'BufRead', 'InsertEnter', 'CmdlineEnter' },
-    config = function() require("lsp") end,
-    wants = { 'lsp_signature.nvim', 'telescope.nvim', 'nvim-cmp', 'cmp-nvim-lsp' },
+    event = { 'BufReadPre', 'BufNewFile' },
     requires = {
-      { 'ray-x/lsp_signature.nvim',      opt = true },
-      { 'nvim-telescope/telescope.nvim', opt = true },
-      { 'hrsh7th/nvim-cmp',              opt = true },
-      { 'hrsh7th/cmp-nvim-lsp',          opt = true },
+      { 'ray-x/lsp_signature.nvim' },
+      { 'nvim-telescope/telescope.nvim' },
+      { 'hrsh7th/cmp-nvim-lsp' },
     },
+    config = function()
+      require("lsp")
+    end,
   }
 
   -- auto complete
@@ -79,20 +78,20 @@ return require('packer').startup(function(use)
     'hrsh7th/nvim-cmp',
     wants = { "LuaSnip", "vim-snippets", 'lspkind.nvim' },
     requires = {
-      { 'onsails/lspkind.nvim', opt = true },
-      { 'L3MON4D3/LuaSnip',     opt = true },
-      { 'honza/vim-snippets',   opt = true },
+      { 'onsails/lspkind.nvim' },
+      {
+        'L3MON4D3/LuaSnip',
+        run = 'make install_jsregexp'
+      },
+      { 'honza/vim-snippets' },
     },
     opt = true,
     event = { 'InsertEnter', 'CmdlineEnter' },
-    config = function()
-      require("nvim_cmp")
-    end,
+    config = function() require("nvim_cmp") end,
   }
   use { 'saadparwaiz1/cmp_luasnip', opt = true, after = 'nvim-cmp' }
   use { 'octaltree/cmp-look', opt = true, after = 'nvim-cmp' }
   use { 'hrsh7th/cmp-omni', opt = true, after = 'nvim-cmp' }
-  use { 'hrsh7th/cmp-nvim-lsp', opt = true, after = 'nvim-cmp' }
   use { 'hrsh7th/cmp-buffer', opt = true, after = 'nvim-cmp' }
   use { 'hrsh7th/cmp-path', opt = true, after = 'nvim-cmp' }
   use { 'hrsh7th/cmp-cmdline', opt = true, after = 'nvim-cmp' }
@@ -111,20 +110,17 @@ return require('packer').startup(function(use)
     end,
   }
   use { 'yutkat/cmp-mocword', opt = true, after = 'nvim-cmp' }
+  use { 'hrsh7th/cmp-nvim-lsp' }
 
   -- fuzzy finder
   use {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.8',
-    wants = { "telescope-fzf-native.nvim" },
     requires = {
-      { 'nvim-telescope/telescope-fzf-native.nvim', opt = true, run = 'make' },
+      { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
       { 'nvim-lua/plenary.nvim' },
     },
-    opt = true,
-    event = { 'CursorHold', 'BufRead' },
     config = function()
-      -- keymap
       local bufopts = { noremap = true, silent = true }
       local builtin = require('telescope.builtin')
       vim.keymap.set('n', '<Leader>ff', builtin.find_files, bufopts)
@@ -137,44 +133,29 @@ return require('packer').startup(function(use)
       vim.keymap.set('n', '<Leader>fq', builtin.quickfix, bufopts)
       vim.keymap.set('n', '<Leader>fh', builtin.help_tags, bufopts)
       vim.keymap.set('n', '<Leader>fm', builtin.man_pages, bufopts)
-      vim.keymap.set('n', '<Leader>fd', function() builtin.diagnostics({ bufnr = 0 }) end,
-        bufopts)
+      vim.keymap.set('n', '<Leader>fd', function() builtin.diagnostics({ bufnr = 0 }) end, bufopts)
       vim.keymap.set('n', '/', builtin.current_buffer_fuzzy_find, bufopts)
-
       vim.keymap.set('n', '<C-t>', ':Telescope ', { noremap = true })
 
-      -- setting
       require('telescope').setup {
         defaults = {
           mappings = {
-            n = {
-              ["q"] = require("telescope.actions").close,
-              ["<esc>"] = require("telescope.actions").close,
-            },
-            i = {
-              ["<esc>"] = require("telescope.actions").close,
-            },
+            n = { ["q"] = require("telescope.actions").close, ["<esc>"] = require("telescope.actions").close },
+            i = { ["<esc>"] = require("telescope.actions").close },
           },
           winblend = 15,
         },
         extensions = {
-          fzf = {
-            fuzzy = true,
-            override_generic_sorter = true,
-            override_file_sorter = true,
-            case_mode = "smart_case",
-          }
+          fzf = { fuzzy = true, override_generic_sorter = true, override_file_sorter = true, case_mode = "smart_case" }
         },
       }
-
-      -- load extensions
       require('telescope').load_extension('fzf')
     end,
   }
 
   -- filer
   use {
-    'kyazdani42/nvim-tree.lua',
+    'nvim-tree/nvim-tree.lua',
     config = function() require("nvim_tree") end,
     opt = true,
     event = { 'InsertEnter', 'CmdlineEnter', 'CursorHold' },
@@ -198,7 +179,7 @@ return require('packer').startup(function(use)
 
         -- Automatically install missing parsers when entering buffer
         -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-        auto_install = true,
+        auto_install = false,
 
         -- List of parsers to ignore installing (or "all")
         ignore_install = { "tex", "latex" },
@@ -389,10 +370,20 @@ return require('packer').startup(function(use)
     'akinsho/git-conflict.nvim',
     tag = "*",
     opt = true,
-    event = { 'BufRead', 'InsertEnter', 'CmdlineEnter', 'CursorHold' },
+    cmd = {
+      'GitConflictChooseOurs', 'GitConflictChooseTheirs',
+      'GitConflictChooseBoth', 'GitConflictChooseNone',
+      'GitConflictNextConflict', 'GitConflictPrevConflict'
+    },
+    setup = function()
+      -- コマンド叩いた時だけロード
+      vim.api.nvim_create_user_command('GitConflictEnable', function()
+        vim.cmd('packadd git-conflict.nvim')
+        require('git-conflict').setup({})
+      end, {})
+    end,
     config = function()
-      require('git-conflict').setup {}
-    end
+    end,
   }
   use {
     'sindrets/diffview.nvim',
