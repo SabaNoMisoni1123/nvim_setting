@@ -42,9 +42,10 @@ cmp.setup {
         -- 初回Tabで1件目が選択状態になり、以降は次候補へ
         cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
       else
-        -- メニューを開いてから1件目を選択
-        cmp.complete()
-        cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert, count = 0 })
+        fallback()
+        -- メニューを開いてから1件目を選択（タブが入力できなくなるので採用しないがメモとして残す。）
+        -- cmp.complete()
+        -- cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert, count = 0 })
       end
     end, { "i", "s" }),
 
