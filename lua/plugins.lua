@@ -73,6 +73,26 @@ return require('packer').startup(function(use)
     end,
   }
 
+  -- codex
+
+  use({
+    "johnseth97/codex.nvim",
+    cmd = { "Codex", "CodexToggle" }, -- コマンド実行時のみ読込
+    config = function()
+      require("codex").setup({
+        keymaps     = {
+          toggle = nil,    -- 既定のトグル割当は無効化（衝突回避）
+          quit = "<C-w>",  -- 浮動ウィンドウを閉じる
+        },
+        border      = "single", -- single|double|rounded
+        width       = 0.8,
+        height      = 0.8,
+        model       = nil,  -- 例: "o3-mini" を明示指定可
+        autoinstall = true, -- Codex CLI が無ければ自動導入
+      })
+    end,
+  })
+
   -- auto complete
   use {
     'hrsh7th/nvim-cmp',
@@ -112,7 +132,7 @@ return require('packer').startup(function(use)
   use { 'yutkat/cmp-mocword', opt = true, after = 'nvim-cmp' }
   use { 'hrsh7th/cmp-nvim-lsp' }
 
-  -- fuzzy finder
+  -- fuzzy finder (telescope)
   use {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.8',
@@ -125,16 +145,19 @@ return require('packer').startup(function(use)
       local builtin = require('telescope.builtin')
       vim.keymap.set('n', '<Leader>ff', builtin.find_files, bufopts)
       vim.keymap.set('n', '<Leader>fr', builtin.oldfiles, bufopts)
+      vim.keymap.set('n', '<C-o>', builtin.oldfiles, bufopts)
       vim.keymap.set('n', '<Leader>fc', builtin.command_history, bufopts)
       vim.keymap.set('n', '<Leader>fs', builtin.spell_suggest, bufopts)
       vim.keymap.set('n', '<Leader>fC', builtin.commands, bufopts)
       vim.keymap.set('n', '<Leader>fg', builtin.live_grep, bufopts)
+      vim.keymap.set('n', '<C-_>', builtin.live_grep, bufopts)
       vim.keymap.set('n', '<Leader>fT', builtin.treesitter, bufopts)
       vim.keymap.set('n', '<Leader>fq', builtin.quickfix, bufopts)
       vim.keymap.set('n', '<Leader>fh', builtin.help_tags, bufopts)
       vim.keymap.set('n', '<Leader>fm', builtin.man_pages, bufopts)
       vim.keymap.set('n', '<Leader>fd', function() builtin.diagnostics({ bufnr = 0 }) end, bufopts)
       vim.keymap.set('n', '/', builtin.current_buffer_fuzzy_find, bufopts)
+      vim.keymap.set('n', '<C-f>', builtin.current_buffer_fuzzy_find, bufopts)
       vim.keymap.set('n', '<C-t>', ':Telescope ', { noremap = true })
 
       require('telescope').setup {
@@ -150,6 +173,48 @@ return require('packer').startup(function(use)
         },
       }
       require('telescope').load_extension('fzf')
+    end,
+  }
+
+  -- project management (project.nvim + telescope)
+  use {
+    "ahmedkhalf/project.nvim",
+    -- telescope を既に常時ロードしているので特に opt/after は不要
+    config = function()
+      -- project.nvim の基本設定
+      require("project_nvim").setup {
+        -- ルート検出方法: LSP or パターン
+        detection_methods = { "pattern", "lsp" },
+
+        -- ルートとみなすパターン（必要に応じて調整）
+        patterns = {
+          ".git",
+          "package.json",
+          ".textlintrc.js",
+          ".textlintrc",
+          "pyproject.toml",
+          "Makefile",
+          "README.md",
+        },
+
+        -- 隠しディレクトリも検出対象にするか
+        show_hidden = true,
+
+        -- 自動で :cd したときにメッセージを出さない
+        silent_chdir = true,
+
+        -- ディレクトリをどのスコープで変えるか: "global" | "tab" | "win"
+        scope_chdir = "global",
+      }
+
+      -- telescope 拡張として project.nvim を有効化
+      require("telescope").load_extension("projects")
+
+      -- プロジェクト一覧を開くキーマップ
+      local bufopts = { noremap = true, silent = true }
+      vim.keymap.set("n", "<Leader>fp", function()
+        require("telescope").extensions.projects.projects({})
+      end, bufopts)
     end,
   }
 

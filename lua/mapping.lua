@@ -94,11 +94,12 @@ for k, v in pairs({
   ['<Leader>wq'] = '<Cmd>qa<CR>',
   ['<Leader>Q'] = '<Cmd>qa<CR>',
   ['<Leader>r'] = ':<C-u>so ~/.config/nvim/init.lua<CR>',
+  ['<Leader>R'] = '<CMD>bufdo e!<CR>',
   ['<Leader>fed'] = '<Cmd>tabnew ~/.config/nvim/init.vim<CR>',
   ['>'] = '>>',
   ['<'] = '<<',
   ['O'] = 'O<ESC>0D',
-  ['<C-_>'] = '/',
+  ['?'] = '/',
   ['ds'] = ':%s/\\s\\+$//e<CR><C-o>',
 }) do
   vim.keymap.set('n', k, v, bufopts)

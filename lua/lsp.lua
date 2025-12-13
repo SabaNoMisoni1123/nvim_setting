@@ -2,7 +2,9 @@
 -- LSP 全体設定（Neovim 0.11+ 対応版）
 -- ===============================
 
-
+-- ===============================
+-- サーバ一覧
+-- ===============================
 local servers = {}
 
 do
@@ -97,6 +99,14 @@ local function server_config(name)
         },
       },
     }
+  elseif name == 'vue_ls' then
+    return {
+      init_options = {
+        typescript = {
+          tsdk = (string.gsub(vim.fn.system('npm -g root'), '%s+$', '')) .. '/typescript/lib'
+        },
+      },
+    }
   else
     -- それ以外はデフォルト
     return {}
@@ -157,4 +167,3 @@ vim.diagnostic.config({
   update_in_insert = false,
   severity_sort = true,
 })
-

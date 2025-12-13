@@ -6,6 +6,7 @@ vim.opt.termguicolors = true
 local bufopts = { noremap = true, silent = true }
 for k, v in pairs({
   ['<leader>d'] = '<Cmd>NvimTreeToggle expand(\'%:p:h\')<CR>',
+  ['<C-b>'] = '<Cmd>NvimTreeToggle expand(\'%:p:h\')<CR>',
   ['<leader>n'] = '<Cmd>NvimTreeFocus<CR>',
   ['st'] = ':tabnew<CR>:NvimTreeOpen<CR>',
 }) do
@@ -28,6 +29,7 @@ local function my_on_attach(bufnr)
   vim.keymap.set('n', '<C-v>', api.node.open.vertical, opts('Open: Vertical Split'))
   vim.keymap.set('n', '<C-t>', api.node.open.tab, opts('Open: New Tab'))
   vim.keymap.set('n', 'K', api.fs.create, opts('Create'))
+  vim.keymap.set('n', '<C-n>', api.fs.create, opts('Create'))
   vim.keymap.set('n', 'x', api.node.run.system, opts('Run System'))
   vim.keymap.set('n', 'C', api.fs.cut, opts('Cut'))
   vim.keymap.set('n', 'P', api.fs.paste, opts('Paste'))
