@@ -24,7 +24,7 @@ return require('packer').startup(function(use)
             name = "Tex",
           }
         }
-      };
+      }
     end,
   }
 
@@ -59,14 +59,56 @@ return require('packer').startup(function(use)
     event = { 'BufRead' },
   }
 
+  -- =========================
+  -- auto complete (Method 1)
+  --   - nvim-cmp / cmp-nvim-lsp を start で常時ロード（opt/event なし）
+  --   - lsp.lua から require('cmp_nvim_lsp') を素直に呼べる状態にする
+  -- =========================
+  use {
+    'hrsh7th/nvim-cmp',
+    wants = { "LuaSnip", "vim-snippets", 'lspkind.nvim' },
+    requires = {
+      { 'onsails/lspkind.nvim' },
+
+      -- ★ start で常時ロード（opt を付けない）
+      { 'hrsh7th/cmp-nvim-lsp' },
+
+      { 'L3MON4D3/LuaSnip', run = 'make install_jsregexp' },
+      { 'honza/vim-snippets' },
+    },
+    config = function() require("nvim_cmp") end,
+  }
+
+  -- nvim-cmp sources (start/after only)
+  use { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' }
+  use { 'octaltree/cmp-look', after = 'nvim-cmp' }
+  use { 'hrsh7th/cmp-omni', after = 'nvim-cmp' }
+  use { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' }
+  use { 'hrsh7th/cmp-path', after = 'nvim-cmp' }
+  use { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' }
+  use { 'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp' }
+  use {
+    'uga-rosa/cmp-dictionary',
+    after = 'nvim-cmp',
+    config = function()
+      require("cmp_dictionary").setup({
+        dic = {
+          ["*"] = "/usr/share/dict/words",
+        },
+        max_number_items = 50,
+      })
+    end,
+  }
+  use { 'yutkat/cmp-mocword', after = 'nvim-cmp' }
+
   -- lsp
   use {
     'neovim/nvim-lspconfig',
     event = { 'BufReadPre', 'BufNewFile' },
+    -- wants = { 'nvim-cmp' }, -- cmp は常時ロードにしたので不要（残しても害はない）
     requires = {
       { 'ray-x/lsp_signature.nvim' },
       { 'nvim-telescope/telescope.nvim' },
-      { 'hrsh7th/cmp-nvim-lsp' },
     },
     config = function()
       require("lsp")
@@ -74,15 +116,14 @@ return require('packer').startup(function(use)
   }
 
   -- codex
-
   use({
     "johnseth97/codex.nvim",
     cmd = { "Codex", "CodexToggle" }, -- コマンド実行時のみ読込
     config = function()
       require("codex").setup({
         keymaps     = {
-          toggle = nil,    -- 既定のトグル割当は無効化（衝突回避）
-          quit = "<C-w>",  -- 浮動ウィンドウを閉じる
+          toggle = nil,         -- 既定のトグル割当は無効化（衝突回避）
+          quit = "<C-w>",       -- 浮動ウィンドウを閉じる
         },
         border      = "single", -- single|double|rounded
         width       = 0.8,
@@ -92,45 +133,6 @@ return require('packer').startup(function(use)
       })
     end,
   })
-
-  -- auto complete
-  use {
-    'hrsh7th/nvim-cmp',
-    wants = { "LuaSnip", "vim-snippets", 'lspkind.nvim' },
-    requires = {
-      { 'onsails/lspkind.nvim' },
-      {
-        'L3MON4D3/LuaSnip',
-        run = 'make install_jsregexp'
-      },
-      { 'honza/vim-snippets' },
-    },
-    opt = true,
-    event = { 'InsertEnter', 'CmdlineEnter' },
-    config = function() require("nvim_cmp") end,
-  }
-  use { 'saadparwaiz1/cmp_luasnip', opt = true, after = 'nvim-cmp' }
-  use { 'octaltree/cmp-look', opt = true, after = 'nvim-cmp' }
-  use { 'hrsh7th/cmp-omni', opt = true, after = 'nvim-cmp' }
-  use { 'hrsh7th/cmp-buffer', opt = true, after = 'nvim-cmp' }
-  use { 'hrsh7th/cmp-path', opt = true, after = 'nvim-cmp' }
-  use { 'hrsh7th/cmp-cmdline', opt = true, after = 'nvim-cmp' }
-  use { 'hrsh7th/cmp-nvim-lsp-signature-help', opt = true, after = 'nvim-cmp' }
-  use {
-    'uga-rosa/cmp-dictionary',
-    after = 'nvim-cmp',
-    config = function()
-      require("cmp_dictionary").setup({
-        dic = {
-          -- If you always use the English dictionary, The following settings are suitable:
-          ["*"] = "/usr/share/dict/words",
-        },
-        max_number_items = 50,
-      })
-    end,
-  }
-  use { 'yutkat/cmp-mocword', opt = true, after = 'nvim-cmp' }
-  use { 'hrsh7th/cmp-nvim-lsp' }
 
   -- fuzzy finder (telescope)
   use {
@@ -179,14 +181,9 @@ return require('packer').startup(function(use)
   -- project management (project.nvim + telescope)
   use {
     "ahmedkhalf/project.nvim",
-    -- telescope を既に常時ロードしているので特に opt/after は不要
     config = function()
-      -- project.nvim の基本設定
       require("project_nvim").setup {
-        -- ルート検出方法: LSP or パターン
         detection_methods = { "pattern", "lsp" },
-
-        -- ルートとみなすパターン（必要に応じて調整）
         patterns = {
           ".git",
           "package.json",
@@ -196,21 +193,13 @@ return require('packer').startup(function(use)
           "Makefile",
           "README.md",
         },
-
-        -- 隠しディレクトリも検出対象にするか
         show_hidden = true,
-
-        -- 自動で :cd したときにメッセージを出さない
         silent_chdir = true,
-
-        -- ディレクトリをどのスコープで変えるか: "global" | "tab" | "win"
         scope_chdir = "global",
       }
 
-      -- telescope 拡張として project.nvim を有効化
       require("telescope").load_extension("projects")
 
-      -- プロジェクト一覧を開くキーマップ
       local bufopts = { noremap = true, silent = true }
       vim.keymap.set("n", "<Leader>fp", function()
         require("telescope").extensions.projects.projects({})
@@ -235,23 +224,10 @@ return require('packer').startup(function(use)
     config = function()
       require 'nvim-treesitter.configs'.setup {
         modules = {},
-
-        -- A list of parser names, or "all" (the listed parsers MUST always be installed)
         ensure_installed = { "c", "cpp", "python", "markdown" },
-
-        -- Install parsers synchronously (only applied to `ensure_installed`)
         sync_install = false,
-
-        -- Automatically install missing parsers when entering buffer
-        -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
         auto_install = false,
-
-        -- List of parsers to ignore installing (or "all")
         ignore_install = { "tex", "latex" },
-
-        ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-        -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
-
         highlight = {
           enable = true,
           disable = { "tex", "latex" },
@@ -266,9 +242,7 @@ return require('packer').startup(function(use)
             node_decremental = "m",
           },
         },
-        indent = {
-          enable = false
-        },
+        indent = { enable = false },
       }
     end,
   }
@@ -282,7 +256,6 @@ return require('packer').startup(function(use)
       local bufopts = { noremap = true }
       vim.keymap.set('n', '<Leader>x', '<Cmd>QuickRun<CR>', bufopts)
       vim.keymap.set('n', '<Leader><Leader>x', ':QuickRun ', bufopts)
-
       vim.cmd('source ' .. os.getenv("XDG_CONFIG_HOME") .. '/nvim/vimscripts/quickrun_setting.vim')
     end,
   }
@@ -291,7 +264,6 @@ return require('packer').startup(function(use)
   use {
     'scrooloose/nerdcommenter',
     opt = true,
-    -- event = { 'BufRead' },
     keys = { { 'n', '<Leader>c<Leader>' }, { 'v', '<Leader>c<Leader>' } },
     setup = function()
       vim.g.NERDCreateDefaultMappings = 0
@@ -305,6 +277,7 @@ return require('packer').startup(function(use)
       vim.keymap.set('v', '<Leader>c<Leader>', '<Plug>NERDCommenterToggle', bufopts)
     end,
   }
+
   use {
     'folke/todo-comments.nvim',
     opt = true,
@@ -318,11 +291,7 @@ return require('packer').startup(function(use)
         signs = true,
         sign_priority = 8,
         keywords = {
-          FIX = {
-            icon = "",
-            color = "error",
-            alt = { "FIXME", "BUG", "FIXIT", "ISSUE" },
-          },
+          FIX = { icon = "", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
           TODO = { icon = "", color = "info" },
           HACK = { icon = "", color = "warning" },
           WARN = { icon = "", color = "warning", alt = { "WARNING", "XXX" } },
@@ -401,9 +370,7 @@ return require('packer').startup(function(use)
     event = { 'BufRead', 'InsertEnter', 'CmdlineEnter', 'CursorHold' },
     config = function()
       local neogit = require('neogit')
-      neogit.setup {
-        disable_insert_on_commit = true
-      }
+      neogit.setup { disable_insert_on_commit = true }
       local bufopts = { noremap = true }
       vim.keymap.set('n', '<Leader>gs', function()
         neogit.open()
@@ -411,6 +378,7 @@ return require('packer').startup(function(use)
       end, bufopts)
     end,
   }
+
   use {
     'lewis6991/gitsigns.nvim',
     opt = true,
@@ -431,6 +399,7 @@ return require('packer').startup(function(use)
       require("scrollbar.handlers.gitsigns").setup()
     end,
   }
+
   use {
     'akinsho/git-conflict.nvim',
     tag = "*",
@@ -441,15 +410,14 @@ return require('packer').startup(function(use)
       'GitConflictNextConflict', 'GitConflictPrevConflict'
     },
     setup = function()
-      -- コマンド叩いた時だけロード
       vim.api.nvim_create_user_command('GitConflictEnable', function()
         vim.cmd('packadd git-conflict.nvim')
         require('git-conflict').setup({})
       end, {})
     end,
-    config = function()
-    end,
+    config = function() end,
   }
+
   use {
     'sindrets/diffview.nvim',
     requires = { 'nvim-lua/plenary.nvim', opt = true },
@@ -472,17 +440,17 @@ return require('packer').startup(function(use)
       require('scrollbar').setup {
         show_in_active_only = false,
         set_highlights = true,
-        folds = 1000,                -- handle folds, set to number to disable folds if no. of lines in buffer exceeds this
-        max_lines = false,           -- disables if no. of lines in buffer exceeds this
-        hide_if_all_visible = false, -- Hides everything if all lines are visible
+        folds = 1000,
+        max_lines = false,
+        hide_if_all_visible = false,
         throttle_ms = 100,
         handle = {
           text = " ",
-          blend = 30,                 -- Integer between 0 and 100. 0 for fully opaque and 100 to full transparent. Defaults to 30.
+          blend = 30,
           color = nil,
-          color_nr = nil,             -- cterm
+          color_nr = nil,
           highlight = "CursorColumn",
-          hide_if_all_visible = true, -- Hides handle if all lines are visible
+          hide_if_all_visible = true,
         },
       }
       local bufopts = { noremap = true }
@@ -504,25 +472,17 @@ return require('packer').startup(function(use)
       local bufopts = { noremap = true }
       vim.keymap.set('v', '<Leader>x', '<Plug>(VTranslate)', bufopts)
 
-      vim.api.nvim_create_user_command(
-        'SwapTransrateLang',
-        function()
-          if vim.g.translate_source == 'en' then
-            local tmp = vim.g.translate_source
-            vim.g.translate_source = vim.g.translate_target
-            vim.g.translate_target = tmp
-          end
-        end,
-        { nargs = 0 }
-      )
+      vim.api.nvim_create_user_command('SwapTransrateLang', function()
+        if vim.g.translate_source == 'en' then
+          local tmp = vim.g.translate_source
+          vim.g.translate_source = vim.g.translate_target
+          vim.g.translate_target = tmp
+        end
+      end, { nargs = 0 })
 
-      vim.api.nvim_create_user_command(
-        'CheckTransrateLang',
-        function()
-          print(vim.g.translate_source .. " > " .. vim.g.translate_target)
-        end,
-        { nargs = 0 }
-      )
+      vim.api.nvim_create_user_command('CheckTransrateLang', function()
+        print(vim.g.translate_source .. " > " .. vim.g.translate_target)
+      end, { nargs = 0 })
     end,
   }
 
@@ -543,7 +503,6 @@ return require('packer').startup(function(use)
       vim.g.memolist_filename_date        = '%y%m%d_'
       vim.g.memolist_delimiter_yaml_start = '---'
       vim.g.memolist_delimiter_yaml_end   = '---'
-
       vim.g.memolist_memo_suffix          = 'md'
       vim.g.memolist_template_dir_path    = os.getenv("XDG_CONFIG_HOME") .. '/nvim/templates'
     end,
@@ -607,7 +566,6 @@ return require('packer').startup(function(use)
     event = { 'BufRead' },
   }
 
-
   -- filetype =================================================================
   -- tex
   use {
@@ -646,6 +604,7 @@ return require('packer').startup(function(use)
       vim.g.vim_markdown_new_list_item_indent = 0
     end,
   }
+
   use {
     'dkarter/bullets.vim',
     opt = true,
@@ -673,7 +632,6 @@ return require('packer').startup(function(use)
       vim.keymap.set('v', '>', '<Plug>(bullets-demote)', bufopts)
       vim.keymap.set('v', '<', '<Plug>(bullets-promote)', bufopts)
 
-      -- vim.keymap.set('i', '<C-cr>', '<cr>', bufopts)
       vim.keymap.set('i', '<cr>', '<Plug>(bullets-newline)', bufopts)
       vim.keymap.set('i', '<C-t>', '<Plug>(bullets-demote)', bufopts)
       vim.keymap.set('i', '<C-d>', '<Plug>(bullets-promote)', bufopts)
@@ -681,6 +639,7 @@ return require('packer').startup(function(use)
       vim.keymap.set('i', '<S-tab>', '<Plug>(bullets-promote)', bufopts)
     end,
   }
+
   use {
     'iamcco/markdown-preview.nvim',
     run = function()

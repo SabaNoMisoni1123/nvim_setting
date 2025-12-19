@@ -13,3 +13,192 @@ snippet headyaml
 	date: $5
 	---
 	$0
+
+snippet marpheader
+	---
+	# enable marp
+	marp: true
+	
+	# metadata
+	title: "title"
+	description: "description"
+	author: "近藤 綜太"
+	keywords: hoge, fuga, piyo
+	url: ""
+	image: ""
+	
+	# global directive
+	theme: default
+	size: 16:9
+	lang: ja
+	headingDivider: 2
+	math: katex
+	
+	# local directive
+	paginate: true
+	header: "Header text"
+	footer: "(c) 2025 Sota Kondo"
+	
+	# style
+	style: |
+	  :root {
+	    --pad-side: 60px;
+	    --pad-t: 40px;
+	    --pad-b: 40px;
+	
+	    /* color */
+	    --main-color: #003B83;
+	    --b-color: #3C82F5;
+	    --r-color: #DC003C;
+	    --g-color: #329B73;
+	    --y-color: #DCA000;
+	    --k-color: #595757;
+	
+	    /* spacing */
+	    --indent: 0.8rem;
+	    --spacer: 0.6rem;
+	
+	    /* font sizes */
+	    --fs-base: 16pt;
+	    --fs-h1: 48pt;
+	    --fs-h2: 24pt;
+	    --fs-h3: 20pt;
+	    --fs-h4: 20pt;
+	    --fs-h5: 16pt;
+	    --fs-h6: 16pt;
+	    --fs-title: 20pt;
+	    --fs-header-footer: 0.8rem;
+	    --fs-code: 1rem;
+	    --fs-height: 1.2rem;
+	  }
+	  section {
+	    padding: var(--pad-t) var(--pad-side) var(--pad-b) var(--pad-side);
+	    font-size: var(--fs-base);
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: flex-start;
+	    line-height: var(--fs-height);
+	  }
+	  section > ol ::marker,
+	  section > ul ::marker {
+	    color: var(--main-color);
+	  }
+	  ol, ul {
+	    list-style-position: inside;
+	    margin: 0 0 var(--spacer) 0;
+	    padding-left: var(--indent);
+	    font-size: var(--fs-code);
+	  }
+	  section > ol,
+	  section > ul {
+	    padding-left: 0;
+	  }
+	  li > ol , li > ul {
+	    margin-top: var(--spacer);
+	  }
+	  section > h2 {
+	    font-size: var(--fs-h2);
+	    width: 100%;
+	    color: var(--main-color);
+	    padding: calc(var(--spacer) / 2);
+	    margin-bottom: var(--spacer);
+	    border-bottom: solid 1px var(--main-color);
+	  }
+	  section > h3 {
+	    font-size: var(--fs-h3);
+	    color: var(--b-color);
+	  }
+	  section > h4 {
+	    font-size: var(--fs-h4);
+	  }
+	  section > h5 {
+	    font-size: var(--fs-h5);
+	  }
+	  section > h6 {
+	    font-size: var(--fs-h6);
+	    color: var(--k-color);
+	  }
+	  section > h3,
+	  section > h4,
+	  section > h5,
+	  section > h6 {
+	    margin: 0 0 var(--spacer) 0;
+	  }
+	  section > p {
+	    margin: 0 0 var(--spacer) 0;
+	  }
+	  section > p:has(img) {
+	    text-align: center;
+	  }
+	  code {
+	    font-size: var(--fs-code);
+	    padding: 0 0.3rem;
+	  }
+	  strong, b {
+	    color: var(--r-color);
+	  }
+	  em, i {
+	    color: var(--g-color);
+	  }
+	  s, del {
+	    color: var(--k-color);
+	  }
+	  th {
+	    color: white;
+	    background-color: var(--main-color);
+	  }
+	  td {
+	    background-color: white;
+	    border: 1px solid black;
+	  }
+	  table {
+	    margin-left: auto;
+	    margin-right: auto;
+	  }
+	  header {
+	    position: absolute;
+	    top: 10pt;
+	    left: var(--pad-side);
+	    right: var(--pad-side);
+	    height: var(--fs-height);
+	    font-size: var(--fs-header-footer);
+	    opacity: 0.9;
+	    text-align: right;
+	  }
+	  a {
+	    color: var(--b-color);
+	    border-bottom: solid 1px var(--b-color);
+	  }
+	  footer {
+	    position: absolute;
+	    bottom: 10px;
+	    left: var(--pad-side);
+	    right: var(--pad-side);
+	    display: flex;
+	    align-items: flex-end;
+	    height: var(--fs-height);
+	    font-size: var(--fs-header-footer);
+	    opacity: 0.9;
+	    border-top: solid 1pt;
+	  }
+	  section.title {
+	    padding: var(--pad-t) var(--pad-side) var(--pad-b) calc(var(--pad-side)*4);
+	    font-size: var(--fs-title);
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: center;
+	    align-items: flex-start;
+	  }
+	  section.title > h1 {
+	    font-size: var(--fs-h1);
+	    margin-bottom: var(--fs-height);
+	  }
+	  section.title > h2 {
+	    background-color: white;
+	    color: var(--main-color);
+	    font-size: var(--fs-h2);
+	    padding: 0 0 var(--spacer) 0;
+	    border-bottom: solid 1.2px var(--main-color);
+	  }
+	---
+	$0
