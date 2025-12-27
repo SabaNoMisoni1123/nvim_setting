@@ -1,32 +1,52 @@
 -- init.lua
 
--- リーダキー
-vim.g.mapleader = ' '
-vim.g.maplocalleader = '\\'
+-- WSLでPATHが肥大化している場合の保険（必要に応じて）
+if vim.fn.has("wsl") == 1 then
+  local p = vim.env.PATH or ""
+  -- /mnt/c などWindowsマウント由来を除外（必要なら条件を調整）
+  local filtered = {}
+  for part in string.gmatch(p, "[^:]+") do
+    if not part:match("^/mnt/[a-zA-Z]/") then
+      table.insert(filtered, part)
+    end
+  end
+  vim.env.PATH = table.concat(filtered, ":")
+end
 
--- OS
-vim.cmd [[
-  let g:OSTYPE=substitute(system("uname"), '\n', '', 'g')
-]]
+-- clipboard
+-- unnamedplus を使う（既に利用中）
+vim.opt.clipboard = "unnamedplus"
 
--- プロバイダ設定
+-- xclip を provider として明示
+vim.g.clipboard = {
+  name = "xclip-wsl2",
+  copy = {
+    ["+"] = "xclip -selection clipboard -in",
+    ["*"] = "xclip -selection primary -in",
+  },
+  paste = {
+    ["+"] = "xclip -selection clipboard -out",
+    ["*"] = "xclip -selection primary -out",
+  },
+  cache_enabled = 1,
+}
 
+-- Leader
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
+-- OS（外部コマンド uname を使わずに判定）
+-- 以前の g:OSTYPE を維持したい場合は以下で同等の値になります
+vim.g.OSTYPE = vim.loop.os_uname().sysname
+
+-- Providers（不要なものは無効化して起動を軽くする）
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
 
--- 各種設定ファイルの読込
+-- Settings / mappings / plugins
 require("mapping")
 require("set")
 require("autocmd")
 require("plugins")
 require("ftmapping")
-
--- プラグインの動作設定
-vim.api.nvim_create_autocmd("CursorHold", {
-  pattern = { "plugins.lua" },
-  command = "PackerCompile",
-})
-
-vim.cmd("filetype plugin indent on")
-vim.cmd("syntax enable")

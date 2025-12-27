@@ -1,0 +1,137 @@
+--- Startup times for process: Primary (or UI client) ---
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.004  000.004: --- NVIM STARTING ---
+023.586  023.583: event init
+037.870  014.283: early init
+038.052  000.183: locale set
+047.686  009.634: init first window
+075.354  027.668: inits 1
+075.370  000.015: window checked
+075.373  000.003: parsing arguments
+084.279  000.032  000.032: require('vim.shared')
+084.346  000.027  000.027: require('vim.inspect')
+084.376  000.024  000.024: require('vim._options')
+084.379  000.095  000.044: require('vim._editor')
+084.379  000.146  000.019: require('vim._init_packages')
+084.381  008.862: init lua interpreter
+088.130  003.749: nvim_ui_attach
+088.329  000.198: nvim_set_client_info
+088.330  000.002: --- NVIM STARTED ---
+
+--- Startup times for process: Embedded ---
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.001  000.001: --- NVIM STARTING ---
+000.090  000.088: event init
+000.166  000.077: early init
+000.290  000.124: locale set
+000.338  000.048: init first window
+000.602  000.265: inits 1
+000.610  000.008: window checked
+000.613  000.002: parsing arguments
+000.974  000.033  000.033: require('vim.shared')
+001.040  000.028  000.028: require('vim.inspect')
+001.073  000.027  000.027: require('vim._options')
+001.074  000.099  000.044: require('vim._editor')
+001.075  000.154  000.023: require('vim._init_packages')
+001.077  000.310: init lua interpreter
+001.136  000.060: expanding arguments
+001.209  000.072: inits 2
+001.818  000.609: init highlight
+001.821  000.003: waiting for UI
+002.117  000.296: done waiting for UI
+002.129  000.011: clear screen
+002.302  000.011  000.011: require('vim.keymap')
+005.347  000.112  000.112: sourcing nvim_exec2()
+015.000  006.160  006.160: require('vim.termcap')
+015.042  000.020  000.020: require('vim.text')
+015.118  012.983  006.680: require('vim._defaults')
+015.120  000.007: init default mappings & autocommands
+016.935  001.676  001.676: sourcing /tmp/.mount_nvim.aigMmpI/usr/share/nvim/runtime/ftplugin.vim
+018.699  001.170  001.170: sourcing /tmp/.mount_nvim.aigMmpI/usr/share/nvim/runtime/indent.vim
+020.010  000.456  000.456: require('mapping')
+020.350  000.336  000.336: require('set')
+020.370  000.018  000.018: require('autocmd')
+021.921  001.142  001.142: require('lazy')
+021.974  000.015  000.015: require('ffi')
+022.015  000.019  000.019: require('vim.fs')
+023.242  001.224  001.224: require('vim.uri')
+023.261  001.284  000.041: require('vim.loader')
+023.373  000.093  000.093: require('lazy.stats')
+023.554  000.099  000.099: require('lazy.core.util')
+023.670  000.113  000.113: require('lazy.core.config')
+023.969  000.216  000.216: require('lazy.core.handler')
+024.348  000.124  000.124: require('lazy.pkg')
+024.352  000.289  000.166: require('lazy.core.meta')
+024.358  000.387  000.098: require('lazy.core.plugin')
+024.363  000.692  000.088: require('lazy.core.loader')
+025.145  000.057  000.057: require('lazy.core.fragments')
+026.406  000.055  000.055: require('lazy.core.handler.cmd')
+026.486  000.076  000.076: require('lazy.core.handler.keys')
+026.583  000.094  000.094: require('lazy.core.handler.event')
+026.610  000.025  000.025: require('lazy.core.handler.ft')
+027.427  000.008  000.008: sourcing nvim_exec2() called at /home/sabamiso/.config/nvim/init.lua:0
+027.441  000.001  000.001: sourcing nvim_exec2() called at /home/sabamiso/.config/nvim/init.lua:0
+027.641  000.002  000.002: sourcing nvim_exec2() called at /home/sabamiso/.config/nvim/init.lua:0
+027.651  000.001  000.001: sourcing nvim_exec2() called at /home/sabamiso/.config/nvim/init.lua:0
+027.663  000.001  000.001: sourcing nvim_exec2() called at /home/sabamiso/.config/nvim/init.lua:0
+027.727  000.021  000.021: sourcing /home/sabamiso/.local/share/nvim/lazy/vimtex/ftdetect/cls.vim
+027.729  000.040  000.019: sourcing nvim_exec2() called at /home/sabamiso/.config/nvim/init.lua:0
+027.755  000.013  000.013: sourcing /home/sabamiso/.local/share/nvim/lazy/vimtex/ftdetect/tex.vim
+027.756  000.024  000.012: sourcing nvim_exec2() called at /home/sabamiso/.config/nvim/init.lua:0
+027.776  000.007  000.007: sourcing /home/sabamiso/.local/share/nvim/lazy/vimtex/ftdetect/tikz.vim
+027.777  000.017  000.011: sourcing nvim_exec2() called at /home/sabamiso/.config/nvim/init.lua:0
+027.779  000.001  000.001: sourcing nvim_exec2() called at /home/sabamiso/.config/nvim/init.lua:0
+027.911  000.002  000.002: sourcing nvim_exec2() called at /home/sabamiso/.config/nvim/init.lua:0
+027.973  000.029  000.029: sourcing /home/sabamiso/.local/share/nvim/lazy/vim-markdown/ftdetect/markdown.vim
+027.974  000.044  000.015: sourcing nvim_exec2() called at /home/sabamiso/.config/nvim/init.lua:0
+027.977  000.001  000.001: sourcing nvim_exec2() called at /home/sabamiso/.config/nvim/init.lua:0
+028.016  000.001  000.001: sourcing nvim_exec2() called at /home/sabamiso/.config/nvim/init.lua:0
+028.022  000.000  000.000: sourcing nvim_exec2() called at /home/sabamiso/.config/nvim/init.lua:0
+031.475  001.565  001.565: sourcing nvim_exec2() called at /tmp/.mount_nvim.aigMmpI/usr/share/nvim/runtime/filetype.lua:0
+031.481  002.241  000.675: sourcing /tmp/.mount_nvim.aigMmpI/usr/share/nvim/runtime/filetype.lua
+031.496  003.150  000.910: sourcing nvim_exec2() called at /home/sabamiso/.config/nvim/init.lua:0
+031.612  000.009  000.009: sourcing nvim_exec2() called at /home/sabamiso/.config/nvim/init.lua:0
+033.879  000.569  000.569: sourcing /tmp/.mount_nvim.aigMmpI/usr/share/nvim/runtime/plugin/editorconfig.lua
+033.900  001.013  000.443: sourcing nvim_exec2() called at /home/sabamiso/.config/nvim/init.lua:0
+035.580  001.326  001.326: sourcing /tmp/.mount_nvim.aigMmpI/usr/share/nvim/runtime/plugin/matchparen.vim
+035.597  001.652  000.327: sourcing nvim_exec2() called at /home/sabamiso/.config/nvim/init.lua:0
+036.406  000.393  000.393: sourcing /tmp/.mount_nvim.aigMmpI/usr/share/nvim/runtime/plugin/osc52.lua
+036.423  000.800  000.407: sourcing nvim_exec2() called at /home/sabamiso/.config/nvim/init.lua:0
+037.208  000.006  000.006: sourcing /home/sabamiso/.local/share/nvim/rplugin.vim
+037.216  000.365  000.359: sourcing /tmp/.mount_nvim.aigMmpI/usr/share/nvim/runtime/plugin/rplugin.vim
+037.219  000.787  000.422: sourcing nvim_exec2() called at /home/sabamiso/.config/nvim/init.lua:0
+039.716  000.292  000.292: sourcing /tmp/.mount_nvim.aigMmpI/usr/share/nvim/runtime/plugin/shada.vim
+039.743  002.511  002.218: sourcing nvim_exec2() called at /home/sabamiso/.config/nvim/init.lua:0
+040.314  000.214  000.214: sourcing /tmp/.mount_nvim.aigMmpI/usr/share/nvim/runtime/plugin/spellfile.vim
+040.321  000.564  000.349: sourcing nvim_exec2() called at /home/sabamiso/.config/nvim/init.lua:0
+040.902  020.530  006.157: require('plugins')
+041.066  000.161  000.161: require('ftmapping')
+041.068  021.839  000.338: sourcing /home/sabamiso/.config/nvim/init.lua
+041.074  001.269: sourcing vimrc file(s)
+041.337  000.068  000.068: sourcing /tmp/.mount_nvim.aigMmpI/usr/share/nvim/runtime/filetype.lua
+045.830  000.164  000.164: sourcing /tmp/.mount_nvim.aigMmpI/usr/share/nvim/runtime/syntax/synload.vim
+045.902  002.632  002.468: sourcing /tmp/.mount_nvim.aigMmpI/usr/share/nvim/runtime/syntax/syntax.vim
+045.918  002.145: inits 3
+047.900  001.982: reading ShaDa
+048.023  000.124: opening buffers
+048.025  000.002: BufEnter autocommands
+048.027  000.002: editing files in windows
+048.052  000.026: VimEnter autocommands
+048.143  000.003  000.003: sourcing nvim_exec2() called at UIEnter Autocommands for "*":0
+048.151  000.001  000.001: sourcing nvim_exec2() called at UIEnter Autocommands for "*":0
+051.881  002.674  002.674: sourcing /home/sabamiso/.local/share/nvim/lazy/gruvbox/colors/gruvbox.vim
+051.888  003.729  001.056: sourcing nvim_exec2() called at UIEnter Autocommands for "*":0
+052.004  000.220: UIEnter autocommands
+054.527  001.566  001.566: sourcing /tmp/.mount_nvim.aigMmpI/usr/share/nvim/runtime/autoload/provider/clipboard.vim
+054.556  000.986: before starting main loop
+056.663  002.107: first screen update
+056.666  000.002: --- NVIM STARTED ---
+
