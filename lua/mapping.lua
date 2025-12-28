@@ -104,3 +104,12 @@ for k, v in pairs({
 }) do
   vim.keymap.set('n', k, v, bufopts)
 end
+
+-- <C-space> for IME
+do
+  local opts = { noremap = true, silent = true }
+  vim.keymap.set({ "i", "c" }, "<Nul>", "<Nop>", opts)
+  vim.keymap.set({ "i", "c" }, "<C-@>", "<Nop>", opts)
+  -- GUI等で <C-Space> として届く場合もあるため念のため
+  vim.keymap.set({ "i", "c" }, "<C-Space>", "<Nop>", opts)
+end
