@@ -1,4 +1,4 @@
--- lazy.nvim bootstrap (公式ドキュメント準拠)
+-- lazy.nvim bootstrap
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 local uv = vim.uv or vim.loop
 if not uv.fs_stat(lazypath) then
@@ -74,7 +74,7 @@ require("lazy").setup({
 
     {
       "nvim-lualine/lualine.nvim",
-      event = "VeryLazy", -- ★ BufReadPost で読まない
+      event = "VeryLazy",
       dependencies = { "nvim-tree/nvim-web-devicons" },
       config = function()
         require("lua_line")
@@ -82,7 +82,7 @@ require("lazy").setup({
     },
 
     ---------------------------------------------------------------------------
-    -- Telescope（キー/コマンドで遅延ロード）
+    -- Telescope
     ---------------------------------------------------------------------------
     {
       "nvim-telescope/telescope.nvim",
@@ -252,7 +252,7 @@ require("lazy").setup({
       "nvim-treesitter/nvim-treesitter",
       branch = "master",
       build = ":TSUpdate",
-      event = "VeryLazy", -- ★ BufReadPost で読まない
+      event = "VeryLazy",
       config = function()
         local ok, configs = pcall(require, "nvim-treesitter.configs")
         if not ok then
@@ -442,7 +442,7 @@ require("lazy").setup({
 
     {
       "lewis6991/gitsigns.nvim",
-      event = "VeryLazy", -- ★ BufReadPost で読まない
+      event = "VeryLazy",
       dependencies = { "petertriho/nvim-scrollbar" },
       config = function()
         require("gitsigns").setup({
@@ -506,7 +506,7 @@ require("lazy").setup({
       },
       init = function()
         vim.g.translator_target_lang = "ja"
-        vim.g.translator_default_engines = { "google" } -- 文字列でも動くがテーブル推奨
+        vim.g.translator_default_engines = { "google" }
         vim.g.translator_window_type = "popup"
         vim.g.translator_window_max_width = 0.6
         vim.g.translator_window_max_height = 0.6
@@ -688,7 +688,19 @@ require("lazy").setup({
       init = function()
         vim.g.mkdp_filetypes = { "markdown" }
       end,
+      -- copy cmd.exe to wsl env
     },
+
+    -- {
+    --   "HakonHarnes/img-clip.nvim",
+    --   cmd = { "PasteImage", "ImgClipDebug", "ImgClipConfig" },
+    --   keys = {
+    --     { "<Leader>p", "<Cmd>PasteImage<CR>", desc = "Paste image from clipboard" },
+    --   },
+    --   opts = function()
+    --     return require("img_clip").opts()
+    --   end,
+    -- },
 
     ---------------------------------------------------------------------------
     -- textobj 系（vimscript）
@@ -770,7 +782,6 @@ require("lazy").setup({
           "man",
           "netrwPlugin",
           "matchit",
-          -- ここから先は慎重に
           -- "matchparen",
           -- "shada",
           -- "spellfile",
