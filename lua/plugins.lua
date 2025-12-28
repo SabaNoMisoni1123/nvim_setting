@@ -489,8 +489,8 @@ require("lazy").setup({
     {
       "sindrets/diffview.nvim",
       keys = {
-        { "<Leader>gd", "<CMD>DiffviewOpen<CR>",  desc = "DiffviewOpen" },
-        { "<Leader>gq", "<CMD>DiffviewClose<CR>", desc = "DiffviewClose" },
+        { "<Leader>gd", "<Cmd>DiffviewOpen<CR>",  desc = "DiffviewOpen" },
+        { "<Leader>gq", "<Cmd>DiffviewClose<CR>", desc = "DiffviewClose" },
       },
       dependencies = { "nvim-lua/plenary.nvim" },
     },
@@ -499,24 +499,24 @@ require("lazy").setup({
     -- translate / memo / utility
     ---------------------------------------------------------------------------
     {
-      "skanehira/translate.vim",
-      event = { "InsertEnter", "CmdlineEnter", "CursorHold" },
+      "voldikss/vim-translator",
+      cmd = "Translate",
+      keys = {
+        { "<Leader>x", ":'<,'>Translate<CR>", mode = { "v", "x" }, desc = "Translate selection" },
+      },
+      init = function()
+        vim.g.translator_target_lang = "ja"
+        vim.g.translator_default_engines = { "google" } -- 文字列でも動くがテーブル推奨
+        vim.g.translator_window_type = "popup"
+        vim.g.translator_window_max_width = 0.6
+        vim.g.translator_window_max_height = 0.6
+      end,
+    },
+    {
+      "potamides/pantran.nvim",
+      cmd = { "Pantran", "PantranSmart", "PantranEngine" },
       config = function()
-        vim.g.translate_source = "en"
-        vim.g.translate_target = "ja"
-        vim.g.translate_popup_window = 0
-        vim.g.translate_winsize = 10
-        vim.keymap.set("v", "<Leader>x", "<Plug>(VTranslate)", { noremap = true })
-        vim.api.nvim_create_user_command("SwapTransrateLang", function()
-          if vim.g.translate_source == "en" then
-            local tmp = vim.g.translate_source
-            vim.g.translate_source = vim.g.translate_target
-            vim.g.translate_target = tmp
-          end
-        end, {})
-        vim.api.nvim_create_user_command("CheckTransrateLang", function()
-          print(vim.g.translate_source .. " > " .. vim.g.translate_target)
-        end, {})
+        require("pantran_config").setup()
       end,
     },
 
