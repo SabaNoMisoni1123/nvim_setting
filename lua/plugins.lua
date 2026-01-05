@@ -168,6 +168,7 @@ require("lazy").setup({
       event = { "BufReadPre", "BufNewFile" },
       dependencies = {
         "ray-x/lsp_signature.nvim",
+        "hrsh7th/cmp-nvim-lsp",
       },
       config = function()
         require("lsp")

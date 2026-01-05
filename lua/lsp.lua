@@ -1,14 +1,12 @@
 -- ===============================
--- LSP 全体設定（Neovim 0.11+ 対応版 / 高速化）
+-- LSP 全体設定（Neovim 0.11.4 + nvim-lspconfig v2 前提）
+-- 目的:
+--  - lazy.nvim で遅延ロード（BufReadPre/BufNewFile）を維持
+--  - 自前 FileType ルーティングを捨て、vim.lsp.enable() に一本化して取りこぼし防止
 -- ===============================
 
-local enabled = {}
+-- ---- utils ----
 local exe_cache = {}
-local npm_root_cache = nil -- string | false | nil(未確定)
-
--- ---------- utils ----------
-local function trim(s) return (s:gsub("%s+$", "")) end
-
 local function cmd_exists(cmd)
   if exe_cache[cmd] ~= nil then return exe_cache[cmd] end
   local ok = (vim.fn.executable(cmd) == 1)
@@ -16,21 +14,9 @@ local function cmd_exists(cmd)
   return ok
 end
 
-local function prewarm_npm_root()
-  if npm_root_cache ~= nil then return end
-  if vim.system then
-    vim.system({ "npm", "-g", "root" }, { text = true }, function(obj)
-      local v = false
-      if obj.code == 0 and obj.stdout and obj.stdout ~= "" then
-        v = trim(obj.stdout)
-      end
-      vim.schedule(function()
-        npm_root_cache = v
-      end)
-    end)
-  end
-end
+local function trim(s) return (s:gsub("%s+$", "")) end
 
+local npm_root_cache = nil -- string | false | nil
 local function get_npm_global_root()
   if npm_root_cache ~= nil then return npm_root_cache end
   if not cmd_exists("npm") then
@@ -46,14 +32,14 @@ local function get_npm_global_root()
   return npm_root_cache
 end
 
--- ---------- common ----------
+-- ---- common ----
 local lsp_flags = { debounce_text_changes = 150 }
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities(
-  vim.lsp.protocol.make_client_capabilities()
-)
+local base_cap = vim.lsp.protocol.make_client_capabilities()
+local ok_cmp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
+local capabilities = ok_cmp and cmp_lsp.default_capabilities(base_cap) or base_cap
 
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
   vim.keymap.set("n", "<leader>lc", vim.lsp.buf.declaration, bufopts)
@@ -65,8 +51,9 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<leader>lf", function() vim.lsp.buf.format({ async = true }) end, bufopts)
 
   vim.keymap.set("n", "<leader>le", vim.diagnostic.open_float, bufopts)
-  -- vim.keymap.set("n", "]q", vim.diagnostic.goto_next, bufopts)
-  -- vim.keymap.set("n", "[q", vim.diagnostic.goto_prev, bufopts)
+  vim.keymap.set("n", "]q", function() vim.diagnostic.jump({ count = 1, float = true }) end, bufopts)
+  vim.keymap.set("n", "[q", function() vim.diagnostic.jump({ count = -1, float = true }) end, bufopts)
+  vim.keymap.set("n", "<C-a>", vim.lsp.buf.code_action, bufopts)
 
   vim.keymap.set("n", "<leader>lk", function()
     require("telescope.builtin").lsp_references()
@@ -79,166 +66,109 @@ local on_attach = function(client, bufnr)
   end, bufopts)
 end
 
--- ---------- per-server config ----------
-local function server_config(name)
-  if name == "grammarly" then
-    return { filetypes = { "markdown", "text", "tex" } }
-  elseif name == "ts_ls" then
-    local root = get_npm_global_root()
-    local plugin_loc = nil
-    if root and root ~= false then
-      plugin_loc = root .. "/@vue/typescript-plugin"
-    end
-    local cfg = {
-      filetypes = { "javascript", "typescript", "vue" },
-      init_options = { plugins = {} },
-    }
-    if plugin_loc then
-      table.insert(cfg.init_options.plugins, {
-        name = "@vue/typescript-plugin",
-        location = plugin_loc,
-        languages = { "javascript", "typescript", "vue" },
-      })
-    end
-    return cfg
-  elseif name == "vue_ls" then
-    local root = get_npm_global_root()
-    local tsdk = nil
-    if root and root ~= false then
-      tsdk = root .. "/typescript/lib"
-    end
-    local cfg = { init_options = { typescript = {} } }
-    if tsdk then
-      cfg.init_options.typescript.tsdk = tsdk
-    end
-    return cfg
-  elseif name == "efm" then
-    return {
-      filetypes = { "markdown", "tex", "asciidoc", "rst", "org" },
-      init_options = { documentFormatting = true },
-      settings = { rootMarkers = { ".git/" } },
-    }
-  elseif name == "lua_ls" then
-    return {
-      settings = {
-        Lua = {
-          runtime = { version = "LuaJIT" },
-          diagnostics = { globals = { "vim" } },
-          workspace = { library = vim.api.nvim_get_runtime_file("", true) },
-          telemetry = { enable = false },
-        },
-      },
-    }
-  else
-    return {}
+local function enable_if_installed(name, cmd, extra_cfg)
+  if cmd and not cmd_exists(cmd) then
+    return false
   end
-end
 
-local function setup_and_enable(name, cmd)
-  if enabled[name] then return end
-  if cmd and not cmd_exists(cmd) then return end
-
-  local cfg = server_config(name)
+  local cfg = extra_cfg or {}
   cfg.on_attach = on_attach
   cfg.flags = lsp_flags
   cfg.capabilities = capabilities
 
+  -- nvim-lspconfig のデフォルト設定を拡張
   vim.lsp.config(name, cfg)
   vim.lsp.enable(name)
-  enabled[name] = true
+  return true
 end
 
--- ---------- FileType -> LSP mapping ----------
--- 必要な時にだけ setup_and_enable する
-local function enable_for_filetype(ft)
-  if ft == "python" then
-    if cmd_exists("pyright") then
-      setup_and_enable("pyright", "pyright")
-    else
-      setup_and_enable("pylsp", "pylsp")
-    end
-    return
-  end
+-- ---- per-server (必要最小限の上書きだけ) ----
 
-  if ft == "typescript" or ft == "typescriptreact" or ft == "javascript" or ft == "javascriptreact" then
-    setup_and_enable("ts_ls", "typescript-language-server")
-    return
-  end
-
-  if ft == "vue" then
-    setup_and_enable("vue_ls", "vue-language-server")
-    setup_and_enable("ts_ls", "typescript-language-server")
-    return
-  end
-
-  if ft == "vim" then
-    setup_and_enable("vimls", "vim-language-server")
-    return
-  end
-
-  if ft == "tex" then
-    setup_and_enable("texlab", "texlab")
-    setup_and_enable("ltex", "ltex-ls")
-    setup_and_enable("efm", "efm-langserver")
-    setup_and_enable("grammarly", "grammarly-languageserver")
-    return
-  end
-
-  if ft == "markdown" or ft == "text" then
-    setup_and_enable("ltex", "ltex-ls")
-    setup_and_enable("efm", "efm-langserver")
-    setup_and_enable("grammarly", "grammarly-languageserver")
-    return
-  end
-
-  if ft == "c" or ft == "cpp" then
-    setup_and_enable("clangd", "clangd")
-    return
-  end
-
-  if ft == "rust" then
-    setup_and_enable("rust_analyzer", "rust-analyzer")
-    return
-  end
-
-  if ft == "json" then
-    setup_and_enable("jsonls", "vscode-json-language-server")
-    return
-  end
-
-  if ft == "lua" then
-    setup_and_enable("lua_ls", "lua-language-server")
-    return
-  end
+-- Python: pyright 優先、無ければ pylsp
+if not enable_if_installed("pyright", "pyright-langserver") then
+  enable_if_installed("pylsp", "pylsp")
 end
 
--- 起動後に npm root をバックグラウンドで先読み（ブロックしない）
-vim.api.nvim_create_autocmd("VimEnter", {
-  once = true,
-  callback = function()
-    prewarm_npm_root()
-  end,
+-- TypeScript / JavaScript
+do
+  local root = get_npm_global_root()
+  local plugin_loc = (root and root ~= false) and (root .. "/@vue/typescript-plugin") or nil
+  local cfg = {
+    -- ts_ls 側の filetypes はデフォルトに任せる（必要ならここで上書き）
+    init_options = { plugins = {} },
+  }
+  if plugin_loc then
+    table.insert(cfg.init_options.plugins, {
+      name = "@vue/typescript-plugin",
+      location = plugin_loc,
+      languages = { "javascript", "typescript", "vue" },
+    })
+  end
+  enable_if_installed("ts_ls", "typescript-language-server", cfg)
+end
+
+-- Vue
+do
+  local root = get_npm_global_root()
+  local tsdk = (root and root ~= false) and (root .. "/typescript/lib") or nil
+  local cfg = { init_options = { typescript = {} } }
+  if tsdk then
+    cfg.init_options.typescript.tsdk = tsdk
+  end
+  enable_if_installed("vue_ls", "vue-language-server", cfg)
+end
+
+-- Lua
+enable_if_installed("lua_ls", "lua-language-server", {
+  settings = {
+    Lua = {
+      runtime = { version = "LuaJIT" },
+      diagnostics = { globals = { "vim" } },
+      workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+      telemetry = { enable = false },
+    },
+  },
 })
 
--- FileTypeごとに必要なサーバだけ有効化
-vim.api.nvim_create_autocmd("FileType", {
-  callback = function(args)
-    enable_for_filetype(vim.bo[args.buf].filetype)
-  end,
+-- C/C++
+enable_if_installed("clangd", "clangd")
+
+-- Rust
+enable_if_installed("rust_analyzer", "rust-analyzer")
+
+-- JSON
+enable_if_installed("jsonls", "vscode-json-language-server")
+
+-- Vim script
+enable_if_installed("vimls", "vim-language-server")
+
+-- TeX
+enable_if_installed("texlab", "texlab")
+enable_if_installed("ltex", "ltex-ls")
+
+-- EFM (Markdown/Text)
+enable_if_installed("efm", "efm-langserver", {
+  init_options = { documentFormatting = true },
+  settings = { rootMarkers = { ".git/" } },
 })
 
--- ---------- lsp_signature ----------
--- ここは軽量だが、LspAttach後でも良い。現状維持（必要なら後で遅延へ）
-require("lsp_signature").setup({
-  floating_window = true,
-  floating_window_above_cur_line = true,
-  bind = true,
-  handler_opts = { border = "single" },
-  zindex = 10,
-  doc_lines = 0,
+enable_if_installed("grammarly", "grammarly-languageserver", {
+  filetypes = { "markdown", "text", "tex" },
 })
 
--- ---------- diagnostics ----------
+-- ---- lsp_signature ----
+pcall(function()
+  require("lsp_signature").setup({
+    floating_window = true,
+    floating_window_above_cur_line = true,
+    bind = true,
+    handler_opts = { border = "single" },
+    zindex = 10,
+    doc_lines = 0,
+  })
+end)
+
+-- ---- diagnostics ----
 vim.diagnostic.config({
   virtual_text = { spacing = 1 },
   signs = {
