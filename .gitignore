@@ -11,3 +11,6 @@ local_settings.vim
 test*
 local*
 .luarc.json
+lazy-lock.json
+tree.txt
+*.log

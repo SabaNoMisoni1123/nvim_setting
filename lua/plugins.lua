@@ -28,7 +28,6 @@ local colorscheme_cfg_path = vim.fn.stdpath("config") .. "/local_colorscheme.lua
 local colorspec
 
 if vim.fn.filereadable(colorscheme_cfg_path) == 1 then
-  -- dofile を二重に呼ばず、1回の読み込み結果を使う（実行時エラー/副作用回避）
   local cfg = dofile(colorscheme_cfg_path)
   colorspec = {
     cfg.repo,
@@ -284,29 +283,38 @@ require("lazy").setup({
     },
 
     ---------------------------------------------------------------------------
-    -- quickrun
+    -- overseer
     ---------------------------------------------------------------------------
     {
-      "thinca/vim-quickrun",
-      cmd = { "QuickRun" },
-      keys = {
-        {
-          "<Leader>x",
-          function()
-            require("quickrun_config").setup()
-            vim.cmd("QuickRun")
-          end,
-          desc = "QuickRun",
-        },
-        {
-          "<Leader><Leader>x",
-          function()
-            require("quickrun_config").setup()
-            vim.cmd("QuickRun ")
-          end,
-          desc = "QuickRun (prompt)",
-        },
+      "stevearc/overseer.nvim",
+      cmd = {
+        "OverseerOpen",
+        "OverseerClose",
+        "OverseerToggle",
+        "OverseerSaveBundle",
+        "OverseerLoadBundle",
+        "OverseerDeleteBundle",
+        "OverseerRunCmd",
+        "OverseerRun",
+        "OverseerInfo",
+        "OverseerBuild",
+        "OverseerQuickAction",
+        "OverseerTaskAction ",
+        "OverseerClearCache",
       },
+      keys = {
+        { "<Leader>x", "<Cmd>OverseerRun<CR>",    desc = "Run task" },
+        { "<Leader>o", "<Cmd>OverseerToggle<CR>", desc = "Toggle task list" },
+      },
+      config = function()
+        require("overseer").setup({
+          templates = {
+            "markdown2html",
+            "python",
+            "builtin",
+          }
+        })
+      end,
     },
 
     ---------------------------------------------------------------------------
@@ -355,7 +363,7 @@ require("lazy").setup({
 
     {
       "lukas-reineke/indent-blankline.nvim",
-      event = "VeryLazy", -- ★ BufReadPost で読まない
+      event = "VeryLazy",
       dependencies = { "nvim-treesitter/nvim-treesitter" },
       config = function()
         require("ibl").setup({ indent = { char = "|" } })
@@ -535,7 +543,6 @@ require("lazy").setup({
         vim.g.memolist_filename_date        = "%y%m%d_"
         vim.g.memolist_delimiter_yaml_start = "---"
         vim.g.memolist_delimiter_yaml_end   = "---"
-        vim.g.memolist_template_dir_path    = os.getenv("XDG_CONFIG_HOME") .. "/nvim/templates"
       end,
     },
 
@@ -687,6 +694,7 @@ require("lazy").setup({
       end,
       init = function()
         vim.g.mkdp_filetypes = { "markdown" }
+        vim.g.mkdp_markdown_css = vim.fn.stdpath("config") .. "/assets/my_style.css"
       end,
       -- copy cmd.exe to wsl env
     },

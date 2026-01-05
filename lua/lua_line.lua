@@ -155,16 +155,12 @@ require('lualine').setup {
   sections = {
     lualine_a = { function() return mode_map[vim.api.nvim_get_mode()["mode"]] or '' end },
     lualine_b = {
-      {
-        'diagnostics',
-        symbols = { error = '', warn = '', info = '', hint = '' },
-      }
-    },
-    lualine_c = {
       'branch',
       {
         project_root, cond = function() return project_root() ~= '' end
       },
+    },
+    lualine_c = {
       {
         'filename',
         path = 1, -- 0:tail 1:relative 2:absolute 3:absolute
@@ -174,6 +170,11 @@ require('lualine').setup {
     },
     lualine_x = {
       { 'filetype',      icon_only = true },
+      { 'overseer' },
+      {
+        'diagnostics',
+        symbols = { error = '', warn = '', info = '', hint = '' },
+      },
       { vimtex_status,   cond = function() return vim.bo.filetype == 'tex' end },
       { gitsigns_status, cond = function() return type(vim.b.gitsigns_status_dict) == "table" end },
       { macro_recording, cond = function() return vim.fn.reg_recording() ~= '' end },
