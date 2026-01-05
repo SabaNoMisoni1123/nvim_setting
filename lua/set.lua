@@ -1,3 +1,5 @@
+-- lua/set.lua
+
 vim.opt.signcolumn = "yes"
 vim.opt.timeoutlen = 400
 vim.opt.updatetime = 100
@@ -46,5 +48,3 @@ vim.opt.backupdir = os.getenv("XDG_CONFIG_HOME") .. "/nvim/tmp"
 vim.opt.directory = os.getenv("XDG_CONFIG_HOME") .. "/nvim/tmp"
 vim.opt.undodir = os.getenv("XDG_CONFIG_HOME") .. "/nvim/tmp"
 vim.opt.viewdir = os.getenv("XDG_CONFIG_HOME") .. "/nvim/tmp"
-
-vim.g.tex_flavor = "latex"

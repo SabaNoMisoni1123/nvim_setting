@@ -1,3 +1,5 @@
+-- lua/mapping.lua
+
 local bufopts = { noremap = true, silent = true }
 
 -- terminal mapping

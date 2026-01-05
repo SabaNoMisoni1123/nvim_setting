@@ -1,11 +1,16 @@
--- terminal mode
--- neogit に干渉
--- vim.api.nvim_create_autocmd("TermOpen", {
---   command = "startinsert"
--- })
+-- lua/autocmd.lua
+-- markdown
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt.formatoptions:append { "r" }
+  end,
+})
 
--- file type の追加
--- そのうちやる
-
--- binary setting
--- そのうちやる
+-- tex
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "tex", "latex" },
+  callback = function()
+    vim.g.tex_flavor = "latex"
+  end,
+})

@@ -1,4 +1,5 @@
--- nvim-cmp main setup
+-- lua/nvim_cmp.lua
+
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 local lspkind = require 'lspkind'

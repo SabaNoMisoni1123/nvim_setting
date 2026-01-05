@@ -1,4 +1,4 @@
--- ~/.config/nvim/lua/quickrun_config.lua
+-- lua/quickrun_config.lua
 local M = {}
 
 local function exe(cmd)

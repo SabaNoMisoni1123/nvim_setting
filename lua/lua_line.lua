@@ -1,3 +1,5 @@
+-- lua/lua_line.lua
+
 local mode_map  = {}
 mode_map['n']   = ''
 mode_map['no']  = ''

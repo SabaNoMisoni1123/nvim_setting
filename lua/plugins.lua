@@ -1,4 +1,5 @@
--- lazy.nvim bootstrap
+-- lua/plugins.lua
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 local uv = vim.uv or vim.loop
 if not uv.fs_stat(lazypath) then
@@ -169,6 +170,7 @@ require("lazy").setup({
       dependencies = {
         "ray-x/lsp_signature.nvim",
         "hrsh7th/cmp-nvim-lsp",
+        "creativenull/efmls-configs-nvim",
       },
       config = function()
         require("lsp")
@@ -547,8 +549,15 @@ require("lazy").setup({
       end,
     },
 
-    { "junegunn/vim-easy-align", keys = { { "ga", mode = "x", desc = "EasyAlign" } } },
-    { "cohama/lexima.vim",       event = "InsertEnter" },
+    { "junegunn/vim-easy-align",    keys = { { "ga", mode = "x", desc = "EasyAlign" } } },
+
+    {
+      "nvim-mini/mini.pairs",
+      event = "InsertEnter",
+      config = function()
+        require("mini.pairs").setup({})
+      end,
+    },
 
     {
       "t9md/vim-quickhl",
@@ -642,6 +651,11 @@ require("lazy").setup({
     },
 
     {
+      "creativenull/efmls-configs-nvim",
+      ft = { "markdown" }, -- markdown を開いた時だけロード
+    },
+
+    {
       "plasticboy/vim-markdown",
       ft = { "markdown" },
       config = function()
@@ -650,39 +664,6 @@ require("lazy").setup({
         vim.g.vim_markdown_conceal_code_blocks = 0
         vim.g.vim_markdown_math = 1
         vim.g.vim_markdown_new_list_item_indent = 0
-      end,
-    },
-
-    {
-      "dkarter/bullets.vim",
-      ft = { "markdown", "text", "gitcommit" },
-      init = function()
-        vim.g.bullets_set_mappings = 0
-        vim.cmd([[
-        let g:bullets_enabled_file_types = [
-          \ 'markdown',
-          \ 'text',
-          \ 'gitcommit',
-          \]
-      ]])
-        vim.g.bullets_outline_levels = { "- " }
-      end,
-      config = function()
-        vim.keymap.set("n", "o", "<Plug>(bullets-newline)", { noremap = true })
-        vim.keymap.set("n", "<leader>cn", "<Plug>(bullets-renumber)", { noremap = true })
-        vim.keymap.set("n", "<leader>cc", "<Plug>(bullets-toggle-checkbox)", { noremap = true })
-        vim.keymap.set("n", ">", "<Plug>(bullets-demote)", { noremap = true })
-        vim.keymap.set("n", "<", "<Plug>(bullets-promote)", { noremap = true })
-
-        vim.keymap.set("v", "<leader>cn", "<Plug>(bullets-renumber)", { noremap = true })
-        vim.keymap.set("v", ">", "<Plug>(bullets-demote)", { noremap = true })
-        vim.keymap.set("v", "<", "<Plug>(bullets-promote)", { noremap = true })
-
-        vim.keymap.set("i", "<cr>", "<Plug>(bullets-newline)", { noremap = true })
-        vim.keymap.set("i", "<C-t>", "<Plug>(bullets-demote)", { noremap = true })
-        vim.keymap.set("i", "<C-d>", "<Plug>(bullets-promote)", { noremap = true })
-        vim.keymap.set("i", "<Tab>", "<Plug>(bullets-demote)", { noremap = true })
-        vim.keymap.set("i", "<S-tab>", "<Plug>(bullets-promote)", { noremap = true })
       end,
     },
 
@@ -715,7 +696,7 @@ require("lazy").setup({
     ---------------------------------------------------------------------------
     -- textobj 系（vimscript）
     ---------------------------------------------------------------------------
-    { "kana/vim-textobj-user",      lazy = true },
+    { "kana/vim-textobj-user",             lazy = true },
 
     {
       "kana/vim-textobj-syntax",

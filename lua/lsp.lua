@@ -1,3 +1,4 @@
+-- lua/lsp.lua
 -- ===============================
 -- LSP 全体設定（Neovim 0.11.4 + nvim-lspconfig v2 前提）
 -- 目的:
@@ -106,6 +107,7 @@ do
   end
   enable_if_installed("ts_ls", "typescript-language-server", cfg)
 end
+enable_if_installed("eslint", "vscode-eslint-language-server")
 
 -- Vue
 do
@@ -147,14 +149,26 @@ enable_if_installed("texlab", "texlab")
 enable_if_installed("ltex", "ltex-ls")
 
 -- EFM (Markdown/Text)
-enable_if_installed("efm", "efm-langserver", {
-  init_options = { documentFormatting = true },
-  settings = { rootMarkers = { ".git/" } },
-})
+do
+  local ok, efm_md = pcall(require, "lsp.efm_markdown")
+  local extra = ok and efm_md.efm_extra_cfg() or {
+    init_options = { documentFormatting = true },
+    settings = { rootMarkers = { ".git/" } },
+  }
+  enable_if_installed("efm", "efm-langserver", extra)
+end
+enable_if_installed("marksman", "marksman")
 
 enable_if_installed("grammarly", "grammarly-languageserver", {
   filetypes = { "markdown", "text", "tex" },
 })
+
+-- HTML
+enable_if_installed("html", "vscode-html-language-server")
+
+-- CSS
+enable_if_installed("cssls", "vscode-css-languageserver")
+enable_if_installed("css_variables", "css-variables-language-server")
 
 -- ---- lsp_signature ----
 pcall(function()

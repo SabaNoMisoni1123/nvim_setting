@@ -1,3 +1,5 @@
+-- lua/ftmapping.lua
+
 local autocmd_filetype = vim.api.nvim_create_augroup('filetypes', { clear = true })
 local bufopts = { noremap = true, buffer = 0 }
 
