@@ -694,6 +694,7 @@ require("lazy").setup({
       end,
       init = function()
         vim.g.mkdp_filetypes = { "markdown" }
+        vim.g.mkdp_theme = 'light'
         vim.g.mkdp_markdown_css = vim.fn.stdpath("config") .. "/assets/my_style.css"
       end,
       -- copy cmd.exe to wsl env
