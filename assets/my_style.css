@@ -300,89 +300,154 @@ body.vscode-body li p,
 
 /* ---------- ul: 深さごとに「記号」と「色」を変える ---------- */
 /* 記号（list-style-type はマーカー種別を設定できる） :contentReference[oaicite:3]{index=3} */
-:is(body, body.vscode-body, .markdown-body, .body, .markdown-preview.markdown-preview) ul {
+
+body ul,
+body.vscode-body ul,
+.markdown-body ul,
+.markdown-preview.markdown-preview ul,
+.body ul {
     list-style-type: "■ ";
 }
 
-:is(body, body.vscode-body, .markdown-body, .body, .markdown-preview.markdown-preview) ul ul {
+body ul ul,
+body.vscode-body ul ul,
+.markdown-body ul ul,
+.markdown-preview.markdown-preview ul ul,
+.body ul ul {
     list-style-type: "● ";
 }
 
-:is(body, body.vscode-body, .markdown-body, .body, .markdown-preview.markdown-preview) ul ul ul {
+body ul ul ul,
+body.vscode-body ul ul ul,
+.markdown-body ul ul ul,
+.markdown-preview.markdown-preview ul ul ul,
+.body ul ul ul {
     list-style-type: "○ ";
 }
 
-:is(body, body.vscode-body, .markdown-body, .body, .markdown-preview.markdown-preview) ul ul ul ul {
+body ul ul ul ul,
+body.vscode-body ul ul ul ul,
+.markdown-body ul ul ul ul,
+.markdown-preview.markdown-preview ul ul ul ul,
+.body ul ul ul ul {
     list-style-type: "▶ ";
 }
 
 /* 色（::marker でマーカー箱を選択できる） :contentReference[oaicite:4]{index=4} */
-:is(body, body.vscode-body, .markdown-body, .body, .markdown-preview.markdown-preview) ul>li::marker {
+body ul>li::marker,
+body.vscode-body ul>li::marker,
+.markdown-body ul>li::marker,
+.markdown-preview.markdown-preview ul>li::marker,
+.body ul>li::marker {
     color: var(--ul-marker-1);
 }
 
-:is(body, body.vscode-body, .markdown-body, .body, .markdown-preview.markdown-preview) ul ul>li::marker {
+body ul ul>li::marker,
+body.vscode-body ul ul>li::marker,
+.markdown-body ul ul>li::marker,
+.markdown-preview.markdown-preview ul ul>li::marker,
+.body ul ul>li::marker {
     color: var(--ul-marker-2);
 }
 
-:is(body, body.vscode-body, .markdown-body, .body, .markdown-preview.markdown-preview) ul ul ul>li::marker {
+body ul ul ul>li::marker,
+body.vscode-body ul ul ul>li::marker,
+.markdown-body ul ul ul>li::marker,
+.markdown-preview.markdown-preview ul ul ul>li::marker,
+.body ul ul ul>li::marker {
     color: var(--ul-marker-3);
 }
 
-:is(body, body.vscode-body, .markdown-body, .body, .markdown-preview.markdown-preview) ul ul ul ul>li::marker {
+body ul ul ul ul>li::marker,
+body.vscode-body ul ul ul ul>li::marker,
+.markdown-body ul ul ul ul>li::marker,
+.markdown-preview.markdown-preview ul ul ul ul>li::marker,
+.body ul ul ul ul>li::marker {
     color: var(--ul-marker-4);
 }
 
 /* ---------- ol: 深さごとに「番号形式」と「色」を変える ---------- */
 /* 番号形式（decimal / lower-alpha / lower-roman など） :contentReference[oaicite:5]{index=5} */
-:is(body, body.vscode-body, .markdown-body, .body, .markdown-preview.markdown-preview) ol {
+body ol,
+body.vscode-body ol,
+.markdown-body ol,
+.markdown-preview.markdown-preview ol,
+.body ol {
     list-style-type: decimal;
 }
 
-:is(body, body.vscode-body, .markdown-body, .body, .markdown-preview.markdown-preview) ol ol {
+body ol ol,
+body.vscode-body ol ol,
+.markdown-body ol ol,
+.markdown-preview.markdown-preview ol ol,
+.body ol ol {
     list-style-type: lower-alpha;
 }
 
-:is(body, body.vscode-body, .markdown-body, .body, .markdown-preview.markdown-preview) ol ol ol {
+body ol ol ol,
+body.vscode-body ol ol ol,
+.markdown-body ol ol ol,
+.markdown-preview.markdown-preview ol ol ol,
+.body ol ol ol {
     list-style-type: lower-roman;
 }
 
-:is(body, body.vscode-body, .markdown-body, .body, .markdown-preview.markdown-preview) ol ol ol ol {
+body ol ol ol ol,
+body.vscode-body ol ol ol ol,
+.markdown-body ol ol ol ol,
+.markdown-preview.markdown-preview ol ol ol ol,
+.body ol ol ol ol {
     list-style-type: decimal-leading-zero;
 }
 
 /* 色 */
-:is(body, body.vscode-body, .markdown-body, .body, .markdown-preview.markdown-preview) ol>li::marker {
+body ol>li::marker,
+body.vscode-body ol>li::marker,
+.markdown-body ol>li::marker,
+.markdown-preview.markdown-preview ol>li::marker,
+.body ol>li::marker {
     color: var(--ol-marker-1);
 }
 
-:is(body, body.vscode-body, .markdown-body, .body, .markdown-preview.markdown-preview) ol ol>li::marker {
+body ol ol>li::marker,
+body.vscode-body ol ol>li::marker,
+.markdown-body ol ol>li::marker,
+.markdown-preview.markdown-preview ol ol>li::marker,
+.body ol ol>li::marker {
     color: var(--ol-marker-2);
 }
 
-:is(body, body.vscode-body, .markdown-body, .body, .markdown-preview.markdown-preview) ol ol ol>li::marker {
+body ol ol ol>li::marker,
+body.vscode-body ol ol ol>li::marker,
+.markdown-body ol ol ol>li::marker,
+.markdown-preview.markdown-preview ol ol ol>li::marker,
+.body ol ol ol>li::marker {
     color: var(--ol-marker-3);
 }
 
-:is(body, body.vscode-body, .markdown-body, .body, .markdown-preview.markdown-preview) ol ol ol ol>li::marker {
+body ol ol ol ol>li::marker,
+body.vscode-body ol ol ol ol>li::marker,
+.markdown-body ol ol ol ol>li::marker,
+.markdown-preview.markdown-preview ol ol ol ol>li::marker,
+.body ol ol ol ol>li::marker {
     color: var(--ol-marker-4);
 }
 
 /* リスト行間・li間余白（ネスト深さに依存しない）*/
 /* ul/ol 自体の行間も固定（li側で決めるなら不要だが保険） */
 :is(body, body.vscode-body, .markdown-body, .body, .markdown-preview.markdown-preview) :is(ul, ol) {
-    line-height: var(--li-line);
+    line-height: var(--li-line) !important;
 }
 
 /* li の行間・li間余白を固定（ネスト深さに依存しない） */
 :is(body, body.vscode-body, .markdown-body, .body, .markdown-preview.markdown-preview) :is(ul, ol) li {
-    line-height: var(--li-line);
-    margin-block: var(--li-gap-y);
+    line-height: var(--li-line) !important;
+    margin-block: var(--li-gap-y) !important;
 }
 
 /* li直下の p 等は、本文ルール（pの text-indent / margin）を打ち消してリスト崩れを防ぐ */
 :is(body, body.vscode-body, .markdown-body, .body, .markdown-preview.markdown-preview) :is(ul, ol) li> :is(p, div, blockquote, pre, table) {
-    margin-block: var(--li-inner-gap-y);
+    margin-block: var(--li-inner-gap-y) !important;
 }
 
 /* =========================
