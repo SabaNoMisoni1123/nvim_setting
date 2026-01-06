@@ -200,10 +200,11 @@ cmp.setup.filetype('tex', {
 -- ファイルタイプ別設定：text / markdown
 cmp.setup.filetype({ 'text', 'markdown' }, {
   sources = cmp.config.sources({
-    { name = 'luasnip', group_index = 2, priority = 10 },
-    { name = 'buffer',  group_index = 1, priority = 250 },
-    { name = 'mocword', group_index = 1, priority = 300 },
-    { name = 'path',    group_index = 2, priority = 70 },
+    { name = 'luasnip',  group_index = 1, priority = 500 },
+    { name = 'nvim_lsp', group_index = 1, priority = 300 },
+    { name = 'mocword',  group_index = 2, priority = 300 },
+    { name = 'buffer',   group_index = 2, priority = 250 },
+    { name = 'path',     group_index = 3, priority = 70 },
     {
       name = 'look',
       keyword_length = 1,
