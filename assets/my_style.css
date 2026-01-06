@@ -90,7 +90,7 @@ body.vscode-body,
     word-wrap: break-word;
 
     /* 画像や表が横にはみ出たときに致命傷になりがちなので保険 */
-    overflow-wrap: anyis;
+    overflow-wrap: anywhere;
 }
 
 /* =========================
