@@ -120,7 +120,7 @@ body.vscode-body h2,
 .markdown-preview.markdown-preview h2,
 .body h2 {
     font-size: var(--h2-font);
-    font-weight: 650;
+    font-weight: bold;
     color: var(--accent);
     margin: 0.5em 0 0.5em;
     padding-bottom: 0.25em;
@@ -133,7 +133,7 @@ body.vscode-body h3,
 .markdown-preview.markdown-preview h3,
 .body h3 {
     font-size: var(--h3-font);
-    font-weight: 650;
+    font-weight: bold;
     color: var(--accent2);
     margin: 0.3em 0 0.3em;
 }
@@ -145,7 +145,7 @@ body.vscode-body h4,
 .markdown-preview.markdown-preview h4,
 .body h4 {
     font-size: var(--h4-font);
-    font-weight: 650;
+    font-weight: bold;
     margin: 0.3em 0 0.3em;
 }
 
@@ -155,7 +155,7 @@ body.vscode-body h5,
 .markdown-preview.markdown-preview h5,
 .body h5 {
     font-size: var(--h5-font);
-    font-weight: 650;
+    font-weight: bold;
     margin: 0.3em 0 0.3em;
 }
 
@@ -165,7 +165,7 @@ body.vscode-body h6,
 .markdown-preview.markdown-preview h6,
 .body h6 {
     font-size: var(--h6-font);
-    font-weight: 650;
+    font-weight: bold;
     color: var(--muted);
     margin: 0.3em 0 0.1em;
 }
