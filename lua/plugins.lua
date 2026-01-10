@@ -351,13 +351,13 @@ require("lazy").setup({
           signs = true,
           sign_priority = 8,
           keywords = {
-            FIX  = { icon = "", color = "error", alt = { "FIXME:", "BUG:", "FIXIT:", "ISSUE:" } },
+            FIX  = { icon = "", color = "error", alt = { "FIXME:", "BUG:", "FIXIT:", "ISSUE:", "FIX:" } },
             TODO = { icon = "", color = "info", alt = { "TODO:" } },
-            HACK = { icon = "", color = "warning", alt = { "HACK:"} },
-            WARN = { icon = "", color = "warning", alt = { "WARNING:", "XXX:" } },
-            PERF = { icon = "", color = "info", alt = { "OPTIM:", "PERFORMANCE:", "OPTIMIZE:" } },
-            NOTE = { icon = "", color = "hint", alt = { "INFO:", "MEMO:", "HINT:", "WATCHME:" } },
-            TEST = { icon = "", color = "test", alt = { "TESTING:", "PASSED:", "FAILED:" } },
+            HACK = { icon = "", color = "warning", alt = { "HACK:" } },
+            WARN = { icon = "", color = "warning", alt = { "WARNING:", "XXX:", "WARN:" } },
+            PERF = { icon = "", color = "info", alt = { "OPTIM:", "PERFORMANCE:", "OPTIMIZE:", "PERF:" } },
+            NOTE = { icon = "", color = "hint", alt = { "INFO:", "MEMO:", "HINT:", "WATCHME:", "NOTE:" } },
+            TEST = { icon = "", color = "test", alt = { "TESTING:", "PASSED:", "FAILED:", "TEST:" } },
           },
 
           highlight = {
@@ -686,6 +686,20 @@ require("lazy").setup({
         vim.g.mkdp_filetypes = { "markdown" }
         vim.g.mkdp_theme = 'light'
         vim.g.mkdp_markdown_css = vim.fn.stdpath("config") .. "/assets/my_style.css"
+        vim.g.mkdp_preview_options = {
+          mkit = {},
+          katex = {},
+          uml = {},
+          maid = {},
+          disable_sync_scroll = 0,
+          sync_scroll_type = "middle",
+          hide_yaml_meta = 1,
+          sequence_diagrams = {},
+          flowchart_diagrams = {},
+          content_editable = false,
+          disable_filename = 1,
+          toc = {},
+        }
       end,
       -- copy cmd.exe to wsl env
     },
