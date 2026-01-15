@@ -197,7 +197,7 @@ body.vscode-body em,
 .markdown-body em,
 .markdown-preview.markdown-preview em,
 .body em {
-    color: var(--color-green1);
+    color: var(--color-yellow1);
 }
 
 /* リンク */
