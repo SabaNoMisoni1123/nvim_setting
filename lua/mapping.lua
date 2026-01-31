@@ -115,3 +115,9 @@ do
   -- GUI等で <C-Space> として届く場合もあるため念のため
   vim.keymap.set({ "i", "c" }, "<C-Space>", "<Nop>", opts)
 end
+
+-- <C-x> for ftmapping
+do
+  local opts = { noremap = true, silent = true }
+  vim.keymap.set("n", "<C-x>", "<Nop>", opts)
+end

@@ -223,7 +223,8 @@ require("lazy").setup({
       config = function()
         require("codex").setup({
           keymaps = { toggle = nil, quit = "<C-w>" },
-          border = "single",
+          -- border = "single",
+          border = { "+", "-", "+", "|", "+", "-", "+", "|" },
           width = 0.8,
           height = 0.8,
           model = nil,

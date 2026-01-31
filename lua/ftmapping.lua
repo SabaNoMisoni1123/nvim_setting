@@ -63,6 +63,7 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function()
     vim.keymap.set('n', ',x', '<Cmd>QuickRun markdown/marp<CR>', bufopts)
     vim.keymap.set('n', ',,x', '<Cmd>QuickRun markdown/marp-pdf<CR>', bufopts)
+    vim.keymap.set('n', '<C-x>', '<Cmd>MarkdownPreviewToggle<CR>', bufopts)
   end,
 })
 
@@ -72,14 +73,5 @@ vim.api.nvim_create_autocmd('FileType', {
   group = autocmd_filetype,
   callback = function()
     vim.keymap.set('i', ',', ',', bufopts)
-  end,
-})
-
--- quickrun
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = "quickrun",
-  group = autocmd_filetype,
-  callback = function()
-    vim.keymap.set('n', 'q', '<Cmd>q<CR>', bufopts)
   end,
 })
