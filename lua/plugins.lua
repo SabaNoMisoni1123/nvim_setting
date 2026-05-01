@@ -51,6 +51,9 @@ else
   }
 end
 
+local todo_panel = require("todo_panel")
+todo_panel.create_user_commands()
+
 require("lazy").setup({
     ---------------------------------------------------------------------------
     -- 基盤 / 見た目
@@ -97,6 +100,7 @@ require("lazy").setup({
         { "<Leader>fC", function() require("telescope.builtin").commands() end,        desc = "Commands" },
         { "<Leader>fg", function() require("telescope.builtin").live_grep() end,       desc = "Live grep" },
         { "<C-_>",      function() require("telescope.builtin").live_grep() end,       desc = "Live grep" },
+        { "<C-g>",      function() todo_panel.open() end,                              desc = "TODO/FIX panel" },
         { "<Leader>fT", function() require("telescope.builtin").treesitter() end,      desc = "Treesitter" },
         { "<Leader>fq", function() require("telescope.builtin").quickfix() end,        desc = "Quickfix" },
         { "<Leader>fh", function() require("telescope.builtin").help_tags() end,       desc = "Help tags" },
@@ -116,8 +120,8 @@ require("lazy").setup({
           function() require("telescope.builtin").current_buffer_fuzzy_find() end,
           desc = "Fuzzy find in buffer"
         },
-        { "<C-t>",      ":Telescope ",            desc = "Telescope prompt" },
-        { "<Leader>ft", "<Cmd>TodoTelescope<CR>", desc = "TodoTelescope (todo-comments)" },
+        { "<C-t>",      ":Telescope ",                                desc = "Telescope prompt" },
+        { "<Leader>ft", "<Cmd>TodoTelescope<CR>",                     desc = "TodoTelescope" },
       },
       dependencies = {
         "nvim-lua/plenary.nvim",
@@ -240,8 +244,11 @@ require("lazy").setup({
       "nvim-tree/nvim-tree.lua",
       cmd = { "NvimTreeToggle", "NvimTreeOpen", "NvimTreeFocus", "NvimTreeFindFile" },
       keys = {
-        { "<C-n>",     "<Cmd>NvimTreeToggle<CR>", desc = "Toggle NvimTree" },
-        { "<Leader>d", "<Cmd>NvimTreeToggle<CR>", desc = "Toggle NvimTree" },
+        { "<C-n>",     "<Cmd>NvimTreeToggle expand('%:p:h')<CR>", desc = "Toggle NvimTree at current file" },
+        { "<C-b>",     "<Cmd>NvimTreeToggle expand('%:p:h')<CR>", desc = "Toggle NvimTree at current file" },
+        { "<Leader>n", "<Cmd>NvimTreeFocus<CR>",                  desc = "Focus NvimTree" },
+        { "<Leader>d", "<Cmd>NvimTreeToggle expand('%:p:h')<CR>", desc = "Toggle NvimTree at current file" },
+        { "st",        "<Cmd>tabnew<CR><Cmd>NvimTreeOpen<CR>",    desc = "Open NvimTree in new tab" },
       },
       dependencies = { "nvim-tree/nvim-web-devicons" },
       config = function()
@@ -328,7 +335,8 @@ require("lazy").setup({
     {
       "scrooloose/nerdcommenter",
       keys = {
-        { "<Leader>c<Leader>", "<Plug>NERDCommenterToggle", mode = { "n", "v" }, desc = "Toggle comment" },
+        { "<Leader>c<Leader>", "<Plug>NERDCommenterToggle", mode = { "n", "v" }, remap = true, silent = true,
+          desc = "Toggle comment" },
       },
       init = function()
         vim.g.NERDCreateDefaultMappings = 0
@@ -337,8 +345,10 @@ require("lazy").setup({
         vim.g.NERDSpaceDelims = 1
         vim.g.NERDDefaultAlign = "left"
         vim.g.NERDCreateDefaultMappings = 0
-        vim.keymap.set("n", "<Leader>c<Leader>", "<Plug>NERDCommenterToggle", { remap = true })
-        vim.keymap.set("v", "<Leader>c<Leader>", "<Plug>NERDCommenterToggle", { remap = true })
+        vim.keymap.set("n", "<Leader>c<Leader>", "<Plug>NERDCommenterToggle",
+          { remap = true, silent = true, desc = "Toggle comment" })
+        vim.keymap.set("v", "<Leader>c<Leader>", "<Plug>NERDCommenterToggle",
+          { remap = true, silent = true, desc = "Toggle comment" })
       end,
     },
 
@@ -351,24 +361,21 @@ require("lazy").setup({
         require("todo-comments").setup({
           signs = true,
           sign_priority = 8,
+          merge_keywords = false,
           keywords = {
-            FIX  = { icon = "", color = "error", alt = { "FIXME:", "BUG:", "FIXIT:", "ISSUE:", "FIX:" } },
-            TODO = { icon = "", color = "info", alt = { "TODO:" } },
-            HACK = { icon = "", color = "warning", alt = { "HACK:" } },
-            WARN = { icon = "", color = "warning", alt = { "WARNING:", "XXX:", "WARN:" } },
-            PERF = { icon = "", color = "info", alt = { "OPTIM:", "PERFORMANCE:", "OPTIMIZE:", "PERF:" } },
-            NOTE = { icon = "", color = "hint", alt = { "INFO:", "MEMO:", "HINT:", "WATCHME:", "NOTE:" } },
-            TEST = { icon = "", color = "test", alt = { "TESTING:", "PASSED:", "FAILED:", "TEST:" } },
+            FIX = { icon = "", color = "error" },
+            TODO = { icon = "", color = "info" },
           },
-
           highlight = {
             before = "",
             keyword = "wide",
             after = "fg",
-            pattern = [[.*<(KEYWORDS)\s*:]],
+            pattern = [[^(((KEYWORDS):\s))]],
             comments_only = false,
           },
-
+          search = {
+            pattern = [[^(KEYWORDS):\s]],
+          },
         })
       end,
     },
@@ -399,35 +406,33 @@ require("lazy").setup({
         vim.g.tagbar_map_toggleautoclose = "C"
         vim.g.auto_ctags_set_tags_option = 1
         vim.g.tagbar_width = 30
-        vim.cmd([[
-        let g:tagbar_type_go = {
-          \ 'ctagstype' : 'go',
-          \ 'kinds'     : [
-          \   'p:package',
-          \   'i:imports:1',
-          \   'c:constants',
-          \   'v:variables',
-          \   't:types',
-          \   'n:interfaces',
-          \   'w:fields',
-          \   'e:embedded',
-          \   'm:methods',
-          \   'r:constructor',
-          \   'f:functions'
-          \ ],
-          \ 'sro' : '.',
-          \ 'kind2scope' : {
-          \   't' : 'ctype',
-          \   'n' : 'ntype'
-          \ },
-          \ 'scope2kind' : {
-          \   'ctype' : 't',
-          \   'ntype' : 'n'
-          \ },
-          \ 'ctagsbin'  : 'gotags',
-          \ 'ctagsargs' : '-sort -silent'
-          \ }
-      ]])
+        vim.g.tagbar_type_go = {
+          ctagstype = "go",
+          kinds = {
+            "p:package",
+            "i:imports:1",
+            "c:constants",
+            "v:variables",
+            "t:types",
+            "n:interfaces",
+            "w:fields",
+            "e:embedded",
+            "m:methods",
+            "r:constructor",
+            "f:functions",
+          },
+          sro = ".",
+          kind2scope = {
+            t = "ctype",
+            n = "ntype",
+          },
+          scope2kind = {
+            ctype = "t",
+            ntype = "n",
+          },
+          ctagsbin = "gotags",
+          ctagsargs = "-sort -silent",
+        }
       end,
     },
 
@@ -573,28 +578,38 @@ require("lazy").setup({
       keys = {
         { "<Leader>m", mode = "n", desc = "Quickhl mark" },
         { "<Leader>m", mode = "x", desc = "Quickhl mark" },
+        { "<Leader>M", mode = "n", desc = "Quickhl reset" },
+        { "<Leader>M", mode = "x", desc = "Quickhl reset" },
       },
       config = function()
-        vim.keymap.set("n", "<Leader>m", "<Plug>(quickhl-manual-this)", { noremap = true })
-        vim.keymap.set("x", "<Leader>m", "<Plug>(quickhl-manual-this)", { noremap = true })
-        vim.keymap.set("n", "<Leader>M", "<Plug>(quickhl-manual-reset)", { noremap = true })
-        vim.keymap.set("x", "<Leader>M", "<Plug>(quickhl-manual-reset)", { noremap = true })
+        vim.keymap.set("n", "<Leader>m", "<Plug>(quickhl-manual-this)",
+          { remap = true, silent = true, desc = "Quickhl mark" })
+        vim.keymap.set("x", "<Leader>m", "<Plug>(quickhl-manual-this)",
+          { remap = true, silent = true, desc = "Quickhl mark" })
+        vim.keymap.set("n", "<Leader>M", "<Plug>(quickhl-manual-reset)",
+          { remap = true, silent = true, desc = "Quickhl reset" })
+        vim.keymap.set("x", "<Leader>M", "<Plug>(quickhl-manual-reset)",
+          { remap = true, silent = true, desc = "Quickhl reset" })
       end,
     },
 
     {
       "easymotion/vim-easymotion",
       keys = {
-        { "<Leader>e",  "<Plug>(easymotion-prefix)", desc = "EasyMotion" },
-        { "<Leader>ed", "<Plug>(easymotion-bd-w)",   desc = "EasyMotion word" },
+        { "<Leader>e",  "<Plug>(easymotion-prefix)", remap = true, silent = true, desc = "EasyMotion" },
+        { "<Leader>ed", "<Plug>(easymotion-bd-w)",   remap = true, silent = true, desc = "EasyMotion word" },
       },
     },
 
     {
       "tyru/open-browser.vim",
       keys = {
-        { "<Leader>b", "<Plug>(openbrowser-smart-search)", mode = "n", desc = "OpenBrowser search" },
-        { "<Leader>b", "<Plug>(openbrowser-smart-search)", mode = "x", desc = "OpenBrowser search" },
+        { "<Leader>b", "<Plug>(openbrowser-smart-search)", mode = "n", remap = true, silent = true,
+                                                                                                      desc =
+          "OpenBrowser search" },
+        { "<Leader>b", "<Plug>(openbrowser-smart-search)", mode = "x", remap = true, silent = true,
+                                                                                                      desc =
+          "OpenBrowser search" },
       },
     },
 
@@ -645,8 +660,10 @@ require("lazy").setup({
         end
       end,
       config = function()
-        vim.keymap.set("n", "<localLeader>ll", "<Plug>(vimtex-compile)", { remap = true, silent = true })
-        vim.keymap.set("n", "<localLeader>lv", "<Plug>(vimtex-view)", { remap = true, silent = true })
+        vim.keymap.set("n", "<localLeader>ll", "<Plug>(vimtex-compile)",
+          { remap = true, silent = true, desc = "VimTeX compile" })
+        vim.keymap.set("n", "<localLeader>lv", "<Plug>(vimtex-view)",
+          { remap = true, silent = true, desc = "VimTeX view" })
       end,
     },
 
@@ -726,10 +743,10 @@ require("lazy").setup({
       keys = { { "ay", mode = "o" }, { "iy", mode = "o" }, { "ay", mode = "v" }, { "iy", mode = "v" } },
       dependencies = { "kana/vim-textobj-user" },
       config = function()
-        vim.keymap.set("o", "ay", "<Plug>(textobj-syntax-a)", { noremap = true })
-        vim.keymap.set("o", "iy", "<Plug>(textobj-syntax-i)", { noremap = true })
-        vim.keymap.set("v", "ay", "<Plug>(textobj-syntax-a)", { noremap = true })
-        vim.keymap.set("v", "iy", "<Plug>(textobj-syntax-i)", { noremap = true })
+        vim.keymap.set("o", "ay", "<Plug>(textobj-syntax-a)", { remap = true, desc = "Syntax text object around" })
+        vim.keymap.set("o", "iy", "<Plug>(textobj-syntax-i)", { remap = true, desc = "Syntax text object inside" })
+        vim.keymap.set("v", "ay", "<Plug>(textobj-syntax-a)", { remap = true, desc = "Syntax text object around" })
+        vim.keymap.set("v", "iy", "<Plug>(textobj-syntax-i)", { remap = true, desc = "Syntax text object inside" })
       end,
     },
 
@@ -739,10 +756,10 @@ require("lazy").setup({
       dependencies = { "kana/vim-textobj-user" },
       config = function()
         vim.g.textobj_between_no_default_key_mappings = 1
-        vim.keymap.set("o", "af", "<Plug>(textobj-between-a)", { noremap = true })
-        vim.keymap.set("o", "if", "<Plug>(textobj-between-i)", { noremap = true })
-        vim.keymap.set("v", "af", "<Plug>(textobj-between-a)", { noremap = true })
-        vim.keymap.set("v", "if", "<Plug>(textobj-between-i)", { noremap = true })
+        vim.keymap.set("o", "af", "<Plug>(textobj-between-a)", { remap = true, desc = "Between text object around" })
+        vim.keymap.set("o", "if", "<Plug>(textobj-between-i)", { remap = true, desc = "Between text object inside" })
+        vim.keymap.set("v", "af", "<Plug>(textobj-between-a)", { remap = true, desc = "Between text object around" })
+        vim.keymap.set("v", "if", "<Plug>(textobj-between-i)", { remap = true, desc = "Between text object inside" })
       end,
     },
 
@@ -757,11 +774,13 @@ require("lazy").setup({
       },
       dependencies = { "kana/vim-operator-user", "osyo-manga/vim-textobj-multiblock" },
       config = function()
-        vim.keymap.set("v", "sa", "<Plug>(operator-surround-append)", { noremap = true })
-        vim.keymap.set("v", "sd", "<Plug>(operator-surround-delete)", { noremap = true })
-        vim.keymap.set("v", "sr", "<Plug>(operator-surround-replace)", { noremap = true })
-        vim.keymap.set("n", "sdd", "<Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)", { noremap = true })
-        vim.keymap.set("n", "srr", "<Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)", { noremap = true })
+        vim.keymap.set("v", "sa", "<Plug>(operator-surround-append)", { remap = true, desc = "Surround append" })
+        vim.keymap.set("v", "sd", "<Plug>(operator-surround-delete)", { remap = true, desc = "Surround delete" })
+        vim.keymap.set("v", "sr", "<Plug>(operator-surround-replace)", { remap = true, desc = "Surround replace" })
+        vim.keymap.set("n", "sdd", "<Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)",
+          { remap = true, desc = "Surround delete block" })
+        vim.keymap.set("n", "srr", "<Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)",
+          { remap = true, desc = "Surround replace block" })
       end,
     },
 

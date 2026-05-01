@@ -1,14 +1,21 @@
 -- lua/ftmapping.lua
 
 local autocmd_filetype = vim.api.nvim_create_augroup('filetypes', { clear = true })
-local bufopts = { noremap = true, buffer = 0 }
+
+local function map(mode, lhs, rhs, desc, opts)
+  opts = vim.tbl_extend("force", { buffer = true, silent = true }, opts or {})
+  if desc then
+    opts.desc = desc
+  end
+  vim.keymap.set(mode, lhs, rhs, opts)
+end
 
 -- help
 vim.api.nvim_create_autocmd('FileType', {
   pattern = "help",
   group = autocmd_filetype,
   callback = function()
-    vim.keymap.set('n', 'q', '<Cmd>q<CR>', bufopts)
+    map('n', 'q', '<Cmd>quit<CR>', 'Close help')
   end,
 })
 
@@ -17,8 +24,8 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = "NvimTree",
   group = autocmd_filetype,
   callback = function()
-    vim.keymap.set('n', '>', '<Cmd>NvimTreeResize +10<CR>', bufopts)
-    vim.keymap.set('n', '<', '<Cmd>NvimTreeResize -10<CR>', bufopts)
+    map('n', '>', '<Cmd>NvimTreeResize +10<CR>', 'Expand NvimTree width')
+    map('n', '<', '<Cmd>NvimTreeResize -10<CR>', 'Shrink NvimTree width')
   end,
 })
 
@@ -32,17 +39,17 @@ vim.api.nvim_create_autocmd('FileType', {
       function()
         vim.g.tagbar_width = vim.g.tagbar_width + 10
       end,
-      { nargs = 0 }
+      { nargs = 0, force = true }
     )
     vim.api.nvim_create_user_command(
       'TagbarWidthMinus',
       function()
         vim.g.tagbar_width = vim.g.tagbar_width - 10
       end,
-      { nargs = 0 }
+      { nargs = 0, force = true }
     )
-    vim.keymap.set('n', '<', '<Cmd>TagbarClose<CR>:TagbarWidthPlus<CR>:Tagbar f<CR>', bufopts)
-    vim.keymap.set('n', '>', '<Cmd>TagbarClose<CR>:TagbarWidthMinus<CR>:Tagbar f<CR>', bufopts)
+    map('n', '<', '<Cmd>TagbarClose<CR><Cmd>TagbarWidthMinus<CR><Cmd>Tagbar f<CR>', 'Shrink Tagbar width')
+    map('n', '>', '<Cmd>TagbarClose<CR><Cmd>TagbarWidthPlus<CR><Cmd>Tagbar f<CR>', 'Expand Tagbar width')
   end,
 })
 
@@ -51,19 +58,19 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = { "c", "cpp" },
   group = autocmd_filetype,
   callback = function()
-    vim.keymap.set('n', ',x', '<Cmd>QuickRun make/src<CR>', bufopts)
-    vim.keymap.set('n', ',,x', '<Cmd>QuickRun cmake/src<CR>', bufopts)
+    map('n', ',x', '<Cmd>QuickRun make/src<CR>', 'QuickRun make/src')
+    map('n', ',,x', '<Cmd>QuickRun cmake/src<CR>', 'QuickRun cmake/src')
   end,
 })
 
--- markdonw
+-- markdown
 vim.api.nvim_create_autocmd('FileType', {
   pattern = "markdown",
   group = autocmd_filetype,
   callback = function()
-    vim.keymap.set('n', ',x', '<Cmd>QuickRun markdown/marp<CR>', bufopts)
-    vim.keymap.set('n', ',,x', '<Cmd>QuickRun markdown/marp-pdf<CR>', bufopts)
-    vim.keymap.set('n', '<C-x>', '<Cmd>MarkdownPreviewToggle<CR>', bufopts)
+    map('n', ',x', '<Cmd>QuickRun markdown/marp<CR>', 'QuickRun Marp')
+    map('n', ',,x', '<Cmd>QuickRun markdown/marp-pdf<CR>', 'QuickRun Marp PDF')
+    map('n', '<C-x>', '<Cmd>MarkdownPreviewToggle<CR>', 'Toggle Markdown preview')
   end,
 })
 
@@ -72,6 +79,6 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = "csv",
   group = autocmd_filetype,
   callback = function()
-    vim.keymap.set('i', ',', ',', bufopts)
+    map('i', ',', ',', 'Insert comma without auto-space')
   end,
 })
