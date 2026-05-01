@@ -120,8 +120,8 @@ require("lazy").setup({
           function() require("telescope.builtin").current_buffer_fuzzy_find() end,
           desc = "Fuzzy find in buffer"
         },
-        { "<C-t>",      ":Telescope ",                                desc = "Telescope prompt" },
-        { "<Leader>ft", "<Cmd>TodoTelescope<CR>",                     desc = "TodoTelescope" },
+        { "<C-t>",      ":Telescope ",            desc = "Telescope prompt" },
+        { "<Leader>ft", "<Cmd>TodoTelescope<CR>", desc = "TodoTelescope" },
       },
       dependencies = {
         "nvim-lua/plenary.nvim",
@@ -335,8 +335,14 @@ require("lazy").setup({
     {
       "scrooloose/nerdcommenter",
       keys = {
-        { "<Leader>c<Leader>", "<Plug>NERDCommenterToggle", mode = { "n", "v" }, remap = true, silent = true,
-          desc = "Toggle comment" },
+        {
+          "<Leader>c<Leader>",
+          "<Plug>NERDCommenterToggle",
+          mode = { "n", "v" },
+          remap = true,
+          silent = true,
+          desc = "Toggle comment"
+        },
       },
       init = function()
         vim.g.NERDCreateDefaultMappings = 0
@@ -363,8 +369,13 @@ require("lazy").setup({
           sign_priority = 8,
           merge_keywords = false,
           keywords = {
-            FIX = { icon = "", color = "error" },
-            TODO = { icon = "", color = "info" },
+            FIX  = { icon = "", color = "error", alt = { "FIXME:", "BUG:", "FIXIT:", "ISSUE:", "FIX:" } },
+            TODO = { icon = "", color = "info", alt = { "TODO:" } },
+            HACK = { icon = "", color = "warning", alt = { "HACK:" } },
+            WARN = { icon = "", color = "warning", alt = { "WARNING:", "XXX:", "WARN:" } },
+            PERF = { icon = "", color = "info", alt = { "OPTIM:", "PERFORMANCE:", "OPTIMIZE:", "PERF:" } },
+            NOTE = { icon = "", color = "hint", alt = { "INFO:", "MEMO:", "HINT:", "WATCHME:", "NOTE:" } },
+            TEST = { icon = "", color = "test", alt = { "TESTING:", "PASSED:", "FAILED:", "TEST:" } },
           },
           highlight = {
             before = "",
@@ -604,12 +615,24 @@ require("lazy").setup({
     {
       "tyru/open-browser.vim",
       keys = {
-        { "<Leader>b", "<Plug>(openbrowser-smart-search)", mode = "n", remap = true, silent = true,
-                                                                                                      desc =
-          "OpenBrowser search" },
-        { "<Leader>b", "<Plug>(openbrowser-smart-search)", mode = "x", remap = true, silent = true,
-                                                                                                      desc =
-          "OpenBrowser search" },
+        {
+          "<Leader>b",
+          "<Plug>(openbrowser-smart-search)",
+          mode = "n",
+          remap = true,
+          silent = true,
+          desc =
+          "OpenBrowser search"
+        },
+        {
+          "<Leader>b",
+          "<Plug>(openbrowser-smart-search)",
+          mode = "x",
+          remap = true,
+          silent = true,
+          desc =
+          "OpenBrowser search"
+        },
       },
     },
 
