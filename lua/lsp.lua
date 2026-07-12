@@ -33,6 +33,16 @@ local function get_npm_global_root()
   return npm_root_cache
 end
 
+local function get_npm_global_package_dir(pkg)
+  local root = get_npm_global_root()
+  if not root or root == false then
+    return nil
+  end
+
+  local path = root .. "/" .. pkg
+  return vim.uv.fs_stat(path) and path or nil
+end
+
 -- ---- common ----
 local lsp_flags = { debounce_text_changes = 150 }
 
@@ -74,8 +84,19 @@ local function enable_if_installed(name, cmd, extra_cfg)
     return false
   end
 
+  local default_cfg = vim.lsp.config[name] or {}
   local cfg = extra_cfg or {}
-  cfg.on_attach = on_attach
+  if cfg.filetype and not cfg.filetypes then
+    cfg.filetypes = cfg.filetype
+    cfg.filetype = nil
+  end
+  local server_on_attach = cfg.on_attach or default_cfg.on_attach
+  cfg.on_attach = function(client, bufnr)
+    if type(server_on_attach) == "function" then
+      server_on_attach(client, bufnr)
+    end
+    on_attach(client, bufnr)
+  end
   cfg.flags = lsp_flags
   cfg.capabilities = capabilities
 
@@ -87,50 +108,100 @@ end
 
 -- ---- per-server (必要最小限の上書きだけ) ----
 
--- Python: pyright 優先、無ければ pylsp
-if not enable_if_installed("pyright", "pyright-langserver") then
-  enable_if_installed("pylsp", "pylsp")
-end
+-- Python: pyright
+enable_if_installed("pyright", "pyright-langserver")
 
 -- TypeScript / JavaScript
-do
-  local root = get_npm_global_root()
-  local plugin_loc = (root and root ~= false) and (root .. "/@vue/typescript-plugin") or nil
-  local cfg = {
-    -- ts_ls 側の filetypes はデフォルトに任せる（必要ならここで上書き）
-    init_options = { plugins = {} },
-  }
-  if plugin_loc then
-    table.insert(cfg.init_options.plugins, {
-      name = "@vue/typescript-plugin",
-      location = plugin_loc,
-      languages = { "javascript", "typescript", "vue" },
-    })
-  end
-  enable_if_installed("ts_ls", "typescript-language-server", cfg)
-end
-enable_if_installed("eslint", "vscode-eslint-language-server")
 
--- Vue
 do
-  local root = get_npm_global_root()
-  local tsdk = (root and root ~= false) and (root .. "/typescript/lib") or nil
-  local cfg = { init_options = { typescript = {} } }
-  if tsdk then
-    cfg.init_options.typescript.tsdk = tsdk
+  local vue_language_server_path = get_npm_global_package_dir("@vue/language-server")
+  local vue_ts_plugin = nil
+  local can_enable_vue_ls = false
+
+  if vue_language_server_path then
+    vue_ts_plugin = {
+      name = "@vue/typescript-plugin",
+      location = vue_language_server_path,
+      languages = { "vue" },
+      configNamespace = "typescript",
+    }
   end
-  enable_if_installed("vue_ls", "vue-language-server", cfg)
+
+  if enable_if_installed("vtsls", "vtsls", vue_ts_plugin and {
+      settings = {
+        vtsls = {
+          tsserver = {
+            globalPlugins = {
+              vue_ts_plugin,
+            },
+          },
+        },
+      },
+      filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+    } or nil) then
+    can_enable_vue_ls = true
+  elseif enable_if_installed("ts_ls", "typescript-language-server", {
+      init_options = vue_ts_plugin and {
+        plugins = {
+          {
+            name = vue_ts_plugin.name,
+            location = vue_ts_plugin.location,
+            languages = { "javascript", "typescript", "vue" },
+          },
+        },
+      } or { plugins = {} },
+      filetypes = vue_ts_plugin
+          and { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" }
+          or nil,
+    }) then
+    can_enable_vue_ls = vue_ts_plugin ~= nil
+  end
+
+  if can_enable_vue_ls then
+    local root = get_npm_global_root()
+    local tsdk = (root and root ~= false) and (root .. "/typescript/lib") or nil
+    local cfg = { init_options = { typescript = {} } }
+    if tsdk then
+      cfg.init_options.typescript.tsdk = tsdk
+    end
+    enable_if_installed("vue_ls", "vue-language-server", cfg)
+  end
 end
+
+enable_if_installed("eslint", "vscode-eslint-language-server")
 
 -- Lua
 enable_if_installed("lua_ls", "lua-language-server", {
-  settings = {
-    Lua = {
-      runtime = { version = "LuaJIT" },
+  on_init = function(client)
+    if client.workspace_folders then
+      local path = client.workspace_folders[1].name
+      if path ~= vim.fn.stdpath("config")
+          and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc")) then
+        return
+      end
+    end
+
+    client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua or {}, {
+      runtime = {
+        version = "LuaJIT",
+        path = {
+          "lua/?.lua",
+          "lua/?/init.lua",
+        },
+      },
       diagnostics = { globals = { "vim" } },
-      workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+      workspace = {
+        checkThirdParty = false,
+        library = {
+          vim.env.VIMRUNTIME,
+          vim.api.nvim_get_runtime_file("lua/lspconfig", false)[1],
+        },
+      },
       telemetry = { enable = false },
-    },
+    })
+  end,
+  settings = {
+    Lua = {},
   },
 })
 
@@ -155,10 +226,15 @@ do
   local ok, efm_md = pcall(require, "lsp.efm_markdown")
   local extra = ok and efm_md.efm_extra_cfg() or {
     init_options = { documentFormatting = true },
+    filetypes = { "markdown" },
     settings = { rootMarkers = { ".git/" } },
   }
+  if not extra.filetypes then
+    extra.filetypes = { "markdown" }
+  end
   enable_if_installed("efm", "efm-langserver", extra)
 end
+
 enable_if_installed("marksman", "marksman")
 
 enable_if_installed("grammarly", "grammarly-languageserver", {
