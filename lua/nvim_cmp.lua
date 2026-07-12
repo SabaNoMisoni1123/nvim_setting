@@ -280,3 +280,8 @@ require("luasnip.loaders.from_snipmate").lazy_load({
   default_priority = 10,
   override_priority = 10,
 })
+
+-- Lua 形式の自作スニペットを lazy load
+require("luasnip.loaders.from_lua").lazy_load({
+  paths = { cfg_dir .. "/lua_snippets" },
+})

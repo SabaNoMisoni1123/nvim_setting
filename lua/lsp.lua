@@ -234,6 +234,7 @@ do
   end
   enable_if_installed("efm", "efm-langserver", extra)
 end
+
 enable_if_installed("marksman", "marksman")
 
 enable_if_installed("grammarly", "grammarly-languageserver", {
