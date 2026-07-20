@@ -54,6 +54,11 @@ end
 local todo_panel = require("todo_panel")
 todo_panel.create_user_commands()
 
+-- TODO パネルと Telescope 検索で使う ripgrep 正規表現。
+-- init.lua などで先に代入すれば、任意のパターンに差し替えられる。
+vim.g.todo_panel_search_pattern = vim.g.todo_panel_search_pattern
+  or [[\b(TODO|FIX|FIXME|BUG|FIXIT|ISSUE|HACK|WARN|WARNING|XXX|PERF|OPTIM|PERFORMANCE|OPTIMIZE|NOTE|INFO|MEMO|HINT|WATCHME|TEST|TESTING|PASSED|FAILED):\s]]
+
 require("lazy").setup({
     ---------------------------------------------------------------------------
     -- 基盤 / 見た目
@@ -100,7 +105,7 @@ require("lazy").setup({
         { "<Leader>fC", function() require("telescope.builtin").commands() end,        desc = "Commands" },
         { "<Leader>fg", function() require("telescope.builtin").live_grep() end,       desc = "Live grep" },
         { "<C-_>",      function() require("telescope.builtin").live_grep() end,       desc = "Live grep" },
-        { "<C-g>",      function() todo_panel.open() end,                              desc = "TODO/FIX panel" },
+        { "<C-g>",      function() todo_panel.toggle() end,                            desc = "Toggle TODO panel" },
         { "<Leader>fT", function() require("telescope.builtin").treesitter() end,      desc = "Treesitter" },
         { "<Leader>fq", function() require("telescope.builtin").quickfix() end,        desc = "Quickfix" },
         { "<Leader>fh", function() require("telescope.builtin").help_tags() end,       desc = "Help tags" },
@@ -121,7 +126,16 @@ require("lazy").setup({
           desc = "Fuzzy find in buffer"
         },
         { "<C-t>",      ":Telescope ",            desc = "Telescope prompt" },
-        { "<Leader>ft", "<Cmd>TodoTelescope<CR>", desc = "TodoTelescope" },
+        {
+          "<Leader>ft",
+          function()
+            require("telescope.builtin").live_grep({
+              default_text = vim.g.todo_panel_search_pattern,
+              prompt_title = "Project TODOs",
+            })
+          end,
+          desc = "Find project TODOs"
+        },
       },
       dependencies = {
         "nvim-lua/plenary.nvim",
@@ -369,23 +383,23 @@ require("lazy").setup({
           sign_priority = 8,
           merge_keywords = false,
           keywords = {
-            FIX  = { icon = "", color = "error", alt = { "FIXME:", "BUG:", "FIXIT:", "ISSUE:", "FIX:" } },
-            TODO = { icon = "", color = "info", alt = { "TODO:" } },
-            HACK = { icon = "", color = "warning", alt = { "HACK:" } },
-            WARN = { icon = "", color = "warning", alt = { "WARNING:", "XXX:", "WARN:" } },
-            PERF = { icon = "", color = "info", alt = { "OPTIM:", "PERFORMANCE:", "OPTIMIZE:", "PERF:" } },
-            NOTE = { icon = "", color = "hint", alt = { "INFO:", "MEMO:", "HINT:", "WATCHME:", "NOTE:" } },
-            TEST = { icon = "", color = "test", alt = { "TESTING:", "PASSED:", "FAILED:", "TEST:" } },
+            FIX  = { icon = "", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
+            TODO = { icon = "", color = "info" },
+            HACK = { icon = "", color = "warning" },
+            WARN = { icon = "", color = "warning", alt = { "WARNING", "XXX" } },
+            PERF = { icon = "", color = "info", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+            NOTE = { icon = "", color = "hint", alt = { "INFO", "MEMO", "HINT", "WATCHME" } },
+            TEST = { icon = "", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
           },
           highlight = {
             before = "",
             keyword = "wide",
             after = "fg",
-            pattern = [[^(((KEYWORDS):\s))]],
+            pattern = [[.*<(KEYWORDS)\s*:]],
             comments_only = false,
           },
           search = {
-            pattern = [[^(KEYWORDS):\s]],
+            pattern = [[\b(KEYWORDS):\s]],
           },
         })
       end,
