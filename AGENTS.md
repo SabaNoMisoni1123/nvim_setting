@@ -47,7 +47,8 @@
 
 ## 検証
 
-- Lua 構文確認には `nvim --headless -u init.lua +qa` を基本にする。
+- この環境では `nvim` はシェルエイリアスのため、非対話シェルでの検証には使えない。Neovim の実行には `$HOME/.local/bin/nvim.appimage` を直接指定する。
+- Lua 構文確認には `$HOME/.local/bin/nvim.appimage --headless -u init.lua +qa` を基本にする。
 - LSP やプラグインの起動確認が必要な場合は、対象ファイルを指定した headless 起動や `:checkhealth` 相当の確認を行う。
 - プラグイン更新や lockfile 変更を伴う場合は、変更理由と影響範囲を明記する。
 - 実行できなかった検証がある場合は、その理由を回答に明記する。

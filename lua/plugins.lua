@@ -106,6 +106,10 @@ require("lazy").setup({
         { "<Leader>fg", function() require("telescope.builtin").live_grep() end,       desc = "Live grep" },
         { "<C-_>",      function() require("telescope.builtin").live_grep() end,       desc = "Live grep" },
         { "<C-g>",      function() todo_panel.toggle() end,                            desc = "Toggle TODO panel" },
+        { "<Leader>gf", function() require("telescope.builtin").git_files() end,       desc = "Git files" },
+        { "<Leader>gc", function() require("telescope.builtin").git_commits() end,     desc = "Git commits" },
+        { "<Leader>gC", function() require("telescope.builtin").git_bcommits() end,    desc = "Buffer Git commits" },
+        { "<Leader>gB", function() require("telescope.builtin").git_branches() end,    desc = "Git branches" },
         { "<Leader>fT", function() require("telescope.builtin").treesitter() end,      desc = "Treesitter" },
         { "<Leader>fq", function() require("telescope.builtin").quickfix() end,        desc = "Quickfix" },
         { "<Leader>fh", function() require("telescope.builtin").help_tags() end,       desc = "Help tags" },
@@ -325,12 +329,14 @@ require("lazy").setup({
         "OverseerInfo",
         "OverseerBuild",
         "OverseerQuickAction",
-        "OverseerTaskAction ",
+        "OverseerTaskAction",
         "OverseerClearCache",
       },
       keys = {
-        { "<Leader>x", "<Cmd>OverseerRun<CR>",    desc = "Run task" },
-        { "<Leader>o", "<Cmd>OverseerToggle<CR>", desc = "Toggle task list" },
+        { "<Leader>x",  "<Cmd>OverseerRun<CR>",         desc = "Run task" },
+        { "<Leader>o",  "<Cmd>OverseerToggle<CR>",      desc = "Toggle task list" },
+        { "<Leader>or", "<Cmd>OverseerRun<CR>",         desc = "Run task" },
+        { "<Leader>oa", "<Cmd>OverseerQuickAction<CR>", desc = "Overseer quick action" },
       },
       config = function()
         require("overseer").setup({
@@ -374,9 +380,14 @@ require("lazy").setup({
 
     {
       "folke/todo-comments.nvim",
-      dependencies = { "nvim-lua/plenary.nvim" },
+      dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
       event = { "BufReadPost", "BufNewFile" },
       cmd = { "TodoTelescope", "TodoQuickFix", "TodoLocList" },
+      keys = {
+        { "<Leader>fo", "<Cmd>TodoTelescope<CR>", desc = "TODO Telescope" },
+        { "<Leader>fQ", "<Cmd>TodoQuickFix<CR>",  desc = "TODO quickfix" },
+        { "<Leader>fL", "<Cmd>TodoLocList<CR>",   desc = "TODO loclist" },
+      },
       config = function()
         require("todo-comments").setup({
           signs = true,
@@ -504,6 +515,36 @@ require("lazy").setup({
             changedelete = { text = "~" },
             untracked    = { text = "┆" },
           },
+          on_attach = function(bufnr)
+            local gitsigns = require("gitsigns")
+            local function map(mode, lhs, rhs, desc)
+              vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, silent = true, desc = desc })
+            end
+
+            map("n", "<Leader>gn", function()
+              gitsigns.nav_hunk("next")
+            end, "Next Git hunk")
+            map("n", "<Leader>gN", function()
+              gitsigns.nav_hunk("prev")
+            end, "Previous Git hunk")
+            map("n", "<Leader>gp", gitsigns.preview_hunk, "Preview Git hunk")
+            map("n", "<Leader>gi", gitsigns.preview_hunk_inline, "Preview Git hunk inline")
+            map("n", "<Leader>gb", function()
+              gitsigns.blame_line({ full = true })
+            end, "Git blame line")
+            map("n", "<Leader>gS", gitsigns.stage_hunk, "Stage Git hunk")
+            map("v", "<Leader>gS", function()
+              gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+            end, "Stage selected Git hunk")
+            map("n", "<Leader>gR", gitsigns.reset_hunk, "Reset Git hunk")
+            map("v", "<Leader>gR", function()
+              gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+            end, "Reset selected Git hunk")
+            map("n", "<Leader>gL", function()
+              gitsigns.setqflist("all")
+            end, "List Git hunks in quickfix")
+            map({ "o", "x" }, "ih", gitsigns.select_hunk, "Git hunk text object")
+          end,
         })
         pcall(function()
           require("scrollbar.handlers.gitsigns").setup()
@@ -514,7 +555,7 @@ require("lazy").setup({
     {
       "TimUntersberger/neogit",
       cmd = { "Neogit" },
-      dependencies = { "nvim-lua/plenary.nvim" },
+      dependencies = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
       keys = {
         { "<Leader>gs", "<Cmd>Neogit<CR>", desc = "Neogit" },
       },
@@ -539,8 +580,10 @@ require("lazy").setup({
     {
       "sindrets/diffview.nvim",
       keys = {
-        { "<Leader>gd", "<Cmd>DiffviewOpen<CR>",  desc = "DiffviewOpen" },
-        { "<Leader>gq", "<Cmd>DiffviewClose<CR>", desc = "DiffviewClose" },
+        { "<Leader>gd", "<Cmd>DiffviewOpen<CR>",          desc = "DiffviewOpen" },
+        { "<Leader>gq", "<Cmd>DiffviewClose<CR>",         desc = "DiffviewClose" },
+        { "<Leader>gh", "<Cmd>DiffviewFileHistory %<CR>", desc = "Diffview current file history" },
+        { "<Leader>gH", "<Cmd>DiffviewFileHistory<CR>",   desc = "Diffview file history" },
       },
       dependencies = { "nvim-lua/plenary.nvim" },
     },
